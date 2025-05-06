@@ -80,20 +80,20 @@ $(function () {
 
   /* *******  Set the theme according to the local storage value ********/
   // if local storge not set or the body has class value of .dark-theme THEN default theme is dark
-  if (!themeStoredItem && !pageBody.hasClass(darkTheme_class)) {
-    setThemeMode(darkTheme_class);
+  if (!themeStoredItem && !pageBody.hasClass(lightTheme_class)) {
+    setThemeMode(lightTheme_class);
   }
   // the only case to be light mode is when the local storge has he value of light-theme
-  if (themeStoredItem === lightTheme_class) {
-    setThemeMode(lightTheme_class);
+  if (themeStoredItem === darkTheme_class) {
+    setThemeMode(darkTheme_class);
   }
 
   // if local storge or the body has class value of .dark-theme
   if (
-    themeStoredItem === darkTheme_class ||
-    pageBody.hasClass(darkTheme_class)
+    themeStoredItem === lightTheme_class ||
+    pageBody.hasClass(lightTheme_class)
   ) {
-    setThemeMode(darkTheme_class);
+    setThemeMode(lightTheme_class);
   }
 
   /* ******* Set the theme by clicking the theme switcher ********/

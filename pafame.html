@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodTech - Next-Gen Food Ordering Platform</title>
+    <!-- Bootstrap CSS v5.1.3 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+            color: white;
+            padding: 6rem 0;
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #d63031;
+        }
+
+        .architecture-section, .tech-section {
+            padding: 5rem 0;
+        }
+
+        .architecture-section {
+            background-color: #f8f9fa;
+        }
+
+        .svg-placeholder {
+            background-color: #e9ecef;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .card {
+            transition: transform 0.3s;
+            margin-bottom: 2rem;
+            border: none;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            color: white;
+            padding: 5rem 0;
+        }
+
+        .tech-badge {
+            display: inline-block;
+            background-color: #f1f3f5;
+            color: #495057;
+            padding: 0.4rem 0.8rem;
+            border-radius: 4px;
+            margin: 0.25rem;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .tech-category {
+            margin-bottom: 2rem;
+        }
+
+        .blazor-color {
+            color: #5C2D91;
+        }
+
+        .dotnet-color {
+            color: #512BD4;
+        }
+    </style>
+</head>
+<body>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container">
+        <a class="navbar-brand" href="#">FoodTech</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#home">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#features">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#architecture">Architecture</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#tech-stack">Tech Stack</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#contact">Contact</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h1 class="display-4 fw-bold mb-4">Next Generation Food Ordering Platform</h1>
+                <p class="lead mb-4">Leveraging cutting-edge .NET 9 and Blazor technology to revolutionize how people order food with lightning-fast performance and seamless user experience.</p>
+                <div class="d-flex gap-3">
+                    <a href="#" class="btn btn-light btn-lg">Get Started</a>
+                    <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <img src="https://placeholder.pics/svg/500x400/DEDEDE/555555/Food%20App%20Image" class="img-fluid rounded shadow" alt="Food App Image">
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Features Section -->
+<!-- Features Section -->
+<section class="py-5" id="features">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold">Why Choose Our Platform?</h2>
+                <p class="lead text-muted">Powerful features built on state-of-the-art technology</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-speedometer2"></i>
+                    </div>
+                    <h3 class="h5">Lightning Fast</h3>
+                    <p class="text-muted">Built with Blazor and .NET 9's high-performance runtime, our platform delivers sub-200ms response times even during peak loads.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-shield-check"></i>
+                    </div>
+                    <h3 class="h5">Best Practices</h3>
+                    <p class="text-muted">Built following industry standards with clean architecture, comprehensive testing, and modern DevOps workflows for reliable delivery.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-graph-up"></i>
+                    </div>
+                    <h3 class="h5">Scalable Solution</h3>
+                    <p class="text-muted">Distributed architecture with RabbitMQ, Redis, and SQL Server easily scales to handle millions of concurrent users.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-cpu-fill"></i>
+                    </div>
+                    <h3 class="h5">Cutting-Edge Technology</h3>
+                    <p class="text-muted">Leverages the latest .NET 9 features and modern cloud-native architecture for optimal performance and developer productivity.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-search"></i>
+                    </div>
+                    <h3 class="h5">Advanced Search</h3>
+                    <p class="text-muted">Elastic Search integration provides lightning-fast, typo-tolerant search across millions of menu items.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4">
+                    <div class="feature-icon">
+                        <i class="bi bi-bell"></i>
+                    </div>
+                    <h3 class="h5">Real-time Updates</h3>
+                    <p class="text-muted">SignalR technology enables instant order status updates and live delivery tracking for customers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Architecture Section -->
+<section class="architecture-section" id="architecture">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold">System Architecture</h2>
+                <p class="lead text-muted">Our cutting-edge microservices architecture ensures high availability and resilience</p>
+            </div>
+        </div>
+
+        <!-- Full-width row for the System Architecture SVG -->
+        <div class="row mb-5">
+            <div class="col-12 text-center">
+                <!-- System Architecture SVG in its own row -->
+                <img src="assets/images/portfolio/systems.svg" class="img-fluid" alt="System Architecture Diagram">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="row">
+                    <div class="col-md-4">
+                        <h4><i class="bi bi-hdd-rack me-2"></i> .NET 9 Microservices</h4>
+                        <p>Decoupled services built with .NET 9 facilitate independent scaling and deployment with best-in-class performance.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><i class="bi bi-lightning me-2"></i> Real-time Communication</h4>
+                        <p>gRPC for internal service communication and SignalR for real-time client updates create a responsive user experience.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4><i class="bi bi-clipboard-data me-2"></i> Observability</h4>
+                        <p>Comprehensive monitoring with OpenTelemetry, Prometheus, Grafana, Loki, and Seq for total system visibility.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Tech Stack Section -->
+<section class="tech-section" id="tech-stack">
+    <div class="container">
+        <div class="row mb-5">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="fw-bold">Technology Stack</h2>
+                <p class="lead text-muted">Built with best-in-class technologies for performance and reliability</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <!-- Placeholder for Library Dependencies SVG -->
+                <div class="svg-placeholder">
+                    <h3 class="text-muted">Library Dependencies Diagram</h3>
+                    <p> <img src="assets/images/portfolio/libraries.svg" class="img-fluid" alt="Library Dependencies Diagram">
+
+                    </p>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3">
+                            <i class="bi bi-front me-2 blazor-color"></i>
+                            <span class="blazor-color">Frontend & Framework</span>
+                        </h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1 dotnet-color"></i>.NET 9</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3">
+                            <i class="bi bi-database me-2"></i> Data Storage
+                        </h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>SQL Server</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Redis</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Elastic Search</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3">
+                            <i class="bi bi-arrow-left-right me-2"></i> Communication
+                        </h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>REST API</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>gRPC</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>SignalR</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>RabbitMQ</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3">
+                            <i class="bi bi-eye me-2"></i> Monitoring & Observability
+                        </h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Prometheus</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Grafana</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Kibana</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Loki</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Seq</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>OTel Collector</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stack Benefits Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <h2 class="fw-bold">Why This Tech Stack?</h2>
+                <p class="lead text-muted">Our carefully selected technologies provide exceptional advantages</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-lightning-charge-fill fs-2 me-3 blazor-color"></i>
+                            <h4 class="card-title mb-0">Blazor & .NET 9</h4>
+                        </div>
+                        <p class="card-text">Our Blazor Server frontend combined with .NET 9 backend services provides a unified C# codebase, eliminating context switching between languages and enabling shared domain models across client and server.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-graph-up-arrow fs-2 me-3 text-success"></i>
+                            <h4 class="card-title mb-0">Elastic Search & SQL Server</h4>
+                        </div>
+                        <p class="card-text">The combination of SQL Server for transactional data and Elastic Search for high-speed text search provides both ACID compliance and lightning-fast search capabilities across millions of menu items.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-chat-dots-fill fs-2 me-3 text-primary"></i>
+                            <h4 class="card-title mb-0">SignalR & RabbitMQ</h4>
+                        </div>
+                        <p class="card-text">Real-time notification system using RabbitMQ for internal event distribution and SignalR for instant client updates enables live order tracking and immediate status changes.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-3">
+                            <i class="bi bi-eye-fill fs-2 me-3 text-warning"></i>
+                            <h4 class="card-title mb-0">Complete Observability</h4>
+                        </div>
+                        <p class="card-text">Our comprehensive observability stack with OpenTelemetry, Prometheus, Grafana, Loki, and Seq provides full system visibility, enabling proactive issue detection and rapid troubleshooting.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section" id="contact">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h2 class="display-5 fw-bold mb-4">Ready to revolutionize your food ordering business?</h2>
+                <p class="lead mb-5">Get in touch with our team to learn how our .NET 9 and Blazor-powered platform can help you scale.</p>
+                <a href="#" class="btn btn-light btn-lg px-5 py-3">Request Demo</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-dark text-white py-4">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <h5>FoodTech</h5>
+                <p class="text-muted">Next-generation food ordering platform powered by .NET 9 and Blazor</p>
+            </div>
+            <div class="col-md-3">
+                <h5>Links</h5>
+                <ul class="list-unstyled">
+                    <li><a href="#" class="text-decoration-none text-muted">Home</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Features</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">About</a></li>
+                    <li><a href="#" class="text-decoration-none text-muted">Contact</a></li>
+                </ul>
+            </div>
+            <div class="col-md-3">
+                <h5>Connect</h5>
+                <div class="d-flex gap-3 fs-5">
+                    <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
+                    <a href="#" class="text-muted"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="row">
+            <div class="col text-center text-muted">
+                <small>&copy; 2023 FoodTech. All rights reserved.</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Bootstrap JS Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</body>
+</html>

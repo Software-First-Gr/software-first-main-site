@@ -7,46 +7,39 @@
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-
     gtag('config', 'G-0PPT9YKKQF');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pafame - Next-Gen Food Ordering Platform</title>
-    <!-- Bootstrap CSS v5.1.3 -->
+    <title>Pafame - Enterprise Food Ordering Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
     <style>
-       
+        :root {
+            --pafame-primary: #8A2BE2;
+            --pafame-primary-dark: #6a1db5;
+            --pafame-primary-light: #b06aff;
+        }
+
         .hero-section {
-            background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
+            background: linear-gradient(135deg, #8A2BE2 0%, #5C1FA8 100%);
             color: white;
-            padding: 6rem 0;
+            padding: 7rem 0 5rem;
         }
 
         .feature-icon {
             font-size: 2.5rem;
             margin-bottom: 1rem;
-            color: #d63031;
-        }
-
-        .architecture-section, .tech-section {
-            padding: 5rem 0;
+            color: var(--pafame-primary);
         }
 
         .architecture-section {
             background-color: #f8f9fa;
+            padding: 5rem 0;
         }
 
-        .svg-placeholder {
-            background-color: #e9ecef;
-            height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            margin: 2rem 0;
+        .tech-section {
+            padding: 5rem 0;
         }
 
         .card {
@@ -61,7 +54,7 @@
         }
 
         .cta-section {
-            background: linear-gradient(135deg, #6c5ce7 0%, #a29bfe 100%);
+            background: linear-gradient(135deg, #8A2BE2 0%, #b06aff 100%);
             color: white;
             padding: 5rem 0;
         }
@@ -81,40 +74,55 @@
             margin-bottom: 2rem;
         }
 
-        .blazor-color {
-            color: #5C2D91;
+        .pafame-color { color: var(--pafame-primary); }
+        .dotnet-color { color: #512BD4; }
+
+        .portal-card {
+            border-top: 4px solid var(--pafame-primary);
         }
 
-        .dotnet-color {
-            color: #512BD4;
+        .portal-icon {
+            font-size: 2rem;
+            color: var(--pafame-primary);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-label {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--pafame-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .badge-pill {
+            background: rgba(138,43,226,0.1);
+            color: var(--pafame-primary);
+            border-radius: 50px;
+            padding: 0.3rem 0.9rem;
+            font-size: 0.85rem;
+            font-weight: 600;
         }
     </style>
 </head>
 <body>
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-        <a class="navbar-brand" href="#">Pafame</a>
+        <a class="navbar-brand fw-bold" href="#">Pafame</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item">
-                    <a class="nav-link active" href="#home">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#features">Features</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#architecture">Architecture</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#tech-stack">Tech Stack</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#contact">Contact</a>
-                </li>
+                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#portals">Portals</a></li>
+                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#architecture">Architecture</a></li>
+                <li class="nav-item"><a class="nav-link" href="#tech-stack">Tech Stack</a></li>
+                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
         </div>
     </div>
@@ -124,121 +132,167 @@
 <section class="hero-section" id="home">
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6">
-                <h1 class="display-4 fw-bold mb-4">Next Generation Food Ordering Platform</h1>
-                <p class="lead mb-4">Leveraging cutting-edge .NET 10 and Blazor technology to revolutionize how people order food with lightning-fast performance and seamless user experience.</p>
+            <div class="col-lg-7">
+                <div class="mb-3">
+                    <span class="badge-pill me-2">.NET 10</span>
+                    <span class="badge-pill me-2">.NET Aspire</span>
+                    <span class="badge-pill">Cloud Native</span>
+                </div>
+                <h1 class="display-4 fw-bold mb-4">Enterprise-Grade Food Ordering &amp; Shop Management Platform</h1>
+                <p class="lead mb-4">A multi-tenant ecosystem bridging retail customers and shop owners — built on the cutting edge of the .NET stack with Clean Architecture, DDD, and cloud-native orchestration.</p>
                 <div class="d-flex gap-3">
-                    <a href="https://pafame.gr" class="btn btn-light btn-lg">Pafame Live</a>
-<!--                    <a href="#" class="btn btn-outline-light btn-lg">Learn More</a>-->
+                    <a href="https://pafame.gr" class="btn btn-light btn-lg fw-semibold">Pafame Live</a>
                 </div>
             </div>
-<!--            <div class="col-lg-6 d-none d-lg-block">-->
-<!--                <img src="https://placeholder.pics/svg/500x400/DEDEDE/555555/Food%20App%20Image" class="img-fluid rounded shadow" alt="Food App Image">-->
-<!--            </div>-->
         </div>
     </div>
 </section>
-<!-- Features Section -->
-<!-- Features Section -->
-<section class="py-5" id="features">
+
+<!-- Portals Section -->
+<section class="py-5" id="portals">
     <div class="container">
         <div class="row text-center mb-5">
             <div class="col-lg-8 mx-auto">
-                <h2 class="fw-bold">Why Choose Our Platform?</h2>
-                <p class="lead text-muted">Powerful features built on state-of-the-art technology</p>
+                <div class="section-label">Three Tailored Experiences</div>
+                <h2 class="fw-bold">Built for Every Stakeholder</h2>
+                <p class="lead text-muted">Pafame delivers distinct portals — each purpose-built for its audience, sharing a unified codebase.</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 p-4 portal-card">
+                    <div class="portal-icon"><i class="bi bi-cart3"></i></div>
+                    <h3 class="h5 fw-bold mb-3">🛒 Retail Portal</h3>
+                    <ul class="text-muted list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Dynamic catalog powered by OpenSearch</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Complex product configuration (multi-tier options, price variants)</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Real-time basket sync across devices</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Secure checkout &amp; live order tracking</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 portal-card">
+                    <div class="portal-icon"><i class="bi bi-shop"></i></div>
+                    <h3 class="h5 fw-bold mb-3">🏪 Pro Dashboard</h3>
+                    <ul class="text-muted list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Full shop autonomy: availability, branding, verification docs</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Inventory, menu &amp; category management</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Real-time order fulfillment &amp; status updates</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Invoice generation &amp; monthly financial reporting</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Team management with role-based permissions</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card h-100 p-4 portal-card">
+                    <div class="portal-icon"><i class="bi bi-gear-wide-connected"></i></div>
+                    <h3 class="h5 fw-bold mb-3">⚙️ BackOffice</h3>
+                    <ul class="text-muted list-unstyled">
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Global admin: customers, employees, invoices</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Shop verification &amp; audit workflow</li>
+                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Centralized system health &amp; action log monitoring</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="py-5 bg-light" id="features">
+    <div class="container">
+        <div class="row text-center mb-5">
+            <div class="col-lg-8 mx-auto">
+                <div class="section-label">Platform Highlights</div>
+                <h2 class="fw-bold">The "Wow" Factor</h2>
+                <p class="lead text-muted">What sets Pafame apart from generic food ordering solutions</p>
             </div>
         </div>
         <div class="row g-4">
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-speedometer2"></i>
-                    </div>
-                    <h3 class="h5">Lightning Fast</h3>
-                    <p class="text-muted">Built with Blazor and .NET 10's high-performance runtime, our platform delivers sub-200ms response times even during peak loads.</p>
+                    <div class="feature-icon"><i class="bi bi-cloud-check"></i></div>
+                    <h3 class="h5 fw-bold">Cloud Native by Default</h3>
+                    <p class="text-muted">.NET Aspire orchestration makes the platform ready for Azure or AWS deployment out of the box, with simplified local development and service discovery.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-shield-check"></i>
-                    </div>
-                    <h3 class="h5">Best Practices</h3>
-                    <p class="text-muted">Built following industry standards with clean architecture, comprehensive testing, and modern DevOps workflows for reliable delivery.</p>
+                    <div class="feature-icon"><i class="bi bi-cpu-fill"></i></div>
+                    <h3 class="h5 fw-bold">Hyper-Modern .NET 10 Stack</h3>
+                    <p class="text-muted">One of the few real-world platforms leveraging the full potential of .NET 10 — HybridCache, minimal APIs, native AOT readiness, and the latest EF Core performance gains.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-graph-up"></i>
-                    </div>
-                    <h3 class="h5">Scalable Solution</h3>
-                    <p class="text-muted">Distributed architecture with RabbitMQ, Redis, and PostgreSQL easily scales to handle millions of concurrent users.</p>
+                    <div class="feature-icon"><i class="bi bi-phone"></i></div>
+                    <h3 class="h5 fw-bold">Unified UI: Web + Mobile</h3>
+                    <p class="text-muted">90%+ of UI code is shared between Blazor Server, Blazor WASM, and .NET MAUI Hybrid — delivering native Android, iOS &amp; Desktop apps from a single component library.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-cpu-fill"></i>
-                    </div>
-                    <h3 class="h5">Cutting-Edge Technology</h3>
-                    <p class="text-muted">Leverages the latest .NET 10 features and modern cloud-native architecture for optimal performance and developer productivity.</p>
+                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
+                    <h3 class="h5 fw-bold">Scalable by Design</h3>
+                    <p class="text-muted">Clean Architecture, gRPC inter-service comms, OpenSearch, and Valkey caching ensure the platform scales from a single shop to thousands without architectural rework.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-search"></i>
-                    </div>
-                    <h3 class="h5">Advanced Search</h3>
-                    <p class="text-muted">Elastic Search integration provides lightning-fast, typo-tolerant search across millions of menu items.</p>
+                    <div class="feature-icon"><i class="bi bi-bell"></i></div>
+                    <h3 class="h5 fw-bold">Real-Time Everything</h3>
+                    <p class="text-muted">SignalR delivers instant order status updates and live notifications to customers and shop owners, backed by Hangfire for reliable async background workflows.</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="card h-100 p-4">
-                    <div class="feature-icon">
-                        <i class="bi bi-bell"></i>
-                    </div>
-                    <h3 class="h5">Real-time Updates</h3>
-                    <p class="text-muted">SignalR technology enables instant order status updates and live delivery tracking for customers.</p>
+                    <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
+                    <h3 class="h5 fw-bold">Testing-First Culture</h3>
+                    <p class="text-muted">Unit tests with NSubstitute &amp; Shouldly, real integration tests via Testcontainers, E2E flows with Playwright, and load benchmarks via NBomber — quality is not optional.</p>
                 </div>
             </div>
         </div>
     </div>
 </section>
+
 <!-- Architecture Section -->
 <section class="architecture-section" id="architecture">
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="fw-bold">Technology Stack</h2>
-                <p class="lead text-muted">Our cutting-edge microservices architecture ensures high availability and resilience</p>
-            </div>
-        </div>
-
-        <!-- Full-width row for the System Architecture SVG -->
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <!-- System Architecture SVG in its own row -->
-                <img src="assets/images/portfolio/arch.png" class="img-fluid" alt="System Architecture Diagram" style="background-color: transparent;"
-                >
+                <div class="section-label">Design Principles</div>
+                <h2 class="fw-bold">Architectural Excellence</h2>
+                <p class="lead text-muted">Clean Architecture ensures business logic stays decoupled from infrastructure — built to last.</p>
             </div>
         </div>
 
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <div class="row">
+                <div class="row g-4">
                     <div class="col-md-4">
-                        <h4><i class="bi bi-hdd-rack me-2"></i> .NET 10 Microservices</h4>
-                        <p>Decoupled services built with .NET 10 facilitate independent scaling and deployment with best-in-class performance.</p>
+                        <h4 class="h6 fw-bold"><i class="bi bi-layers me-2 pafame-color"></i>Clean Architecture + DDD</h4>
+                        <p class="text-muted small">Rich Aggregate Roots (Order, Product, Catalog, Customer, Invoice) keep domain logic pure and infrastructure-agnostic.</p>
                     </div>
                     <div class="col-md-4">
-                        <h4><i class="bi bi-lightning me-2"></i> Real-time Communication</h4>
-                        <p>gRPC for internal service communication and SignalR for real-time client updates create a responsive user experience.</p>
+                        <h4 class="h6 fw-bold"><i class="bi bi-arrow-left-right me-2 pafame-color"></i>CQRS with MediatR</h4>
+                        <p class="text-muted small">Complete separation of Commands and Queries. FluentValidation guards all writes; Mapster handles high-performance object mapping.</p>
                     </div>
                     <div class="col-md-4">
-                        <h4><i class="bi bi-clipboard-data me-2"></i> Observability</h4>
-                        <p>Comprehensive monitoring with OpenTelemetry, Prometheus, Grafana, Loki, and Seq for total system visibility.</p>
+                        <h4 class="h6 fw-bold"><i class="bi bi-lightning me-2 pafame-color"></i>High-Performance Comms</h4>
+                        <p class="text-muted small">gRPC for low-latency internal service messaging (e.g. Basket Service) and SignalR for real-time client updates.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="h6 fw-bold"><i class="bi bi-shield-fill-check me-2 pafame-color"></i>Idempotency Pipeline</h4>
+                        <p class="text-muted small">Robust duplicate-request handling for all critical writes ensures data integrity even under retries or network failures.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="h6 fw-bold"><i class="bi bi-hdd-rack me-2 pafame-color"></i>.NET Aspire Orchestration</h4>
+                        <p class="text-muted small">Service discovery, health checks, and cloud-ready deployment manifests managed declaratively — from local dev to production.</p>
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="h6 fw-bold"><i class="bi bi-clipboard-data me-2 pafame-color"></i>Full Observability</h4>
+                        <p class="text-muted small">OpenTelemetry, Prometheus, Grafana, Loki, Jaeger, and Seq provide end-to-end traces, metrics, and logs for total system visibility.</p>
                     </div>
                 </div>
             </div>
@@ -251,64 +305,72 @@
     <div class="container">
         <div class="row mb-5">
             <div class="col-lg-8 mx-auto text-center">
+                <div class="section-label">Libraries &amp; Services</div>
                 <h2 class="fw-bold">System Architecture</h2>
-                <p class="lead text-muted">Built with best-in-class technologies for performance and reliability</p>
+                <p class="lead text-muted">Best-in-class technologies, each chosen for a specific reason</p>
             </div>
         </div>
-        <!-- Full-width row for the System Architecture SVG -->
-        <div class="row mb-5">
-            <div class="col-12 text-center">
-                <!-- System Architecture SVG in its own row -->
-                <img src="assets/images/portfolio/lib.png" class="img-fluid" alt="System Architecture Diagram" style="background-color: transparent;"
-                >
-            </div>
-        </div>
+
+
         <div class="row">
             <div class="col-lg-10 mx-auto">
-                <!-- Placeholder for Library Dependencies SVG -->
-                <div class="row mt-5">
+                <div class="row mt-3">
                     <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3">
-                            <i class="bi bi-front me-2 blazor-color"></i>
-                            <span class="blazor-color">Frontend & Framework</span>
-                        </h4>
+                        <h4 class="h5 mb-3"><i class="bi bi-front me-2 pafame-color"></i><span class="pafame-color">Frontend &amp; Cross-Platform</span></h4>
                         <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1 dotnet-color"></i>.NET 10</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor Server</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor WebAssembly</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>.NET MAUI Hybrid</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>MudBlazor</span>
                         </div>
                     </div>
                     <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3">
-                            <i class="bi bi-database me-2"></i> Data Storage
-                        </h4>
+                        <h4 class="h5 mb-3"><i class="bi bi-server me-2"></i>Core Framework</h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1 dotnet-color"></i>.NET 10</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>.NET Aspire</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>MediatR (CQRS)</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>FluentValidation</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Mapster</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3"><i class="bi bi-database me-2"></i>Data &amp; Caching</h4>
                         <div>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>PostgreSQL</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Redis</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Elastic Search</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>EF Core (Code-First)</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Valkey (HybridCache)</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>OpenSearch</span>
                         </div>
                     </div>
                     <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3">
-                            <i class="bi bi-arrow-left-right me-2"></i> Communication
-                        </h4>
+                        <h4 class="h5 mb-3"><i class="bi bi-arrow-left-right me-2"></i>Communication &amp; Auth</h4>
                         <div>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>REST API</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>gRPC</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>SignalR</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>RabbitMQ</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Hangfire</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Supabase Auth</span>
                         </div>
                     </div>
                     <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3">
-                            <i class="bi bi-eye me-2"></i> Monitoring & Observability
-                        </h4>
+                        <h4 class="h5 mb-3"><i class="bi bi-eye me-2"></i>Monitoring &amp; Observability</h4>
                         <div>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Jaeger</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Prometheus</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Grafana</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Kibana</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Loki</span>                
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Loki</span>
                             <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>OTel Collector</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6 tech-category">
+                        <h4 class="h5 mb-3"><i class="bi bi-check2-all me-2"></i>Testing &amp; Quality</h4>
+                        <div>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>NSubstitute + Shouldly</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Testcontainers</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Playwright (E2E)</span>
+                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>NBomber (Load)</span>
                         </div>
                     </div>
                 </div>
@@ -322,8 +384,9 @@
     <div class="container">
         <div class="row text-center mb-5">
             <div class="col-lg-8 mx-auto">
+                <div class="section-label">Technical Depth</div>
                 <h2 class="fw-bold">Why This Tech Stack?</h2>
-                <p class="lead text-muted">Our carefully selected technologies provide exceptional advantages</p>
+                <p class="lead text-muted">Every choice was deliberate — here's the reasoning behind the key decisions</p>
             </div>
         </div>
         <div class="row">
@@ -331,10 +394,10 @@
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-lightning-charge-fill fs-2 me-3 blazor-color"></i>
-                            <h4 class="card-title mb-0">Blazor & .NET 10</h4>
+                            <i class="bi bi-lightning-charge-fill fs-2 me-3 pafame-color"></i>
+                            <h4 class="card-title mb-0">Blazor + .NET MAUI Hybrid</h4>
                         </div>
-                        <p class="card-text">Our Blazor Server frontend combined with .NET 10 backend services provides a unified C# codebase, eliminating context switching between languages and enabling shared domain models across client and server.</p>
+                        <p class="card-text">A unified C# codebase powers web (Blazor Server &amp; WASM) and native mobile/desktop (MAUI). Over 90% of UI components are shared — one design system, every platform, zero duplication.</p>
                     </div>
                 </div>
             </div>
@@ -342,10 +405,10 @@
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-graph-up-arrow fs-2 me-3 text-success"></i>
-                            <h4 class="card-title mb-0">Elastic Search & PostgreSQL</h4>
+                            <i class="bi bi-search fs-2 me-3 text-success"></i>
+                            <h4 class="card-title mb-0">OpenSearch &amp; Valkey</h4>
                         </div>
-                        <p class="card-text">The combination of PostgreSQL for transactional data and Elastic Search for high-speed text search provides both ACID compliance and lightning-fast search capabilities across millions of menu items.</p>
+                        <p class="card-text">PostgreSQL provides ACID-compliant transactional storage, OpenSearch enables instant full-text catalog search, and Valkey (via .NET HybridCache) layers an intelligent in-memory + distributed cache for sub-millisecond reads.</p>
                     </div>
                 </div>
             </div>
@@ -353,10 +416,10 @@
                 <div class="card h-100 border-0 shadow-sm">
                     <div class="card-body p-4">
                         <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-chat-dots-fill fs-2 me-3 text-primary"></i>
-                            <h4 class="card-title mb-0">SignalR & RabbitMQ</h4>
+                            <i class="bi bi-clock-history fs-2 me-3 text-primary"></i>
+                            <h4 class="card-title mb-0">Hangfire &amp; SignalR</h4>
                         </div>
-                        <p class="card-text">Real-time notification system using RabbitMQ for internal event distribution and SignalR for instant client updates enables live order tracking and immediate status changes.</p>
+                        <p class="card-text">Hangfire handles recurring background jobs and async workflows reliably, while SignalR pushes real-time order updates directly to customers and shop owners — no polling, no stale state.</p>
                     </div>
                 </div>
             </div>
@@ -367,7 +430,7 @@
                             <i class="bi bi-eye-fill fs-2 me-3 text-warning"></i>
                             <h4 class="card-title mb-0">Complete Observability</h4>
                         </div>
-                        <p class="card-text">Our comprehensive observability stack with OpenTelemetry, Prometheus, Grafana, Loki, and Seq provides full system visibility, enabling proactive issue detection and rapid troubleshooting.</p>
+                        <p class="card-text">OpenTelemetry traces flow through Jaeger, metrics aggregate in Prometheus &amp; Grafana, and logs stream into Loki. Full-stack visibility from a single request to system-wide health.</p>
                     </div>
                 </div>
             </div>
@@ -380,9 +443,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-5 fw-bold mb-4">Ready to revolutionize your food ordering business?</h2>
-                <p class="lead mb-5">Get in touch with our team to learn how our .NET 10 and Blazor-powered platform can help you scale.</p>
-                <a href="mailto:info@softwarefirst.gr" class="btn btn-light btn-lg px-5 py-3">Contact Us</a>
+                <h2 class="display-5 fw-bold mb-4">Ready to see what enterprise .NET looks like in production?</h2>
+                <p class="lead mb-5">Get in touch to learn how Pafame's architecture and stack can inform your next project.</p>
+                <a href="mailto:info@softwarefirst.gr" class="btn btn-light btn-lg px-5 py-3 fw-semibold">Contact Us</a>
             </div>
         </div>
     </div>
@@ -393,8 +456,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <h5>Pafame</h5>
-                <p class="text-muted">Next-generation food ordering platform powered by .NET 10 and Blazor</p>
+                <h5 class="fw-bold">Pafame</h5>
+                <p class="text-muted">Enterprise food ordering &amp; shop management platform powered by .NET 10 and .NET Aspire</p>
             </div>
             <div class="col-md-3">
                 <h5>Links</h5>
@@ -416,13 +479,12 @@
         <hr class="my-4 bg-secondary">
         <div class="row">
             <div class="col text-center text-muted">
-                <small>&copy; 2025 Software First. All rights reserved.</small>
+                <small>&copy; 2026 Software First. All rights reserved.</small>
             </div>
         </div>
     </div>
 </footer>
 
-<!-- Bootstrap JS Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -104,6 +104,75 @@
             font-size: 0.85rem;
             font-weight: 600;
         }
+
+        .logo-group-label {
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: #adb5bd;
+            margin-bottom: 1rem;
+        }
+
+        .logo-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.45rem;
+            padding: 1rem 1.25rem;
+            border-radius: 12px;
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            min-width: 90px;
+            transition: all 0.25s ease;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .logo-item:hover {
+            background: white;
+            border-color: var(--pafame-primary);
+            box-shadow: 0 6px 20px rgba(138,43,226,0.12);
+            transform: translateY(-3px);
+        }
+
+        .logo-item img {
+            filter: grayscale(40%) opacity(0.75);
+            transition: filter 0.25s ease;
+        }
+
+        .logo-item:hover img {
+            filter: grayscale(0%) opacity(1);
+        }
+
+        .logo-item svg {
+            opacity: 0.65;
+            transition: opacity 0.25s ease;
+        }
+
+        .logo-item:hover svg {
+            opacity: 1;
+        }
+
+        .logo-item span {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: #6c757d;
+            text-align: center;
+            white-space: nowrap;
+        }
+
+        .logo-item:hover span {
+            color: var(--pafame-primary);
+        }
     </style>
 </head>
 <body>
@@ -120,8 +189,10 @@
                 <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="#portals">Portals</a></li>
                 <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+                <li class="nav-item"><a class="nav-link" href="#powered-by">Powered By</a></li>
                 <li class="nav-item"><a class="nav-link" href="#architecture">Architecture</a></li>
                 <li class="nav-item"><a class="nav-link" href="#tech-stack">Tech Stack</a></li>
+            
                 <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -251,6 +322,173 @@
                     <h3 class="h5 fw-bold">Testing-First Culture</h3>
                     <p class="text-muted">Unit tests with NSubstitute &amp; Shouldly, real integration tests via Testcontainers, E2E flows with Playwright, and load benchmarks via NBomber — quality is not optional.</p>
                 </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Powered By Section -->
+<section class="py-5" id="powered-by">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="section-label">Infrastructure &amp; Libraries</div>
+            <h2 class="fw-bold">Powered By</h2>
+            <p class="lead text-muted">The best open-source tools, assembled into one cohesive platform</p>
+        </div>
+
+        <!-- Framework -->
+        <div class="logo-group mb-5">
+            <p class="logo-group-label">Framework &amp; UI</p>
+            <div class="logo-grid">
+                <a class="logo-item" href="https://dotnet.microsoft.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET" width="44" height="44">
+                    <span>.NET 10</span>
+                </a>
+                <a class="logo-item" href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/blazor/512BD4" alt="Blazor" width="44" height="44">
+                    <span>Blazor</span>
+                </a>
+                <a class="logo-item" href="https://learn.microsoft.com/en-us/dotnet/aspire/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="22" cy="22" r="20" stroke="#512BD4" stroke-width="2.5" fill="none"/>
+                        <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="bold" fill="#512BD4" font-family="sans-serif">Aspire</text>
+                    </svg>
+                    <span>.NET Aspire</span>
+                </a>
+                <a class="logo-item" href="https://dotnet.microsoft.com/en-us/apps/maui" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/dotnet/7B52AB" alt="MAUI" width="44" height="44">
+                    <span>MAUI Hybrid</span>
+                </a>
+                <a class="logo-item" href="https://mudblazor.com/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M22 4L38 13V31L22 40L6 31V13L22 4Z" stroke="#594AE2" stroke-width="2.5" fill="none"/>
+                        <text x="22" y="27" text-anchor="middle" font-size="9" font-weight="bold" fill="#594AE2" font-family="sans-serif">MUD</text>
+                    </svg>
+                    <span>MudBlazor</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Data -->
+        <div class="logo-group mb-5">
+            <p class="logo-group-label">Data &amp; Search</p>
+            <div class="logo-grid">
+                <a class="logo-item" href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="44" height="44">
+                    <span>PostgreSQL</span>
+                </a>
+                <a class="logo-item" href="https://valkey.io/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/redis/FF4438" alt="Valkey" width="44" height="44">
+                    <span>Valkey</span>
+                </a>
+                <a class="logo-item" href="https://opensearch.org/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/opensearch/005EB8" alt="OpenSearch" width="44" height="44">
+                    <span>OpenSearch</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Services -->
+        <div class="logo-group mb-5">
+            <p class="logo-group-label">Services &amp; Auth</p>
+            <div class="logo-grid">
+                <a class="logo-item" href="https://supabase.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase" width="44" height="44">
+                    <span>Supabase</span>
+                </a>
+                <a class="logo-item" href="https://grpc.io/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="36" height="36" rx="8" fill="#244C5A" opacity="0.12"/>
+                        <path d="M10 22 L34 22" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M28 16 L34 22 L28 28" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M16 16 L10 22 L16 28" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                    <span>gRPC</span>
+                </a>
+                <a class="logo-item" href="https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="22" cy="30" r="5" fill="#512BD4"/>
+                        <path d="M10 24 Q22 8 34 24" stroke="#512BD4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+                        <path d="M5 28 Q22 4 39 28" stroke="#512BD4" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
+                    </svg>
+                    <span>SignalR</span>
+                </a>
+                <a class="logo-item" href="https://www.hangfire.io/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="22" cy="22" r="18" stroke="#2C6E49" stroke-width="2.5" fill="none"/>
+                        <path d="M22 12 L22 22 L30 22" stroke="#2C6E49" stroke-width="2.5" stroke-linecap="round"/>
+                        <circle cx="22" cy="22" r="2" fill="#2C6E49"/>
+                    </svg>
+                    <span>Hangfire</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Observability -->
+        <div class="logo-group mb-5">
+            <p class="logo-group-label">Observability</p>
+            <div class="logo-grid">
+                <a class="logo-item" href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/opentelemetry/425CC7" alt="OpenTelemetry" width="44" height="44">
+                    <span>OpenTelemetry</span>
+                </a>
+                <a class="logo-item" href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus" width="44" height="44">
+                    <span>Prometheus</span>
+                </a>
+                <a class="logo-item" href="https://grafana.com/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" width="44" height="44">
+                    <span>Grafana</span>
+                </a>
+                <a class="logo-item" href="https://grafana.com/oss/loki/" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/loki/F46800" alt="Loki" width="44" height="44" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                    <div style="display:none;width:44px;height:44px;align-items:center;justify-content:center;background:#F46800;border-radius:8px;color:white;font-weight:700;font-size:13px;">Loki</div>
+                    <span>Loki</span>
+                </a>
+                <a class="logo-item" href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="36" height="36" rx="8" fill="#60D0E4" opacity="0.15"/>
+                        <path d="M12 32 L22 12 L32 32" stroke="#60D0E4" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                        <path d="M15 26 L29 26" stroke="#60D0E4" stroke-width="2.5" stroke-linecap="round"/>
+                    </svg>
+                    <span>Jaeger</span>
+                </a>
+                <a class="logo-item" href="https://datalust.co/seq" target="_blank" rel="noopener noreferrer">
+                    <img src="https://cdn.simpleicons.org/seq/E05000" alt="Seq" width="44" height="44" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+                    <div style="display:none;width:44px;height:44px;align-items:center;justify-content:center;background:#E05000;border-radius:8px;color:white;font-weight:700;font-size:13px;">Seq</div>
+                    <span>Seq</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Testing -->
+        <div class="logo-group">
+            <p class="logo-group-label">Testing &amp; Quality</p>
+            <div class="logo-grid">
+                <a class="logo-item" href="https://playwright.dev/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="22" cy="22" r="18" fill="#2EAD33" opacity="0.12"/>
+                        <circle cx="14" cy="22" r="5" fill="#2EAD33"/>
+                        <circle cx="30" cy="22" r="5" fill="#E5A00D"/>
+                        <circle cx="22" cy="16" r="5" fill="#D65348"/>
+                    </svg>
+                    <span>Playwright</span>
+                </a>
+                <a class="logo-item" href="https://testcontainers.com/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="14" width="28" height="20" rx="3" stroke="#291A3F" stroke-width="2.5" fill="none"/>
+                        <path d="M14 14 L14 10 M22 14 L22 10 M30 14 L30 10" stroke="#291A3F" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M14 24 L18 28 L26 20" stroke="#291A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                    <span>Testcontainers</span>
+                </a>
+                <a class="logo-item" href="https://nbomber.com/" target="_blank" rel="noopener noreferrer">
+                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="4" y="4" width="36" height="36" rx="8" fill="#C0392B" opacity="0.12"/>
+                        <path d="M8 32 L16 14 L22 26 L28 18 L36 32" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+                    </svg>
+                    <span>NBomber</span>
+                </a>
             </div>
         </div>
     </div>

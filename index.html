@@ -1,335 +1,592 @@
 <!DOCTYPE html>
-<html lang="zxx">
-  <head>
+<html lang="en">
+<head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PPT9YKKQF"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-0PPT9YKKQF');
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Software First">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        
-        <!-- fav icon -->
-        <link rel="icon" href="assets/images/fav-icon/fav-icon.png">
-        
-        <!-- bootstarp -->
-        <link rel="stylesheet" href="css/vendors/bootstrap.min.css">
-        
-        <!-- animate.css file -->
-        <link rel="stylesheet" href="css/vendors/animate.css">
-        
-        <!-- Swiper -->
-        <link rel="stylesheet" href="css/vendors/swiper-bundle.min.css">
-        
-        <!-- flaticon -->
-        <link rel="stylesheet" href="css/vendors/flaticon/flaticon.css">
-        
-        <!-- fontAwesome -->
-        <link rel="stylesheet" href="css/vendors/all.min.css">
-        
-        <!-- bootstrap icons -->
-        <link rel="stylesheet" href="css/vendors/bootstrap-icons-1.9.1/bootstrap-icons.css">
-        
-        <!-- Fancybox -->
-        <link rel="stylesheet" href="css/vendors/jquery.fancybox.min.css">
-        
-        <!-- fonts site preconnect -->
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        
-        <!-- fonts site preconnect -->
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        
-        <!-- Font Family -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700;800&amp;display=swap">
-        
-        <!-- main-LTR -->
-        <link rel="stylesheet" href="css/main-LTR.css">
-        <title> Software First</title>
-  </head>
-  <body class=" light-theme landing-page-demo">
-    <!--Start Page Header-->
-    <header class=" page-header header-basic" id="page-header">     
-      <div class="container">
-        <!--Start navbar-->
-        <nav class="menu-navbar" id="main-nav">
-          <div class="header-logo"><a class="logo-link" href="#"><img class="logo-img light-logo" loading="lazy" src="assets/images/logo/logo-light.png" alt="logo"/><img class="logo-img  dark-logo" loading="lazy" src="assets/images/logo/logo-dark.png" alt="logo"/></a></div>
-          <div class="links menu-wrapper ">
-            <ul class="list-js links-list">
-              <li class="nav-item menu-item"><a class="nav-link menu-link   active" href="#page-hero">home </a></li>
-              <li class="nav-item menu-item"><a class="nav-link menu-link  " href="#services">services </a></li>
-              <li class="nav-item menu-item"><a class="nav-link menu-link  " href="#about">about </a></li>
-              <li class="nav-item menu-item"><a class="nav-link menu-link  " href="#portfolio">portfolio </a></li>                           
+    <meta name="description" content="Software First — Custom software solutions built for performance, scale, and reliability.">
+    <link rel="icon" href="assets/images/fav-icon/fav-icon.png">
+    <title>Software First</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #080810;
+            --bg-2: #0e0e1a;
+            --border: rgba(255,255,255,0.07);
+            --accent: #6c63ff;
+            --accent-2: #00d4ff;
+            --text: #e8e8f0;
+            --text-muted: #6b6b8a;
+            --card-bg: rgba(255,255,255,0.03);
+            --radius: 16px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ── NAV ── */
+        .site-nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 1000;
+            padding: 1.1rem 0;
+            transition: background 0.3s, backdrop-filter 0.3s;
+        }
+        .site-nav.scrolled {
+            background: rgba(8,8,16,0.85);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border);
+        }
+        .nav-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .nav-brand {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+        .nav-brand span { color: var(--accent); }
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--bg);
+            background: var(--text);
+            padding: 0.5rem 1.25rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+        .nav-cta:hover { opacity: 0.85; }
+        .nav-toggle { display: none; background: none; border: none; color: var(--text); font-size: 1.4rem; cursor: pointer; }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 7rem 0 5rem;
+        }
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(var(--border) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+            background-size: 60px 60px;
+            mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+            pointer-events: none;
+        }
+        .hero-glow {
+            position: absolute;
+            width: 700px; height: 700px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+            top: -200px; left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+        .hero-content { position: relative; z-index: 1; }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(108,99,255,0.1);
+            border: 1px solid rgba(108,99,255,0.25);
+            padding: 0.35rem 0.9rem;
+            border-radius: 50px;
+            margin-bottom: 1.75rem;
+        }
+        .hero-title {
+            font-size: clamp(2.8rem, 6vw, 5rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+        .hero-title .grad {
+            background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent-2) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-subtitle {
+            font-size: 1.125rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            line-height: 1.75;
+        }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-primary-sf {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.9rem; font-weight: 600;
+            background: var(--accent);
+            color: #fff;
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 0 30px rgba(108,99,255,0.3);
+        }
+        .btn-primary-sf:hover { transform: translateY(-2px); box-shadow: 0 4px 40px rgba(108,99,255,0.45); color: #fff; }
+        .btn-outline-sf {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            font-size: 0.9rem; font-weight: 600;
+            background: transparent;
+            color: var(--text);
+            padding: 0.75rem 1.75rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            text-decoration: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+        .btn-outline-sf:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); color: var(--text); }
+        .hero-stats {
+            display: flex;
+            gap: 2.5rem;
+            margin-top: 4rem;
+            padding-top: 2.5rem;
+            border-top: 1px solid var(--border);
+        }
+        .stat-num {
+            font-size: 1.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            color: var(--text);
+        }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+
+        /* ── SECTION COMMON ── */
+        .sf-section { padding: 6rem 0; }
+        .section-tag {
+            display: inline-block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+        }
+        .section-title {
+            font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+        .section-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 520px;
+        }
+
+        /* ── SERVICES ── */
+        #services { background: var(--bg-2); }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+        .service-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .service-card:hover {
+            border-color: rgba(108,99,255,0.35);
+            transform: translateY(-4px);
+        }
+        .service-icon-wrap {
+            width: 48px; height: 48px;
+            border-radius: 12px;
+            background: rgba(108,99,255,0.12);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+            color: var(--accent);
+            margin-bottom: 1.25rem;
+        }
+        .service-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .service-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.65; }
+
+        /* ── ABOUT ── */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+        @media (max-width: 768px) { .about-grid { grid-template-columns: 1fr; gap: 3rem; } }
+        .about-pills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 2.5rem;
+        }
+        .about-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text);
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+        }
+        .about-pill i { color: var(--accent); }
+        .about-visual {
+            position: relative;
+        }
+        .about-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .about-card-title { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.4rem; }
+        .about-card-value { font-size: 1.5rem; font-weight: 800; letter-spacing: -0.02em; }
+        .about-card-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.15rem; }
+        .accent-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22c55e; margin-right: 0.4rem; }
+
+        /* ── PORTFOLIO ── */
+        #portfolio { background: var(--bg-2); }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-top: 3.5rem;
+        }
+        .portfolio-card {
+            position: relative;
+            border-radius: var(--radius);
+            overflow: hidden;
+            border: 1px solid var(--border);
+            background: var(--card-bg);
+            text-decoration: none;
+            display: block;
+            transition: border-color 0.25s, transform 0.25s;
+        }
+        .portfolio-card:hover { border-color: rgba(108,99,255,0.4); transform: translateY(-4px); }
+        .portfolio-card img { width: 100%; height: 220px; object-fit: cover; display: block; }
+        .portfolio-card-info {
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .portfolio-card-title { font-size: 1rem; font-weight: 700; color: var(--text); }
+        .portfolio-card-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 0.15rem; }
+        .portfolio-arrow {
+            width: 36px; height: 36px;
+            border-radius: 8px;
+            background: rgba(108,99,255,0.12);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+            font-size: 1rem;
+            transition: background 0.2s;
+        }
+        .portfolio-card:hover .portfolio-arrow { background: var(--accent); color: #fff; }
+
+        /* ── FOOTER ── */
+        .site-footer {
+            border-top: 1px solid var(--border);
+            padding: 3rem 0;
+        }
+        .footer-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        .footer-brand { font-size: 1rem; font-weight: 700; color: var(--text); }
+        .footer-brand span { color: var(--accent); }
+        .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+        .footer-email {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            display: flex; align-items: center; gap: 0.4rem;
+            transition: color 0.2s;
+        }
+        .footer-email:hover { color: var(--text); }
+
+        /* ── RESPONSIVE NAV ── */
+        @media (max-width: 768px) {
+            .nav-links, .nav-cta { display: none; }
+            .nav-toggle { display: block; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%; left: 0; right: 0;
+                background: rgba(8,8,16,0.97);
+                border-bottom: 1px solid var(--border);
+                padding: 1.5rem;
+                gap: 1.25rem;
+            }
+            .hero-stats { flex-wrap: wrap; gap: 1.5rem; }
+        }
+
+        /* ── FADE IN ANIMATION ── */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .fade-up:nth-child(2) { transition-delay: 0.1s; }
+        .fade-up:nth-child(3) { transition-delay: 0.2s; }
+        .fade-up:nth-child(4) { transition-delay: 0.3s; }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="site-nav" id="site-nav">
+    <div class="container">
+        <div class="nav-inner">
+            <a href="#" class="nav-brand">Software<span>First</span></a>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
             </ul>
-          </div>
-          <div class="controls-box">
-            <!--Menu Toggler button-->
-            <div class="control  menu-toggler"><span></span><span></span><span></span></div>            
-            <!--Dark/Light mode button-->
-            <div class="mode-switcher ">
-              <div class="switch-inner go-light " title="Switch To Light Mode "><i class="bi bi-sun icon "></i></div>
-              <div class="switch-inner go-dark" title="Switch To Dark Mode "><i class="bi bi-moon icon "></i></div>
-            </div>
-            <!--mini shoping cart-->
-          </div>
-        </nav>
-      </div>
-      <!--End navbar-->
-    </header>
-    <!--End Page Header-->
-    <!-- Start  Page hero-->
-    <section class="page-hero  d-flex align-items-center" id="page-hero">
-      <div class="overlay-photo-image-bg" data-bg-img="assets/images/sections-bg-images/pattern-bg-1.jpg" data-bg-opacity=".2"></div>
-      <div class="particles-js  dots" id="particles-js"></div>
-      <div class="container">
-        <div class="row align-items-center">
-          <div class="col-12 col-lg-6 ">
-            <!--Start of .hero-text-area-->
-            <div class="hero-text-area   ">
-              <div class="row">
-                <div class="col-12   ">
-                  <div class="hero-social-icons mb-3 ">                    
-                  </div>
-                </div>
-                <div class="col-12       ">
-                  <div class="pre-title ">Software First             </div>
-                  <h1 class="hero-title  ">providing the best Software <span class="featured-text">solutions <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" preserveAspectRatio="none"><path d="M7.7,145.6C109,125,299.9,116.2,401,121.3c42.1,2.2,87.6,11.8,87.3,25.7"></path></svg>  </span><span class="design-element rounded-shape stripes"></span></h1>
-                </div>
-                <div class="col-10       ">
-                  <p class="hero-subtitle ">
-                    We are a software development company that specializes in creating custom solutions for businesses of all sizes. With years of experience and a team of talented developers, we are dedicated to delivering high-quality software that meets your unique needs.                    
-                  </p>
-                </div>                
-              </div>
-            </div>
-          </div>
-          <!--start of image-area -->
-          <div class="col-12   mx-md-auto col-lg-6 text-center " data-tilt>           
-          </div>
+            <a href="mailto:info@softwarefirst.gr" class="nav-cta">Get in touch</a>
+            <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">
+                <i class="bi bi-list"></i>
+            </button>
         </div>
-      </div>
-    </section>
-    <!--End of .hero-text-area-->
-    <!-- End  Page hero-->
-    <!-- Start  services Section-->
-    <section class="services services-boxed mega-section  " id="services">
-      <div class="container">
-        <div class="sec-heading  ">
-          <div class="content-area"><span class=" pre-title       wow fadeInUp " data-wow-delay=".2s">services</span>
-            <h2 class=" title    wow fadeInUp" data-wow-delay=".4s"><span class='hollow-text'>services</span> we offer</h2>
-            <p class="subtitle   wow fadeInUp " data-wow-delay=".6s">Our services encompass the entire software development life cycle, <br>from initial consultation and design to development, testing, deployment, and ongoing maintenance and support.</p>
-          </div>        
-        </div>
-        <div class="row gx-4 gy-4 services-row ">  
-          <div class="col-12 col-md-6  col-lg-4 mx-auto ">
-            <!--Start First service box-->
-            <div class="box service-box  wow fadeInUp reveal-start" data-wow-offset="0" data-wow-delay=".1s">
-              <div class="service-icon"><i class="flaticon-web-development font-icon"></i></div><span class="service-num hollow-text">1    </span>
-              <div class="service-content">
-                <h3 class="service-title">web development</h3>
-                <p class="service-text">
-                 
-                </p>
-              </div>
-            </div>
-            <!-- End First service box   -->
-          </div>        
-         
-          <div class="col-12 col-md-6  col-lg-4 mx-auto  ">
-            <!--Start fourth service box-->
-            <div class="box service-box  wow fadeInUp reveal-start" data-wow-offset="0" data-wow-delay=".4s">
-              <div class="service-icon"><i class="flaticon-profile font-icon"></i></div><span class="service-num hollow-text">4    </span>
-              <div class="service-content">
-                <h3 class="service-title">Software consulting</h3>
-                <p class="service-text">                  
-                </p>
-              </div>
-            </div>
-            <!-- End fourth service box   -->
-          </div>
-          
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End  services Section-->
-    <!-- Start  about Section-->
-    <section class="about mega-section" id="about">
-      <div class="container">
-        <!-- Start first about div-->
-        <div class="content-block  ">
-          <div class="row">
-            <div class="col-12 col-lg-6 d-flex align-items-center order-1 order-lg-0 about-col pad-end  wow fadeInUp " data-wow-delay="0.6s">
-              <div class="text-area ">
-                <div class="sec-heading  light-title ">
-                  <div class="content-area"><span class=" pre-title       wow fadeInUp " data-wow-delay=".2s">about Us</span>
-                    <h2 class=" title    wow fadeInUp" data-wow-delay=".4s"><span class='hollow-text'>Software First</span></h2>
-                  </div>
-                </div>
-                <p class=" about-text">
-                    At Software First, we are passionate about creating software that helps businesses 
-                    succeed by providing customized solutions that are tailored to their unique needs.
-                </p>
-                <div class="info-items-list ">
-                  <div class="row ">
-                    <div class="col-9 col-xl-6">
-                      <div class="info-item"><i class="flaticon-medal  info-icon"></i>
-                        <div class="info-content">
-                          <h5 class="info-title">Professionalism </h5>
-                          <p class="info-text">Experienced team of developers</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-9 col-xl-6">
-                      <div class="info-item"><i class="flaticon-game-console info-icon"></i>
-                        <div class="info-content">
-                          <h5 class="info-title">Quality</h5>
-                          <p class="info-text">Commitment to quality and customer satisfaction</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-9 col-xl-6">
-                      <div class="info-item"><i class="flaticon-map info-icon"></i>
-                        <div class="info-content">
-                          <h5 class="info-title">Agile</h5>
-                          <p class="info-text">Scrum development methodology for faster results</p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col-9 col-xl-6">
-                      <div class="info-item"><i class="flaticon-technical-support-1  info-icon"></i>
-                        <div class="info-content">
-                          <h5 class="info-title">Innovation </h5>
-                          <p class="info-text">Continuous learning and innovation to stay ahead of industry trends</p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>                
-              </div>
-            </div>            
-          </div>
-        </div>
-        <!--End first about div-->
-       
-      </div>
-    </section>
-    <!-- End  about Section-->
-    
-    <!-- Start  portfolio-slider Section-->
-    <section class="portfolio portfolio-blocks mega-section   " id="portfolio">
-      <div class="container">
-        <div class="sec-heading  ">
-          <div class="content-area"><span class=" pre-title       wow fadeInUp " data-wow-delay=".2s">portfolio</span>
-            <h2 class=" title    wow fadeInUp" data-wow-delay=".4s">Awesome <span class='hollow-text'>portfolio</span></h2>
-          </div>         
-        </div>
-        <div class="portfolio-wrapper  ">
-          <!--a menu of links to show the photos users needs   -->
-          <ul class="portfolio-btn-list wow fadeInUp" data-wow-delay=".2s">
-            <li class="portfolio-btn active " data-filter="*">all</li>           
-          </ul>
-          <div class="portfolio-group wow fadeIn" data-wow-delay=".4s">
-            <div class="row ">
-              <div class="col-12  col-md-6  col-lg-4  portfolio-item mobile ">
-                <div class="item   "><a class="portfolio-img-link" href="pafame.html"><img class="portfolio-img   img-fluid " 
-                  loading="lazy" src="assets/images/portfolio/1.png" alt="portfolio item photo"/></a>
-                  <div class="item-info ">
-                    <h3 class="item-title">pafame</h3><i class="bi bi-arrow-right icon "></i>
-                  </div>
-                </div>
-              </div>
-                        
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- End  portfolio-slider Section-->       
-    <!-- Start  page-footer Section-->
-    <footer class="page-footer dark-color-footer" id="page-footer">
-      <div class="overlay-photo-image-bg" data-bg-img="assets/images/sections-bg-images/footer-bg-1.jpg" data-bg-opacity=".25"></div>
-      <div class="container">
-        <div class="row footer-cols">
-          <div class="col-12 col-md-8 col-lg-4  footer-col "><img class="img-fluid footer-logo" loading="lazy" src="assets/images/logo/logo-colored.png" alt="logo"/>
-            <div class="footer-col-content-wrapper">        
-              <p class="footer-text-about-us ">
-                Thank you for visiting Software First! Contact us today to learn more about how our software development services can benefit your business.
-                
-              </p>
-            </div>           
-          </div>
-          <div class="col-6 col-lg-2  footer-col ">          
-          </div>
-          <div class="col-6 col-lg-2 footer-col ">           
-          </div>
-          <div class="col-12     col-lg-4 footer-col ">
-            <h2 class=" footer-col-title    ">contact information</h2>
-            <div class="footer-col-content-wrapper">       
-              <div class="contact-info-card"><i class="bi bi-envelope icon"></i><a class="text-lowercase  info" href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a></div>
-              
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="copyrights ">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 col-md-6 d-flex justify-content-start">
-              <p class="creadits">                                 
-                &copy; 2025
-                Created by: Software First                                           
-              </p>
-            </div>           
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- End  page-footer Section-->
-    <!-- Start loading-screen Component-->
-    <div class="loading-screen" id="loading-screen"><span class="bar top-bar"></span><span class="bar down-bar"></span><span class="progress-line"></span><span class="loading-counter"> </span></div>
-    <!-- End loading-screen Component-->
-    <!-- Start back-to-top Component-->
-    <div class="back-to-top" id="back-to-top"><i class="bi bi-arrow-up icon "></i>
     </div>
-    <!-- End back-to-top Component-->   
-        
-        <!--     JQuery     -->
-        <script src="js/vendors/jquery-3.6.1.min.js"></script>
-        
-        <!--     appear     -->
-        <script src="js/vendors/appear.min.js"></script>
-        
-        <!--     bootstrap     -->
-        <script src="js/vendors/bootstrap.bundle.min.js"></script>
-        
-        <!--     countTo     -->
-        <script src="js/vendors/jquery.countTo.js"></script>
-        
-        <!--     wow     -->
-        <script src="js/vendors/wow.min.js"></script>
-        
-        <!--     swiper     -->
-        <script src="js/vendors/swiper-bundle.min.js"></script>
-        
-        <!--     particles     -->
-        <script src="js/vendors/particles.min.js"></script>
-        
-        <!--     Vanilla-tilt     -->
-        <script src="js/vendors/vanilla-tilt.min.js"></script>
-        
-        <!--     isotope     -->
-        <script src="js/vendors/isotope-min.js"></script>
-        
-        <!--     fancybox     -->
-        <script src="js/vendors/jquery.fancybox.min.js"></script>
-        
-        <!--     main     -->
-        <script src="js/main.js"></script>
-  </body>
+</header>
+
+<!-- HERO -->
+<section class="hero" id="page-hero">
+    <div class="hero-grid"></div>
+    <div class="hero-glow"></div>
+    <div class="container hero-content">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="hero-badge">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                    Enterprise Software Development
+                </div>
+                <h1 class="hero-title">
+                    We build software<br>
+                    <span class="grad">that scales.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Custom solutions for businesses that need performance, reliability, and craftsmanship — from the first line of code to production.
+                </p>
+                <div class="hero-actions">
+                    <a href="#portfolio" class="btn-primary-sf">
+                        View our work <i class="bi bi-arrow-right"></i>
+                    </a>
+                    <a href="mailto:info@softwarefirst.gr" class="btn-outline-sf">
+                        Contact us
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="stat-num">.NET 10</div>
+                        <div class="stat-label">Latest Stack</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">Full</div>
+                        <div class="stat-label">Stack Delivery</div>
+                    </div>
+                    <div>
+                        <div class="stat-num">Cloud</div>
+                        <div class="stat-label">Native Ready</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SERVICES -->
+<section class="sf-section" id="services">
+    <div class="container">
+        <div>
+            <span class="section-tag">What we do</span>
+            <h2 class="section-title">Services we offer</h2>
+            <p class="section-sub">End-to-end software delivery — from architecture and design to production deployment and ongoing support.</p>
+        </div>
+        <div class="services-grid">
+            <div class="service-card fade-up">
+                <div class="service-icon-wrap"><i class="bi bi-code-slash"></i></div>
+                <h3>Web Development</h3>
+                <p>High-performance web applications built with modern frameworks. Blazor, React, or whatever fits your stack — we ship quality.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon-wrap"><i class="bi bi-phone"></i></div>
+                <h3>Mobile & Desktop Apps</h3>
+                <p>Cross-platform apps using .NET MAUI — one codebase, native performance on iOS, Android, and Desktop.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon-wrap"><i class="bi bi-diagram-3"></i></div>
+                <h3>Backend & APIs</h3>
+                <p>Scalable, cloud-native backends with Clean Architecture, CQRS, gRPC, and microservices — built to grow.</p>
+            </div>
+            <div class="service-card fade-up">
+                <div class="service-icon-wrap"><i class="bi bi-chat-square-dots"></i></div>
+                <h3>Software Consulting</h3>
+                <p>Architecture reviews, technology selection, and hands-on guidance for teams that want to move faster without cutting corners.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="sf-section" id="about">
+    <div class="container">
+        <div class="about-grid">
+            <div>
+                <span class="section-tag">About us</span>
+                <h2 class="section-title">Software First,<br>always.</h2>
+                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.8; margin-bottom: 1rem;">
+                    At Software First, we believe great software is built through craft, not shortcuts. We work with businesses to deliver solutions that are maintainable, observable, and built to last.
+                </p>
+                <p style="color: var(--text-muted); font-size: 1rem; line-height: 1.8;">
+                    We stay current with the industry's best practices — from .NET 10 and cloud-native patterns to comprehensive testing and full observability stacks.
+                </p>
+                <div class="about-pills">
+                    <div class="about-pill"><i class="bi bi-award"></i> Professionalism</div>
+                    <div class="about-pill"><i class="bi bi-patch-check"></i> Quality-first</div>
+                    <div class="about-pill"><i class="bi bi-arrow-repeat"></i> Agile delivery</div>
+                    <div class="about-pill"><i class="bi bi-lightbulb"></i> Innovation</div>
+                    <div class="about-pill"><i class="bi bi-cloud-check"></i> Cloud native</div>
+                </div>
+            </div>
+            <div class="about-visual">
+                <div class="about-card fade-up">
+                    <div class="about-card-title">Current stack</div>
+                    <div class="about-card-value">.NET 10 + Aspire</div>
+                    <div class="about-card-sub">Cutting-edge, production-ready</div>
+                </div>
+                <div class="about-card fade-up">
+                    <div class="about-card-title">Testing philosophy</div>
+                    <div class="about-card-value">Unit · Integration · E2E</div>
+                    <div class="about-card-sub">Testcontainers, Playwright, NBomber</div>
+                </div>
+                <div class="about-card fade-up">
+                    <div class="about-card-title">Observability</div>
+                    <div class="about-card-value">
+                        <span class="accent-dot"></span>Full stack visibility
+                    </div>
+                    <div class="about-card-sub">OTel · Grafana · Prometheus · Loki</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="sf-section" id="portfolio">
+    <div class="container">
+        <span class="section-tag">Portfolio</span>
+        <h2 class="section-title">What we've built</h2>
+        <div class="portfolio-grid">
+            <a href="pafame.html" class="portfolio-card fade-up">
+                <img src="assets/images/portfolio/1.png" alt="Pafame" loading="lazy">
+                <div class="portfolio-card-info">
+                    <div>
+                        <div class="portfolio-card-title">Pafame</div>
+                        <div class="portfolio-card-sub">Enterprise food ordering platform · .NET 10 · Blazor · Aspire</div>
+                    </div>
+                    <div class="portfolio-arrow"><i class="bi bi-arrow-right"></i></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div class="footer-brand">Software<span>First</span></div>
+            <a href="mailto:info@softwarefirst.gr" class="footer-email">
+                <i class="bi bi-envelope"></i> info@softwarefirst.gr
+            </a>
+            <p class="footer-copy">&copy; 2026 Software First. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Sticky nav
+    const nav = document.getElementById('site-nav');
+    window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Mobile nav toggle
+    document.getElementById('nav-toggle').addEventListener('click', () => {
+        document.getElementById('nav-links').classList.toggle('open');
+    });
+
+    // Fade-up on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
 </html>

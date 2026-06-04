@@ -25,14 +25,14 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         :root {
-            --bg: #080810;
-            --bg-2: #0e0e1a;
-            --border: rgba(255,255,255,0.07);
-            --accent: #6c63ff;
-            --accent-2: #00d4ff;
-            --text: #e8e8f0;
-            --text-muted: #6b6b8a;
-            --card-bg: rgba(255,255,255,0.03);
+            --bg: #fafafa;
+            --bg-2: #f3f4f8;
+            --border: rgba(0,0,0,0.08);
+            --accent: #5b52e8;
+            --accent-2: #0099cc;
+            --text: #111118;
+            --text-muted: #70708a;
+            --card-bg: #ffffff;
             --radius: 16px;
         }
 
@@ -55,9 +55,10 @@
             transition: background 0.3s, backdrop-filter 0.3s;
         }
         .site-nav.scrolled {
-            background: rgba(8,8,16,0.85);
+            background: rgba(250,250,250,0.88);
             backdrop-filter: blur(16px);
             border-bottom: 1px solid var(--border);
+            box-shadow: 0 1px 20px rgba(0,0,0,0.06);
         }
         .nav-inner {
             display: flex;
@@ -88,8 +89,8 @@
         .nav-cta {
             font-size: 0.875rem;
             font-weight: 600;
-            color: var(--bg);
-            background: var(--text);
+            color: #fff;
+            background: var(--accent);
             padding: 0.5rem 1.25rem;
             border-radius: 8px;
             text-decoration: none;
@@ -111,8 +112,8 @@
             position: absolute;
             inset: 0;
             background-image:
-                linear-gradient(var(--border) 1px, transparent 1px),
-                linear-gradient(90deg, var(--border) 1px, transparent 1px);
+                linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px);
             background-size: 60px 60px;
             mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
             pointer-events: none;
@@ -121,7 +122,7 @@
             position: absolute;
             width: 700px; height: 700px;
             border-radius: 50%;
-            background: radial-gradient(circle, rgba(108,99,255,0.18) 0%, transparent 70%);
+            background: radial-gradient(circle, rgba(91,82,232,0.1) 0%, transparent 70%);
             top: -200px; left: 50%;
             transform: translateX(-50%);
             pointer-events: none;
@@ -150,7 +151,7 @@
             margin-bottom: 1.5rem;
         }
         .hero-title .grad {
-            background: linear-gradient(135deg, #fff 30%, var(--accent) 70%, var(--accent-2) 100%);
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -182,11 +183,11 @@
             color: var(--text);
             padding: 0.75rem 1.75rem;
             border-radius: 10px;
-            border: 1px solid var(--border);
+            border: 1px solid rgba(0,0,0,0.15);
             text-decoration: none;
             transition: border-color 0.2s, background 0.2s;
         }
-        .btn-outline-sf:hover { border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.04); color: var(--text); }
+        .btn-outline-sf:hover { border-color: var(--accent); background: rgba(91,82,232,0.05); color: var(--accent); }
         .hero-stats {
             display: flex;
             gap: 2.5rem;
@@ -372,7 +373,7 @@
                 flex-direction: column;
                 position: absolute;
                 top: 100%; left: 0; right: 0;
-                background: rgba(8,8,16,0.97);
+                background: rgba(250,250,250,0.97);
                 border-bottom: 1px solid var(--border);
                 padding: 1.5rem;
                 gap: 1.25rem;

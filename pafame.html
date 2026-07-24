@@ -11,710 +11,984 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pafame - Enterprise Food Ordering Platform</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <meta name="description" content="ΠΑΦΑΜΕ — enterprise food-ordering platform built by Software First. .NET 10, Next.js, Expo, real-time everything, 4% commission.">
+    <meta name="theme-color" content="#0a0512">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>ΠΑΦΑΜΕ — Enterprise Food Ordering Platform · Software First</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
     <style>
+        /* ════════════════════════════════════════════════════════════════
+           ΠΑΦΑΜΕ SHOWCASE — dark, brand-purple edition. Self-contained:
+           the cracktro (ported from the retail app), the dotted globe and
+           the architecture beams are all hand-rolled, zero dependencies.
+           ════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
         :root {
-            --pafame-primary: #8A2BE2;
-            --pafame-primary-dark: #6a1db5;
-            --pafame-primary-light: #b06aff;
+            --bg: #0a0512;
+            --bg-2: #0f0819;
+            --text: #efeaf8;
+            --text-muted: #a89fc0;
+            --purple: #8a2be2;
+            --purple-soft: #b06aff;
+            --orange: #ff751f;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --radius: 18px;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
         }
 
-        .hero-section {
-            background: linear-gradient(135deg, #8A2BE2 0%, #5C1FA8 100%);
-            color: white;
-            padding: 7rem 0 5rem;
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: var(--pafame-primary);
+        .container { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(138,43,226,0.45); }
+
+        .grain {
+            position: fixed; inset: -50%;
+            width: 200%; height: 200%;
+            pointer-events: none; z-index: 2000; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
         }
 
-        .architecture-section {
-            background-color: #f8f9fa;
-            padding: 5rem 0;
+        /* ── NAV ── */
+        .site-nav {
+            position: fixed; top: 14px; left: 50%;
+            transform: translateX(-50%);
+            width: min(1120px, 100% - 2rem);
+            z-index: 1000; border-radius: 16px;
+            padding: 0.65rem 1.1rem;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(16,9,26,0.55);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(18px) saturate(1.6);
+            -webkit-backdrop-filter: blur(18px) saturate(1.6);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0,0,0,0.45);
+        }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: 0.04em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--purple-soft), var(--orange));
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+        .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            font-size: 0.85rem; font-weight: 600; color: #fff; text-decoration: none;
+            background: linear-gradient(120deg, var(--purple), #6a1db5);
+            padding: 0.5rem 1.15rem; border-radius: 10px;
+            box-shadow: 0 0 24px rgba(138,43,226,0.4);
+            transition: box-shadow .25s;
+        }
+        .nav-cta:hover { box-shadow: 0 0 40px rgba(138,43,226,0.6); }
+        .nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        @media (max-width: 860px) {
+            .nav-links, .nav-cta { display: none; }
+            .nav-toggle { display: block; }
+            .site-nav.open .nav-links {
+                display: flex; flex-direction: column;
+                position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+                background: rgba(16,9,26,0.94);
+                backdrop-filter: blur(18px);
+                border: 1px solid var(--stroke); border-radius: 14px;
+                padding: 1.4rem; gap: 1.1rem;
+            }
         }
 
-        .tech-section {
-            padding: 5rem 0;
+        /* ── HERO ── */
+        .hero {
+            position: relative; min-height: 92svh;
+            display: flex; align-items: center;
+            overflow: hidden; padding: 8rem 0 4rem;
         }
-
-        .card {
-            transition: transform 0.3s;
-            margin-bottom: 2rem;
-            border: none;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(138,43,226,0.35), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(255,117,31,0.16), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(91,26,160,0.4), transparent 65%);
         }
-
-        .card:hover {
-            transform: translateY(-5px);
+        .hero-grid-lines {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: radial-gradient(75% 65% at 50% 35%, black 25%, transparent 100%);
         }
-
-        .cta-section {
-            background: linear-gradient(135deg, #8A2BE2 0%, #b06aff 100%);
-            color: white;
-            padding: 5rem 0;
-        }
-
-        .tech-badge {
-            display: inline-block;
-            background-color: #f1f3f5;
-            color: #495057;
-            padding: 0.4rem 0.8rem;
-            border-radius: 4px;
-            margin: 0.25rem;
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        .tech-category {
-            margin-bottom: 2rem;
-        }
-
-        .pafame-color { color: var(--pafame-primary); }
-        .dotnet-color { color: #512BD4; }
-
-        .portal-card {
-            border-top: 4px solid var(--pafame-primary);
-        }
-
-        .portal-icon {
-            font-size: 2rem;
-            color: var(--pafame-primary);
-            margin-bottom: 0.75rem;
-        }
-
-        .section-label {
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--pafame-primary);
-            margin-bottom: 0.5rem;
-        }
-
+        .hero-content { position: relative; z-index: 2; }
+        .badge-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.6rem; }
         .badge-pill {
-            background: rgba(138,43,226,0.1);
-            color: var(--pafame-primary);
-            border-radius: 50px;
-            padding: 0.3rem 0.9rem;
-            font-size: 0.85rem;
-            font-weight: 600;
+            font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em;
+            color: #e3d1ff;
+            background: rgba(138,43,226,0.16);
+            border: 1px solid rgba(138,43,226,0.4);
+            border-radius: 50px; padding: 0.32rem 0.9rem;
+            backdrop-filter: blur(6px);
         }
+        .badge-pill.orange { color: #ffd9bd; background: rgba(255,117,31,0.12); border-color: rgba(255,117,31,0.4); }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.4rem);
+            font-weight: 700; letter-spacing: -0.035em; line-height: 1.06;
+            margin-bottom: 1.3rem; max-width: 830px;
+        }
+        .hero-title .grad {
+            background: linear-gradient(110deg, var(--purple-soft) 0%, var(--orange) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle { font-size: 1.08rem; color: var(--text-muted); max-width: 620px; margin-bottom: 2.3rem; }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-solid, .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.92rem; font-weight: 600;
+            padding: 0.85rem 1.9rem; border-radius: 12px; text-decoration: none;
+        }
+        .btn-solid {
+            color: #fff;
+            background: linear-gradient(120deg, var(--purple) 0%, #6a1db5 100%);
+            box-shadow: 0 0 34px rgba(138,43,226,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .btn-ghost { color: var(--text); background: var(--glass); border: 1px solid var(--stroke); backdrop-filter: blur(8px); }
+        .btn-ghost:hover { border-color: rgba(255,117,31,0.55); }
 
-        .logo-group-label {
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-size: 0.72rem;
-            font-weight: 700;
-            color: #adb5bd;
+        .hero-stats {
+            display: flex; gap: 2.8rem; flex-wrap: wrap;
+            margin-top: 4rem; padding-top: 2.1rem;
+            border-top: 1px solid var(--stroke);
+        }
+        .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; }
+        .stat-num em { font-style: normal; color: var(--orange); }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ── Reveals ── */
+        .rv {
+            opacity: 0; transform: translateY(26px); filter: blur(5px);
+            transition: opacity .7s ease var(--d, 0s), transform .7s ease var(--d, 0s), filter .7s ease var(--d, 0s);
+        }
+        .rv.in { opacity: 1; transform: none; filter: none; }
+        @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; filter: none; transition: none; } }
+
+        /* ── SECTIONS ── */
+        .sf-section { padding: 6.5rem 0; position: relative; }
+        .section-tag {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--orange); margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
             margin-bottom: 1rem;
         }
+        .section-sub { color: var(--text-muted); max-width: 600px; }
 
-        .logo-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1.25rem;
-            align-items: center;
-            justify-content: center;
+        /* ── GLASS CARDS ── */
+        .glass-card {
+            position: relative; border-radius: var(--radius); padding: 1.9rem;
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+            overflow: hidden;
+            transition: transform .3s ease, border-color .3s ease;
+        }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(138,43,226,0.5); }
+        @media (prefers-reduced-motion: reduce) { .glass-card:hover { transform: none; } }
+        .glass-card::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,0.08), transparent 45%);
+            opacity: 0; transition: opacity .3s; pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .glass-card p, .glass-card li { font-size: 0.89rem; color: var(--text-muted); }
+        .card-icon {
+            width: 46px; height: 46px; border-radius: 13px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+            background: linear-gradient(135deg, rgba(138,43,226,0.28), rgba(255,117,31,0.14));
+            border: 1px solid rgba(138,43,226,0.4);
+            margin-bottom: 1.1rem;
         }
 
-        .logo-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.45rem;
-            padding: 1rem 1.25rem;
-            border-radius: 12px;
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            min-width: 90px;
-            transition: all 0.25s ease;
-            cursor: pointer;
-            text-decoration: none;
-        }
+        /* ── PORTALS ── */
+        .portals-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; margin-top: 3.2rem; }
+        .portal-list { list-style: none; margin-top: 0.7rem; }
+        .portal-list li { padding: 0.28rem 0; padding-left: 1.4rem; position: relative; }
+        .portal-list li::before { content: "✓"; position: absolute; left: 0; color: var(--purple-soft); font-weight: 700; }
+        .portal-runtime { display: inline-block; margin-top: 1rem; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.06em; color: #e3d1ff; background: rgba(138,43,226,0.16); border: 1px solid rgba(138,43,226,0.35); padding: 0.25rem 0.7rem; border-radius: 7px; }
 
-        .logo-item:hover {
-            background: white;
-            border-color: var(--pafame-primary);
-            box-shadow: 0 6px 20px rgba(138,43,226,0.12);
-            transform: translateY(-3px);
-        }
+        /* ── ARCHITECTURE BEAM DIAGRAM ── */
+        .arch-wrap { margin-top: 3.4rem; }
+        .arch-svg { width: 100%; height: auto; display: block; }
+        .arch-node { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.14); rx: 14; }
+        .arch-node-label { fill: #efeaf8; font: 600 15px 'Space Grotesk', sans-serif; }
+        .arch-node-sub { fill: #a89fc0; font: 500 10.5px 'Inter', sans-serif; }
+        .arch-wire { stroke: rgba(255,255,255,0.12); stroke-width: 1.6; fill: none; }
+        @media (prefers-reduced-motion: reduce) { .arch-pulse { display: none; } }
+        .arch-legend { margin-top: 1rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
 
-        .logo-item img {
-            filter: grayscale(40%) opacity(0.75);
-            transition: filter 0.25s ease;
-        }
+        /* ── FEATURES ── */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.2rem; margin-top: 3.2rem; }
 
-        .logo-item:hover img {
-            filter: grayscale(0%) opacity(1);
-        }
+        /* ── GLOBE ── */
+        .globe-section { text-align: center; }
+        .globe-shell { position: relative; width: min(560px, 92vw); margin: 2.5rem auto 0; }
+        #globe { width: 100%; height: auto; display: block; }
+        .globe-caption { margin-top: 0.6rem; font-size: 0.85rem; color: var(--text-muted); }
+        .globe-caption b { color: var(--orange); }
 
-        .logo-item svg {
-            opacity: 0.65;
-            transition: opacity 0.25s ease;
+        /* ════ CRACKTRO (ported from the ΠΑΦΑΜΕ retail app) ════ */
+        .ts-panel {
+            border-radius: 18px; overflow: hidden;
+            background: #0b0518;
+            border: 1px solid #241645;
+            box-shadow: 0 24px 60px rgba(88, 28, 180, 0.28);
+            margin-top: 3rem;
         }
+        .ts-titlebar {
+            display: flex; align-items: center; gap: 8px;
+            padding: 10px 14px;
+            background: linear-gradient(90deg, #1a0f33, #2a1656);
+            border-bottom: 1px solid #341f63;
+        }
+        .ts-dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+        .ts-dot--r { background: #ff5f57; } .ts-dot--y { background: #febc2e; } .ts-dot--g { background: #28c840; }
+        .ts-titlebar__label {
+            margin-left: 10px;
+            font: 700 0.72rem/1 ui-monospace, Menlo, monospace;
+            letter-spacing: 0.14em; color: #b79bff;
+        }
+        .ts-screen { position: relative; aspect-ratio: 16 / 6; min-height: 220px; background: #080312; }
+        .ts-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+        .ts-scanlines {
+            position: absolute; inset: 0; pointer-events: none;
+            background: repeating-linear-gradient(to bottom, rgba(0,0,0,0) 0, rgba(0,0,0,0) 2px, rgba(0,0,0,0.22) 3px);
+            mix-blend-mode: multiply;
+        }
+        .ts-vignette {
+            position: absolute; inset: 0; pointer-events: none;
+            background: radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(0,0,0,0.65) 100%);
+        }
+        .ts-headline { position: absolute; top: 14px; left: 0; right: 0; text-align: center; pointer-events: none; }
+        .ts-headline__chrome {
+            font: 900 clamp(1.6rem, 5vw, 3rem)/1 ui-monospace, Menlo, monospace;
+            letter-spacing: 0.14em;
+            background: linear-gradient(#fff 20%, #c9a3ff 40%, #8a2be2 55%, #ff751f 75%, #ffd27a 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 2px 0 rgba(0,0,0,0.4));
+        }
+        .ts-groups { max-width: 1000px; margin: 2.5rem auto 0; }
+        .ts-group { margin-bottom: 2rem; }
+        .ts-group__label {
+            text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.7rem;
+            font-weight: 800; color: #8f85ab; text-align: center; margin: 0 0 14px;
+        }
+        .ts-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+        .ts-chip {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 9px; padding: 15px 14px; min-width: 98px;
+            border-radius: 14px; text-decoration: none;
+            background: #120a24; border: 1px solid #241645;
+            transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+        }
+        .ts-chip:hover {
+            transform: translateY(-4px);
+            border-color: var(--glow); background: #1a0f33;
+            box-shadow: 0 0 0 1px var(--glow), 0 12px 30px color-mix(in srgb, var(--glow) 40%, transparent);
+        }
+        @media (prefers-reduced-motion: reduce) { .ts-chip:hover { transform: none; } }
+        .ts-chip__img { width: 34px; height: 34px; object-fit: contain; filter: grayscale(30%) brightness(1.05); transition: filter .22s ease; }
+        .ts-chip:hover .ts-chip__img { filter: grayscale(0%) drop-shadow(0 0 8px var(--glow)); }
+        .ts-chip__mono {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; border-radius: 9px;
+            font: 800 0.66rem/1 ui-monospace, Menlo, monospace; letter-spacing: 0.02em;
+            color: #0b0518; background: var(--glow);
+            box-shadow: 0 0 12px color-mix(in srgb, var(--glow) 55%, transparent);
+        }
+        .ts-chip__name { font-size: 0.72rem; font-weight: 700; color: #cfc7e4; text-align: center; white-space: nowrap; transition: color .22s ease; }
+        .ts-chip:hover .ts-chip__name { color: #fff; }
+        .ts-footnote {
+            text-align: center; margin: 2.25rem auto 0; color: #8f85ab;
+            font: 600 0.82rem/1.4 ui-monospace, Menlo, monospace; letter-spacing: 0.02em;
+        }
+        .ts-blink { animation: ts-blink 1s steps(1) infinite; color: #b06aff; }
+        @keyframes ts-blink { 50% { opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) { .ts-blink { animation: none; } }
 
-        .logo-item:hover svg {
-            opacity: 1;
+        /* ── CTA / FOOTER ── */
+        .cta-band {
+            border-radius: 24px; border: 1px solid var(--stroke);
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(138,43,226,0.28), transparent 65%),
+                var(--glass);
+            backdrop-filter: blur(14px);
+            padding: 4rem 2rem; text-align: center;
         }
-
-        .logo-item span {
-            font-size: 0.72rem;
-            font-weight: 600;
-            color: #6c757d;
-            text-align: center;
-            white-space: nowrap;
-        }
-
-        .logo-item:hover span {
-            color: var(--pafame-primary);
-        }
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.8rem 0; margin-top: 4rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.4rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; transition: color .2s; }
+        .footer-link:hover { color: var(--text); }
     </style>
 </head>
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-    <div class="container">
-        <a class="navbar-brand fw-bold" href="#">Pafame</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portals">Portals</a></li>
-                <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
-                <li class="nav-item"><a class="nav-link" href="#powered-by">Powered By</a></li>
-                <li class="nav-item"><a class="nav-link" href="#architecture">Architecture</a></li>
-                <li class="nav-item"><a class="nav-link" href="#tech-stack">Tech Stack</a></li>
-            
-                <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-            </ul>
-        </div>
-    </div>
-</nav>
+<div class="grain" aria-hidden="true"></div>
 
-<!-- Hero Section -->
-<section class="hero-section" id="home">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <div class="mb-3">
-                    <span class="badge-pill me-2">.NET 10</span>
-                    <span class="badge-pill me-2">.NET Aspire</span>
-                    <span class="badge-pill">Cloud Native</span>
-                </div>
-                <h1 class="display-4 fw-bold mb-4">Enterprise-Grade Food Ordering &amp; Shop Management Platform</h1>
-                <p class="lead mb-4">A multi-tenant ecosystem bridging retail customers and shop owners — built on the cutting edge of the .NET stack with Clean Architecture, DDD, and cloud-native orchestration.</p>
-                <div class="d-flex gap-3">
-                    <a href="https://pafame.gr" class="btn btn-light btn-lg fw-semibold">Pafame Live</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<!-- NAV -->
+<header class="site-nav" id="site-nav">
+    <a href="index.html" class="nav-brand">ΠΑΦΑΜΕ <span>· Software First</span></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#portals">Portals</a></li>
+        <li><a href="#architecture">Architecture</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#powered-by">Powered by</a></li>
+        <li><a href="#greece">Reach</a></li>
+    </ul>
+    <a href="https://pafame.gr" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit pafame.gr ↗</a>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+</header>
 
-<!-- Portals Section -->
-<section class="py-5" id="portals">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <div class="section-label">Three Tailored Experiences</div>
-                <h2 class="fw-bold">Built for Every Stakeholder</h2>
-                <p class="lead text-muted">Pafame delivers distinct portals — each purpose-built for its audience, sharing a unified codebase.</p>
-            </div>
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="container hero-content">
+        <div class="badge-row rv">
+            <span class="badge-pill">.NET 10</span>
+            <span class="badge-pill">Next.js 16</span>
+            <span class="badge-pill">Expo · React Native</span>
+            <span class="badge-pill orange">4% commission — fair by design</span>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 p-4 portal-card">
-                    <div class="portal-icon"><i class="bi bi-cart3"></i></div>
-                    <h3 class="h5 fw-bold mb-3">🛒 Retail Portal</h3>
-                    <ul class="text-muted list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Dynamic catalog powered by OpenSearch</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Complex product configuration (multi-tier options, price variants)</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Real-time basket sync across devices</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Secure checkout &amp; live order tracking</li>
-                    </ul>
-                </div>
+        <h1 class="hero-title rv" style="--d:.08s">
+            One platform. Two storefronts.<br>
+            <span class="grad">Three runtimes.</span>
+        </h1>
+        <p class="hero-subtitle rv" style="--d:.16s">
+            ΠΑΦΑΜΕ is an enterprise food-ordering ecosystem connecting retail customers,
+            restaurant owners and platform operators — engineered end-to-end by Software First
+            on the newest .NET and React stacks.
+        </p>
+        <div class="hero-actions rv" style="--d:.24s">
+            <a href="https://pafame.gr" target="_blank" rel="noopener noreferrer" class="btn-solid">Open ΠΑΦΑΜΕ live ↗</a>
+            <a href="#architecture" class="btn-ghost">Under the hood ↓</a>
+        </div>
+        <div class="hero-stats rv" style="--d:.32s">
+            <div>
+                <div class="stat-num"><em>4%</em></div>
+                <div class="stat-label">flat commission — no pay-to-win</div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4 portal-card">
-                    <div class="portal-icon"><i class="bi bi-shop"></i></div>
-                    <h3 class="h5 fw-bold mb-3">🏪 Pro Dashboard</h3>
-                    <ul class="text-muted list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Full shop autonomy: availability, branding, verification docs</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Inventory, menu &amp; category management</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Real-time order fulfillment &amp; status updates</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Invoice generation &amp; monthly financial reporting</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Team management with role-based permissions</li>
-                    </ul>
-                </div>
+            <div>
+                <div class="stat-num">6 apps</div>
+                <div class="stat-label">2 web · 2 mobile · API · back office</div>
             </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4 portal-card">
-                    <div class="portal-icon"><i class="bi bi-gear-wide-connected"></i></div>
-                    <h3 class="h5 fw-bold mb-3">⚙️ BackOffice</h3>
-                    <ul class="text-muted list-unstyled">
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Global admin: customers, employees, invoices</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Shop verification &amp; audit workflow</li>
-                        <li class="mb-2"><i class="bi bi-check-circle-fill me-2 pafame-color"></i>Centralized system health &amp; action log monitoring</li>
-                    </ul>
-                </div>
+            <div>
+                <div class="stat-num">Real-time</div>
+                <div class="stat-label">SignalR orders, live dashboards</div>
+            </div>
+            <div>
+                <div class="stat-num">GDPR</div>
+                <div class="stat-label">export, erasure &amp; audit built-in</div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Features Section -->
-<section class="py-5 bg-light" id="features">
+<!-- PORTALS -->
+<section class="sf-section" id="portals">
     <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <div class="section-label">Platform Highlights</div>
-                <h2 class="fw-bold">The "Wow" Factor</h2>
-                <p class="lead text-muted">What sets Pafame apart from generic food ordering solutions</p>
-            </div>
+        <div class="rv">
+            <span class="section-tag">Three tailored experiences</span>
+            <h2 class="section-title">Built for every stakeholder.</h2>
+            <p class="section-sub">Each audience gets a purpose-built product — web and native mobile — on one shared platform core.</p>
         </div>
-        <div class="row g-4">
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-cloud-check"></i></div>
-                    <h3 class="h5 fw-bold">Cloud Native by Default</h3>
-                    <p class="text-muted">.NET Aspire orchestration makes the platform ready for Azure or AWS deployment out of the box, with simplified local development and service discovery.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-cpu-fill"></i></div>
-                    <h3 class="h5 fw-bold">Hyper-Modern .NET 10 Stack</h3>
-                    <p class="text-muted">One of the few real-world platforms leveraging the full potential of .NET 10 — HybridCache, minimal APIs, native AOT readiness, and the latest EF Core performance gains.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-phone"></i></div>
-                    <h3 class="h5 fw-bold">Unified UI: Web + Mobile</h3>
-                    <p class="text-muted">90%+ of UI code is shared between Blazor Server, Blazor WASM, and .NET MAUI Hybrid — delivering native Android, iOS &amp; Desktop apps from a single component library.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-graph-up"></i></div>
-                    <h3 class="h5 fw-bold">Scalable by Design</h3>
-                    <p class="text-muted">Clean Architecture, gRPC inter-service comms, OpenSearch, and Valkey caching ensure the platform scales from a single shop to thousands without architectural rework.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-bell"></i></div>
-                    <h3 class="h5 fw-bold">Real-Time Everything</h3>
-                    <p class="text-muted">SignalR delivers instant order status updates and live notifications to customers and shop owners, backed by Hangfire for reliable async background workflows.</p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card h-100 p-4">
-                    <div class="feature-icon"><i class="bi bi-shield-check"></i></div>
-                    <h3 class="h5 fw-bold">Testing-First Culture</h3>
-                    <p class="text-muted">Unit tests with NSubstitute &amp; Shouldly, real integration tests via Testcontainers, E2E flows with Playwright, and load benchmarks via NBomber — quality is not optional.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Powered By Section -->
-<section class="py-5" id="powered-by">
-    <div class="container">
-        <div class="text-center mb-5">
-            <div class="section-label">Infrastructure &amp; Libraries</div>
-            <h2 class="fw-bold">Powered By</h2>
-            <p class="lead text-muted">The best open-source tools, assembled into one cohesive platform</p>
-        </div>
-
-        <!-- Framework -->
-        <div class="logo-group mb-5">
-            <p class="logo-group-label">Framework &amp; UI</p>
-            <div class="logo-grid">
-                <a class="logo-item" href="https://dotnet.microsoft.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/dotnet/512BD4" alt=".NET" width="44" height="44">
-                    <span>.NET 10</span>
-                </a>
-                <a class="logo-item" href="https://dotnet.microsoft.com/en-us/apps/aspnet/web-apps/blazor" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/blazor/512BD4" alt="Blazor" width="44" height="44">
-                    <span>Blazor</span>
-                </a>
-                <a class="logo-item" href="https://learn.microsoft.com/en-us/dotnet/aspire/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="22" r="20" stroke="#512BD4" stroke-width="2.5" fill="none"/>
-                        <text x="22" y="27" text-anchor="middle" font-size="11" font-weight="bold" fill="#512BD4" font-family="sans-serif">Aspire</text>
-                    </svg>
-                    <span>.NET Aspire</span>
-                </a>
-                <a class="logo-item" href="https://dotnet.microsoft.com/en-us/apps/maui" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/dotnet/7B52AB" alt="MAUI" width="44" height="44">
-                    <span>MAUI Hybrid</span>
-                </a>
-                <a class="logo-item" href="https://mudblazor.com/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M22 4L38 13V31L22 40L6 31V13L22 4Z" stroke="#594AE2" stroke-width="2.5" fill="none"/>
-                        <text x="22" y="27" text-anchor="middle" font-size="9" font-weight="bold" fill="#594AE2" font-family="sans-serif">MUD</text>
-                    </svg>
-                    <span>MudBlazor</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Data -->
-        <div class="logo-group mb-5">
-            <p class="logo-group-label">Data &amp; Search</p>
-            <div class="logo-grid">
-                <a class="logo-item" href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/postgresql/4169E1" alt="PostgreSQL" width="44" height="44">
-                    <span>PostgreSQL</span>
-                </a>
-                <a class="logo-item" href="https://valkey.io/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/redis/FF4438" alt="Valkey" width="44" height="44">
-                    <span>Valkey</span>
-                </a>
-                <a class="logo-item" href="https://opensearch.org/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/opensearch/005EB8" alt="OpenSearch" width="44" height="44">
-                    <span>OpenSearch</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Services -->
-        <div class="logo-group mb-5">
-            <p class="logo-group-label">Services &amp; Auth</p>
-            <div class="logo-grid">
-                <a class="logo-item" href="https://supabase.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/supabase/3ECF8E" alt="Supabase" width="44" height="44">
-                    <span>Supabase</span>
-                </a>
-                <a class="logo-item" href="https://grpc.io/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="4" width="36" height="36" rx="8" fill="#244C5A" opacity="0.12"/>
-                        <path d="M10 22 L34 22" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M28 16 L34 22 L28 28" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                        <path d="M16 16 L10 22 L16 28" stroke="#244C5A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                    <span>gRPC</span>
-                </a>
-                <a class="logo-item" href="https://learn.microsoft.com/en-us/aspnet/core/signalr/introduction" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="30" r="5" fill="#512BD4"/>
-                        <path d="M10 24 Q22 8 34 24" stroke="#512BD4" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-                        <path d="M5 28 Q22 4 39 28" stroke="#512BD4" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.5"/>
-                    </svg>
-                    <span>SignalR</span>
-                </a>
-                <a class="logo-item" href="https://www.hangfire.io/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="22" r="18" stroke="#2C6E49" stroke-width="2.5" fill="none"/>
-                        <path d="M22 12 L22 22 L30 22" stroke="#2C6E49" stroke-width="2.5" stroke-linecap="round"/>
-                        <circle cx="22" cy="22" r="2" fill="#2C6E49"/>
-                    </svg>
-                    <span>Hangfire</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- Observability -->
-        <div class="logo-group mb-5">
-            <p class="logo-group-label">Observability</p>
-            <div class="logo-grid">
-                <a class="logo-item" href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/opentelemetry/425CC7" alt="OpenTelemetry" width="44" height="44">
-                    <span>OpenTelemetry</span>
-                </a>
-                <a class="logo-item" href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/prometheus/E6522C" alt="Prometheus" width="44" height="44">
-                    <span>Prometheus</span>
-                </a>
-                <a class="logo-item" href="https://grafana.com/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/grafana/F46800" alt="Grafana" width="44" height="44">
-                    <span>Grafana</span>
-                </a>
-                <a class="logo-item" href="https://grafana.com/oss/loki/" target="_blank" rel="noopener noreferrer">
-                    <img src="https://cdn.simpleicons.org/loki/F46800" alt="Loki" width="44" height="44" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
-                    <div style="display:none;width:44px;height:44px;align-items:center;justify-content:center;background:#F46800;border-radius:8px;color:white;font-weight:700;font-size:13px;">Loki</div>
-                    <span>Loki</span>
-                </a>
-                <a class="logo-item" href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">
-                   <img src="https://cdn.simpleicons.org/jaeger/66CFE3" alt="Jaeger" width="44" height="44">
-                    <span>Jaeger</span>
-                </a>
-            
-            </div>
-        </div>
-
-        <!-- Testing -->
-        <div class="logo-group">
-            <p class="logo-group-label">Testing &amp; Quality</p>
-            <div class="logo-grid">
-                <a class="logo-item" href="https://playwright.dev/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="22" cy="22" r="18" fill="#2EAD33" opacity="0.12"/>
-                        <circle cx="14" cy="22" r="5" fill="#2EAD33"/>
-                        <circle cx="30" cy="22" r="5" fill="#E5A00D"/>
-                        <circle cx="22" cy="16" r="5" fill="#D65348"/>
-                    </svg>
-                    <span>Playwright</span>
-                </a>
-                <a class="logo-item" href="https://testcontainers.com/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="8" y="14" width="28" height="20" rx="3" stroke="#291A3F" stroke-width="2.5" fill="none"/>
-                        <path d="M14 14 L14 10 M22 14 L22 10 M30 14 L30 10" stroke="#291A3F" stroke-width="2.5" stroke-linecap="round"/>
-                        <path d="M14 24 L18 28 L26 20" stroke="#291A3F" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                    <span>Testcontainers</span>
-                </a>
-                <a class="logo-item" href="https://nbomber.com/" target="_blank" rel="noopener noreferrer">
-                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="4" y="4" width="36" height="36" rx="8" fill="#C0392B" opacity="0.12"/>
-                        <path d="M8 32 L16 14 L22 26 L28 18 L36 32" stroke="#C0392B" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-                    </svg>
-                    <span>NBomber</span>
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Architecture Section -->
-<section class="architecture-section" id="architecture">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-8 mx-auto text-center">
-                <div class="section-label">Design Principles</div>
-                <h2 class="fw-bold">Architectural Excellence</h2>
-                <p class="lead text-muted">Clean Architecture ensures business logic stays decoupled from infrastructure — built to last.</p>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="row g-4">
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-layers me-2 pafame-color"></i>Clean Architecture + DDD</h4>
-                        <p class="text-muted small">Rich Aggregate Roots (Order, Product, Catalog, Customer, Invoice) keep domain logic pure and infrastructure-agnostic.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-arrow-left-right me-2 pafame-color"></i>CQRS with MediatR</h4>
-                        <p class="text-muted small">Complete separation of Commands and Queries. FluentValidation guards all writes; Mapster handles high-performance object mapping.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-lightning me-2 pafame-color"></i>High-Performance Comms</h4>
-                        <p class="text-muted small">gRPC for low-latency internal service messaging (e.g. Basket Service) and SignalR for real-time client updates.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-shield-fill-check me-2 pafame-color"></i>Idempotency Pipeline</h4>
-                        <p class="text-muted small">Robust duplicate-request handling for all critical writes ensures data integrity even under retries or network failures.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-hdd-rack me-2 pafame-color"></i>.NET Aspire Orchestration</h4>
-                        <p class="text-muted small">Service discovery, health checks, and cloud-ready deployment manifests managed declaratively — from local dev to production.</p>
-                    </div>
-                    <div class="col-md-4">
-                        <h4 class="h6 fw-bold"><i class="bi bi-clipboard-data me-2 pafame-color"></i>Full Observability</h4>
-                        <p class="text-muted small">OpenTelemetry, Prometheus, Grafana, Loki, Jaeger, and Seq provide end-to-end traces, metrics, and logs for total system visibility.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Tech Stack Section -->
-<section class="tech-section" id="tech-stack">
-    <div class="container">
-        <div class="row mb-5">
-            <div class="col-lg-8 mx-auto text-center">
-                <div class="section-label">Libraries &amp; Services</div>
-                <h2 class="fw-bold">System Architecture</h2>
-                <p class="lead text-muted">Best-in-class technologies, each chosen for a specific reason</p>
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="row mt-3">
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-front me-2 pafame-color"></i><span class="pafame-color">Frontend &amp; Cross-Platform</span></h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor Server</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Blazor WebAssembly</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>.NET MAUI Hybrid</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>MudBlazor</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-server me-2"></i>Core Framework</h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1 dotnet-color"></i>.NET 10</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>.NET Aspire</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>MediatR (CQRS)</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>FluentValidation</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Mapster</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-database me-2"></i>Data &amp; Caching</h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>PostgreSQL</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>EF Core (Code-First)</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Valkey (HybridCache)</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>OpenSearch</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-arrow-left-right me-2"></i>Communication &amp; Auth</h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>REST API</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>gRPC</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>SignalR</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Hangfire</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Supabase Auth</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-eye me-2"></i>Monitoring &amp; Observability</h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Jaeger</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Prometheus</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Grafana</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Kibana</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Loki</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>OTel Collector</span>
-                        </div>
-                    </div>
-                    <div class="col-md-6 tech-category">
-                        <h4 class="h5 mb-3"><i class="bi bi-check2-all me-2"></i>Testing &amp; Quality</h4>
-                        <div>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>NSubstitute + Shouldly</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Testcontainers</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>Playwright (E2E)</span>
-                            <span class="tech-badge"><i class="bi bi-check2-circle me-1"></i>NBomber (Load)</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Stack Benefits Section -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <div class="row text-center mb-5">
-            <div class="col-lg-8 mx-auto">
-                <div class="section-label">Technical Depth</div>
-                <h2 class="fw-bold">Why This Tech Stack?</h2>
-                <p class="lead text-muted">Every choice was deliberate — here's the reasoning behind the key decisions</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-lightning-charge-fill fs-2 me-3 pafame-color"></i>
-                            <h4 class="card-title mb-0">Blazor + .NET MAUI Hybrid</h4>
-                        </div>
-                        <p class="card-text">A unified C# codebase powers web (Blazor Server &amp; WASM) and native mobile/desktop (MAUI). Over 90% of UI components are shared — one design system, every platform, zero duplication.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-search fs-2 me-3 text-success"></i>
-                            <h4 class="card-title mb-0">OpenSearch &amp; Valkey</h4>
-                        </div>
-                        <p class="card-text">PostgreSQL provides ACID-compliant transactional storage, OpenSearch enables instant full-text catalog search, and Valkey (via .NET HybridCache) layers an intelligent in-memory + distributed cache for sub-millisecond reads.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-clock-history fs-2 me-3 text-primary"></i>
-                            <h4 class="card-title mb-0">Hangfire &amp; SignalR</h4>
-                        </div>
-                        <p class="card-text">Hangfire handles recurring background jobs and async workflows reliably, while SignalR pushes real-time order updates directly to customers and shop owners — no polling, no stale state.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-4">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4">
-                        <div class="d-flex align-items-center mb-3">
-                            <i class="bi bi-eye-fill fs-2 me-3 text-warning"></i>
-                            <h4 class="card-title mb-0">Complete Observability</h4>
-                        </div>
-                        <p class="card-text">OpenTelemetry traces flow through Jaeger, metrics aggregate in Prometheus &amp; Grafana, and logs stream into Loki. Full-stack visibility from a single request to system-wide health.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- CTA Section -->
-<section class="cta-section" id="contact">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h2 class="display-5 fw-bold mb-4">Ready to see what enterprise .NET looks like in production?</h2>
-                <p class="lead mb-5">Get in touch to learn how Pafame's architecture and stack can inform your next project.</p>
-                <a href="mailto:info@softwarefirst.gr" class="btn btn-light btn-lg px-5 py-3 fw-semibold">Contact Us</a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Footer -->
-<footer class="bg-dark text-white py-4">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h5 class="fw-bold">Pafame</h5>
-                <p class="text-muted">Enterprise food ordering &amp; shop management platform powered by .NET 10 and .NET Aspire</p>
-            </div>
-            <div class="col-md-3">
-                <h5>Links</h5>
-                <ul class="list-unstyled">
-                    <li><a href="#" class="text-decoration-none text-muted">Home</a></li>
-                    <li><a href="/" class="text-decoration-none text-muted">Software First</a></li>
+        <div class="portals-grid">
+            <div class="glass-card rv" style="--d:.05s">
+                <div class="card-icon">🛒</div>
+                <h3>Retail storefront</h3>
+                <ul class="portal-list">
+                    <li>OpenSearch-powered catalog &amp; search</li>
+                    <li>Deep product options &amp; price variants</li>
+                    <li>gRPC basket synced across devices</li>
+                    <li>Live order tracking with push updates</li>
+                    <li>SEO-first: prerendered shop &amp; cuisine pages</li>
                 </ul>
+                <span class="portal-runtime">Next.js web + Expo app</span>
             </div>
-            <div class="col-md-3">
-                <h5>Connect</h5>
-                <div class="d-flex gap-3 fs-5">
-                    <a href="#" class="text-muted"><i class="bi bi-twitter"></i></a>
-                    <a href="#" class="text-muted"><i class="bi bi-facebook"></i></a>
-                    <a href="#" class="text-muted"><i class="bi bi-linkedin"></i></a>
-                    <a href="#" class="text-muted"><i class="bi bi-github"></i></a>
+            <div class="glass-card rv" style="--d:.12s">
+                <div class="card-icon">🏪</div>
+                <h3>Pro dashboard</h3>
+                <ul class="portal-list">
+                    <li>Live orders board with sound alerts</li>
+                    <li>Full menu, stock &amp; availability control</li>
+                    <li>Offers, happy hour &amp; campaigns</li>
+                    <li>AI copilot &amp; AI menu import</li>
+                    <li>Invoicing, team roles, ghost kitchens</li>
+                </ul>
+                <span class="portal-runtime">Next.js web + Expo app</span>
+            </div>
+            <div class="glass-card rv" style="--d:.19s">
+                <div class="card-icon">⚙️</div>
+                <h3>Back office</h3>
+                <ul class="portal-list">
+                    <li>Shop verification &amp; audit workflow</li>
+                    <li>Orders, customers &amp; helpdesk tooling</li>
+                    <li>Support impersonation (admin-gated)</li>
+                    <li>System health &amp; action logs</li>
+                </ul>
+                <span class="portal-runtime">Internal admin console</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section class="sf-section" id="architecture" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Under the hood</span>
+            <h2 class="section-title">Clean Architecture, wired for real-time.</h2>
+            <p class="section-sub">CQRS with MediatR, EF Core on PostgreSQL, OpenSearch for instant catalog search, Valkey HybridCache, gRPC for the basket hot-path and SignalR pushing live order state to every client.</p>
+        </div>
+
+        <div class="arch-wrap rv" style="--d:.1s">
+            <svg class="arch-svg" viewBox="0 0 1000 430" role="img" aria-label="ΠΑΦΑΜΕ architecture diagram: web and mobile clients connect to the .NET API, which talks to PostgreSQL, OpenSearch and Valkey, with SignalR pushing real-time updates back">
+                <defs>
+                    <linearGradient id="pulseGrad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0" stop-color="#8a2be2" stop-opacity="0"/>
+                        <stop offset="0.5" stop-color="#b06aff"/>
+                        <stop offset="1" stop-color="#ff751f"/>
+                    </linearGradient>
+                </defs>
+
+                <!-- client nodes -->
+                <g>
+                    <rect class="arch-node" x="30" y="30" width="190" height="64" rx="14"/>
+                    <text class="arch-node-label" x="125" y="58" text-anchor="middle">Retail web</text>
+                    <text class="arch-node-sub" x="125" y="76" text-anchor="middle">Next.js 16 · Vercel</text>
+
+                    <rect class="arch-node" x="30" y="120" width="190" height="64" rx="14"/>
+                    <text class="arch-node-label" x="125" y="148" text-anchor="middle">Pro web</text>
+                    <text class="arch-node-sub" x="125" y="166" text-anchor="middle">Next.js 16 · Vercel</text>
+
+                    <rect class="arch-node" x="30" y="210" width="190" height="64" rx="14"/>
+                    <text class="arch-node-label" x="125" y="238" text-anchor="middle">Mobile apps ×2</text>
+                    <text class="arch-node-sub" x="125" y="256" text-anchor="middle">Expo · React Native</text>
+
+                    <rect class="arch-node" x="30" y="300" width="190" height="64" rx="14"/>
+                    <text class="arch-node-label" x="125" y="328" text-anchor="middle">Back office</text>
+                    <text class="arch-node-sub" x="125" y="346" text-anchor="middle">Admin console</text>
+                </g>
+
+                <!-- API node -->
+                <rect class="arch-node" x="405" y="150" width="200" height="110" rx="16" style="stroke: rgba(138,43,226,0.55); fill: rgba(138,43,226,0.10);"/>
+                <text class="arch-node-label" x="505" y="192" text-anchor="middle">ΠΑΦΑΜΕ API</text>
+                <text class="arch-node-sub" x="505" y="212" text-anchor="middle">.NET 10 · Clean Architecture</text>
+                <text class="arch-node-sub" x="505" y="228" text-anchor="middle">CQRS · gRPC · SignalR · Hangfire</text>
+
+                <!-- data nodes -->
+                <g>
+                    <rect class="arch-node" x="790" y="55" width="180" height="60" rx="14"/>
+                    <text class="arch-node-label" x="880" y="81" text-anchor="middle">PostgreSQL</text>
+                    <text class="arch-node-sub" x="880" y="99" text-anchor="middle">source of truth</text>
+
+                    <rect class="arch-node" x="790" y="145" width="180" height="60" rx="14"/>
+                    <text class="arch-node-label" x="880" y="171" text-anchor="middle">OpenSearch</text>
+                    <text class="arch-node-sub" x="880" y="189" text-anchor="middle">catalog &amp; discovery</text>
+
+                    <rect class="arch-node" x="790" y="235" width="180" height="60" rx="14"/>
+                    <text class="arch-node-label" x="880" y="261" text-anchor="middle">Valkey</text>
+                    <text class="arch-node-sub" x="880" y="279" text-anchor="middle">HybridCache · basket</text>
+
+                    <rect class="arch-node" x="790" y="325" width="180" height="60" rx="14"/>
+                    <text class="arch-node-label" x="880" y="351" text-anchor="middle">Supabase Auth</text>
+                    <text class="arch-node-sub" x="880" y="369" text-anchor="middle">identity &amp; JWT</text>
+                </g>
+
+                <!-- wires: clients → API -->
+                <path class="arch-wire" id="w1" d="M 220 62 C 330 62, 330 175, 405 185"/>
+                <path class="arch-wire" id="w2" d="M 220 152 C 320 152, 320 195, 405 198"/>
+                <path class="arch-wire" id="w3" d="M 220 242 C 320 242, 320 215, 405 215"/>
+                <path class="arch-wire" id="w4" d="M 220 332 C 330 332, 330 240, 405 232"/>
+                <!-- wires: API → data -->
+                <path class="arch-wire" id="w5" d="M 605 185 C 700 185, 700 85, 790 85"/>
+                <path class="arch-wire" id="w6" d="M 605 200 C 700 200, 700 175, 790 175"/>
+                <path class="arch-wire" id="w7" d="M 605 220 C 700 220, 700 265, 790 265"/>
+                <path class="arch-wire" id="w8" d="M 605 235 C 700 235, 700 355, 790 355"/>
+
+                <!-- traveling pulses (SMIL; hidden under reduced motion) -->
+                <g class="arch-pulse">
+                    <circle r="4" fill="#b06aff"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0s"><mpath href="#w1"/></animateMotion></circle>
+                    <circle r="4" fill="#b06aff"><animateMotion dur="2.8s" repeatCount="indefinite" begin="0.7s"><mpath href="#w2"/></animateMotion></circle>
+                    <circle r="4" fill="#b06aff"><animateMotion dur="2.8s" repeatCount="indefinite" begin="1.4s"><mpath href="#w3"/></animateMotion></circle>
+                    <circle r="4" fill="#b06aff"><animateMotion dur="2.8s" repeatCount="indefinite" begin="2.1s"><mpath href="#w4"/></animateMotion></circle>
+                    <circle r="4" fill="#ff9c5b"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.3s"><mpath href="#w5"/></animateMotion></circle>
+                    <circle r="4" fill="#ff9c5b"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.9s"><mpath href="#w6"/></animateMotion></circle>
+                    <circle r="4" fill="#ff9c5b"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.5s"><mpath href="#w7"/></animateMotion></circle>
+                    <circle r="4" fill="#ff9c5b"><animateMotion dur="2.4s" repeatCount="indefinite" begin="2.1s"><mpath href="#w8"/></animateMotion></circle>
+                    <!-- SignalR return pulse -->
+                    <circle r="3.4" fill="#22e584"><animateMotion dur="3.2s" repeatCount="indefinite" begin="1s" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w2"/></animateMotion></circle>
+                    <circle r="3.4" fill="#22e584"><animateMotion dur="3.2s" repeatCount="indefinite" begin="2.4s" keyPoints="1;0" keyTimes="0;1" calcMode="linear"><mpath href="#w3"/></animateMotion></circle>
+                </g>
+            </svg>
+            <p class="arch-legend">
+                <span style="color:#b06aff">●</span> requests &nbsp;·&nbsp;
+                <span style="color:#ff9c5b">●</span> data access &nbsp;·&nbsp;
+                <span style="color:#22e584">●</span> SignalR real-time push
+            </p>
+        </div>
+
+        <div class="features-grid" style="margin-top: 2.6rem;">
+            <div class="glass-card rv"><h3>🧱 Domain-driven core</h3><p>Rich aggregates — Order, Catalog, Shop, Invoice — keep business rules pure and infrastructure swappable.</p></div>
+            <div class="glass-card rv" style="--d:.07s"><h3>🛡️ Idempotency pipeline</h3><p>Client command IDs and optimistic concurrency (xmin tokens) make critical writes safe under retries.</p></div>
+            <div class="glass-card rv" style="--d:.14s"><h3>📡 Full observability</h3><p>OpenTelemetry traces, Prometheus metrics, Loki logs, Jaeger — every request visible end-to-end.</p></div>
+            <div class="glass-card rv" style="--d:.21s"><h3>🧪 Testing-first culture</h3><p>Unit, Testcontainers integration, Playwright E2E and NBomber load suites gate every release.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+<section class="sf-section" id="features">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Platform highlights</span>
+            <h2 class="section-title">The parts that make it different.</h2>
+        </div>
+        <div class="features-grid">
+            <div class="glass-card rv"><div class="card-icon">⚖️</div><h3>Fair ranking</h3><p>Visibility is earned, never bought. Smaller shops get discovery boosts — no pay-to-win placement.</p></div>
+            <div class="glass-card rv" style="--d:.06s"><div class="card-icon">🏷️</div><h3>Offers engine</h3><p>Four offer types plus happy-hour campaigns, evaluated at pricing time with strict stacking rules.</p></div>
+            <div class="glass-card rv" style="--d:.12s"><div class="card-icon">📦</div><h3>Live stock</h3><p>Durable stock authority with hard rejection on sell-outs — no ghost orders, no disappointed customers.</p></div>
+            <div class="glass-card rv" style="--d:.18s"><div class="card-icon">🤖</div><h3>AI everywhere it helps</h3><p>Claude-powered menu import from any URL and a restaurant copilot for owners — with budget caps.</p></div>
+            <div class="glass-card rv" style="--d:.24s"><div class="card-icon">🧾</div><h3>Automated invoicing</h3><p>Monthly auto-issue, overdue dunning, Stripe payments and re-verification on settle.</p></div>
+            <div class="glass-card rv" style="--d:.30s"><div class="card-icon">👻</div><h3>Ghost kitchens</h3><p>Virtual brands on one account with shared verification, section mirroring and independent menus.</p></div>
+            <div class="glass-card rv" style="--d:.36s"><div class="card-icon">🔔</div><h3>Smart notifications</h3><p>Push via OneSignal, per-shop muting, delivery-aware statuses and metered SMS campaigns.</p></div>
+            <div class="glass-card rv" style="--d:.42s"><div class="card-icon">🔐</div><h3>GDPR native</h3><p>Data export, verified erasure, retention jobs and an admin audit log — compliance as a feature.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- POWERED BY: THE CRACKTRO -->
+<section class="sf-section" id="powered-by" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv" style="text-align:center;">
+            <span class="section-tag">Infrastructure &amp; libraries</span>
+            <h2 class="section-title">Powered by — the cracktro.</h2>
+            <p class="section-sub" style="margin-inline:auto;">
+                A 1990s Amiga-demo tribute, handcoded on a single &lt;canvas&gt;: copperbars,
+                a parallax starfield and a sine scroller. Below it, the real production stack.
+            </p>
+        </div>
+
+        <div class="ts-panel rv" style="--d:.1s">
+            <div class="ts-titlebar">
+                <span class="ts-dot ts-dot--r"></span>
+                <span class="ts-dot ts-dot--y"></span>
+                <span class="ts-dot ts-dot--g"></span>
+                <span class="ts-titlebar__label">PAFAME.INTRO&nbsp;/&nbsp;2026&nbsp;/&nbsp;RELEASE 2 — NOW SHOWING AT SOFTWAREFIRST.GR</span>
+            </div>
+            <div class="ts-screen">
+                <canvas id="cracktro" class="ts-canvas"></canvas>
+                <div class="ts-scanlines" aria-hidden="true"></div>
+                <div class="ts-vignette" aria-hidden="true"></div>
+                <div class="ts-headline" aria-hidden="true">
+                    <span class="ts-headline__chrome">POWERED BY</span>
                 </div>
             </div>
         </div>
-        <hr class="my-4 bg-secondary">
-        <div class="row">
-            <div class="col text-center text-muted">
-                <small>&copy; 2026 Software First. All rights reserved.</small>
-            </div>
+
+        <div class="ts-groups" id="ts-groups"><!-- chips injected by script --></div>
+
+        <p class="ts-footnote">
+            Made with too much coffee in Greece. No hidden fees, no dark patterns —
+            just a fair marketplace. <span class="ts-blink">_</span>
+        </p>
+    </div>
+</section>
+
+<!-- GLOBE -->
+<section class="sf-section globe-section" id="greece">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Reach</span>
+            <h2 class="section-title">Built in Greece, engineered for anywhere.</h2>
+            <p class="section-sub" style="margin-inline:auto;">
+                ΠΑΦΑΜΕ serves the Greek market today — on infrastructure that deploys to any region tomorrow.
+            </p>
         </div>
+        <div class="globe-shell rv" style="--d:.12s">
+            <canvas id="globe" width="560" height="560" aria-label="Rotating dotted globe with Greece highlighted"></canvas>
+            <p class="globe-caption"><b>●</b> Athens, Greece — home base &amp; production region (EU)</p>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="sf-section" style="padding-top: 1rem;">
+    <div class="container">
+        <div class="cta-band rv">
+            <h2 class="section-title" style="margin-bottom: 0.6rem;">Want a platform like this?</h2>
+            <p style="color: var(--text-muted); max-width: 500px; margin: 0 auto 2rem;">
+                ΠΑΦΑΜΕ is what "software first" looks like in production. Let's talk about
+                what it would look like for your business.
+            </p>
+            <a href="mailto:info@softwarefirst.gr" class="btn-solid">info@softwarefirst.gr</a>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">ΠΑΦΑΜΕ · Software First</div>
+        <a href="index.html" class="footer-link">← softwarefirst.gr</a>
+        <a href="https://pafame.gr" target="_blank" rel="noopener noreferrer" class="footer-link">pafame.gr ↗</a>
+        <p class="footer-copy">© 2026 Software First. All rights reserved.</p>
     </div>
 </footer>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+<script>
+(() => {
+    "use strict";
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ── Nav / reveals / card specular (same primitives as index) ── */
+    document.getElementById("nav-toggle").addEventListener("click", () =>
+        document.getElementById("site-nav").classList.toggle("open"));
+
+    const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+    document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+    document.querySelectorAll(".glass-card").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+            card.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }, { passive: true });
+    });
+
+    /* ════════════════════════════════════════════════════════════
+       CRACKTRO — ported from the ΠΑΦΑΜΕ retail app (tech-scene.tsx).
+       Copperbars + starfield + sine scroller on one 2D canvas.
+       ════════════════════════════════════════════════════════════ */
+    const SCROLL_TEXT =
+        "  ✦ ✦ ✦   WELCOME TO THE PAFAME CRACKTRO — 100% HANDCODED, ZERO VENTURE CAPITAL   ✦   " +
+        "ONE PLATFORM, TWO STOREFRONTS, THREE RUNTIMES ... .NET 10 ON THE BACKEND, REACT & EXPO UP FRONT ... " +
+        "SEARCH BY OPENSEARCH, CACHED BY VALKEY, TRUTH IN POSTGRES ... FULLY TRACED, LOAD-TESTED AND E2E-COVERED ... " +
+        "REAL-TIME ORDERS OVER SIGNALR, BACKGROUND JOBS ON HANGFIRE, PUSH VIA ONESIGNAL ... " +
+        "JUST 4% COMMISSION — BUILT TO BE FAIR TO EVERY LOCAL SHOP ... " +
+        "GREETINGS TO EVERY RESTAURANT, CAFE AND PSITOPOLEIO OUT THERE ... AND TO YOU, READING THE SOURCE ;) ... " +
+        "WRAP AROUND >>>          ";
+
+    const cracktro = document.getElementById("cracktro");
+    const cctx = cracktro.getContext("2d");
+    if (cctx) {
+        let W = 0, H = 0, dpr = 1;
+        const resize = () => {
+            dpr = Math.min(devicePixelRatio || 1, 2);
+            const rect = cracktro.getBoundingClientRect();
+            W = rect.width; H = rect.height;
+            cracktro.width = Math.round(W * dpr);
+            cracktro.height = Math.round(H * dpr);
+            cctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        };
+        resize();
+        addEventListener("resize", resize);
+
+        const stars = Array.from({ length: 90 }, () => ({
+            x: Math.random() * 2 - 1, y: Math.random() * 2 - 1, z: Math.random(),
+        }));
+        const copperColor = (t) => {
+            const hue = (275 + Math.sin(t * Math.PI * 2) * 85 + t * 60) % 360;
+            return `hsl(${hue}, 90%, 60%)`;
+        };
+
+        const draw = (time) => {
+            const t = time * 0.001;
+            cctx.clearRect(0, 0, W, H);
+            cctx.fillStyle = "#080312";
+            cctx.fillRect(0, 0, W, H);
+
+            // copperbars
+            const barCount = 26, bandH = H / barCount;
+            for (let i = 0; i < barCount; i++) {
+                const phase = i / barCount;
+                const wob = Math.sin(t * 1.2 + i * 0.5) * 0.5 + 0.5;
+                const y = i * bandH;
+                const grad = cctx.createLinearGradient(0, y, 0, y + bandH);
+                const c = copperColor((phase + t * 0.08) % 1);
+                grad.addColorStop(0, "rgba(0,0,0,0)");
+                grad.addColorStop(0.5, c);
+                grad.addColorStop(1, "rgba(0,0,0,0)");
+                cctx.globalAlpha = 0.14 + wob * 0.18;
+                cctx.fillStyle = grad;
+                cctx.fillRect(0, y, W, bandH);
+            }
+            cctx.globalAlpha = 1;
+
+            // starfield
+            const cx = W / 2, cy = H / 2;
+            for (const s of stars) {
+                if (!reduced) {
+                    s.z -= 0.006;
+                    if (s.z <= 0.02) { s.x = Math.random() * 2 - 1; s.y = Math.random() * 2 - 1; s.z = 1; }
+                }
+                const sx = cx + (s.x / s.z) * cx, sy = cy + (s.y / s.z) * cy;
+                if (sx < 0 || sx > W || sy < 0 || sy > H) continue;
+                const size = (1 - s.z) * 2.4;
+                cctx.globalAlpha = 1 - s.z;
+                cctx.fillStyle = "#ffffff";
+                cctx.fillRect(sx, sy, size, size);
+            }
+            cctx.globalAlpha = 1;
+
+            // sine scroller
+            const fontSize = Math.max(18, Math.min(34, W * 0.045));
+            cctx.font = `900 ${fontSize}px ui-monospace, "SFMono-Regular", Menlo, monospace`;
+            cctx.textBaseline = "middle";
+            const charW = fontSize * 0.62;
+            const total = SCROLL_TEXT.length * charW;
+            const baseY = H - fontSize * 1.4;
+            const speed = reduced ? 0 : 150;
+            const scroll = (t * speed) % total;
+            let x = W - scroll;
+            for (let i = 0; i < SCROLL_TEXT.length; i++) {
+                const ch = SCROLL_TEXT[i];
+                if (x > -charW && x < W + charW) {
+                    const yo = Math.sin(t * 3 + i * 0.32) * fontSize * 0.5;
+                    const hue = (t * 60 + i * 8) % 360;
+                    cctx.fillStyle = `hsl(${hue}, 95%, 65%)`;
+                    cctx.shadowColor = `hsl(${hue}, 95%, 55%)`;
+                    cctx.shadowBlur = 14;
+                    cctx.fillText(ch, x, baseY + yo);
+                }
+                x += charW;
+                if (i === SCROLL_TEXT.length - 1 && x < W) x = W - scroll + total;
+            }
+            cctx.shadowBlur = 0;
+        };
+
+        if (reduced) {
+            draw(0);
+        } else {
+            let visible = true;
+            new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(cracktro);
+            const loop = (time) => { if (visible) draw(time); requestAnimationFrame(loop); };
+            requestAnimationFrame(loop);
+        }
+    }
+
+    /* ── Stack chips (data carried over from the retail app) ── */
+    const GROUPS = [
+        { label: "Frontend & Apps", items: [
+            { name: "Next.js", url: "https://nextjs.org/", color: "#ffffff", slug: "nextdotjs" },
+            { name: "React", url: "https://react.dev/", color: "#61DAFB", slug: "react" },
+            { name: "Expo", url: "https://expo.dev/", color: "#ffffff", slug: "expo" },
+            { name: "React Native", url: "https://reactnative.dev/", color: "#61DAFB", mono: "RN" },
+            { name: "TypeScript", url: "https://www.typescriptlang.org/", color: "#3178C6", slug: "typescript" },
+            { name: "Tailwind CSS", url: "https://tailwindcss.com/", color: "#38BDF8", slug: "tailwindcss" },
+            { name: "Radix UI", url: "https://www.radix-ui.com/", color: "#ffffff", slug: "radixui" },
+            { name: "Turborepo", url: "https://turbo.build/repo", color: "#EF4444", slug: "turborepo" },
+            { name: "pnpm", url: "https://pnpm.io/", color: "#F69220", slug: "pnpm" },
+            { name: "Biome", url: "https://biomejs.dev/", color: "#60A5FA", slug: "biome" },
+        ]},
+        { label: "Backend & APIs", items: [
+            { name: ".NET 10", url: "https://dotnet.microsoft.com/", color: "#A97BFF", slug: "dotnet" },
+            { name: "C#", url: "https://learn.microsoft.com/dotnet/csharp/", color: "#A97BFF", mono: "C#" },
+            { name: ".NET Aspire", url: "https://learn.microsoft.com/dotnet/aspire/", color: "#A97BFF", mono: "Aspire" },
+            { name: "gRPC", url: "https://grpc.io/", color: "#4FD6C8", mono: "gRPC" },
+            { name: "SignalR", url: "https://learn.microsoft.com/aspnet/core/signalr/introduction", color: "#A97BFF", mono: "SR" },
+            { name: "Hangfire", url: "https://www.hangfire.io/", color: "#4ADE80", mono: "HF" },
+        ]},
+        { label: "Data & Search", items: [
+            { name: "PostgreSQL", url: "https://www.postgresql.org/", color: "#4F9EED", slug: "postgresql" },
+            { name: "Valkey", url: "https://valkey.io/", color: "#FF6B5E", mono: "VK" },
+            { name: "OpenSearch", url: "https://opensearch.org/", color: "#5AA9F0", slug: "opensearch" },
+        ]},
+        { label: "Cloud & Services", items: [
+            { name: "Supabase", url: "https://supabase.com/", color: "#3ECF8E", slug: "supabase" },
+            { name: "Vercel", url: "https://vercel.com/", color: "#ffffff", slug: "vercel" },
+            { name: "DigitalOcean", url: "https://www.digitalocean.com/", color: "#3B82F6", slug: "digitalocean" },
+            { name: "Stripe", url: "https://stripe.com/", color: "#A78BFA", slug: "stripe" },
+            { name: "OneSignal", url: "https://onesignal.com/", color: "#F87171", mono: "OS" },
+            { name: "Google Maps", url: "https://developers.google.com/maps", color: "#4ADE80", slug: "googlemaps" },
+        ]},
+        { label: "Observability", items: [
+            { name: "OpenTelemetry", url: "https://opentelemetry.io/", color: "#7A93FF", slug: "opentelemetry" },
+            { name: "Prometheus", url: "https://prometheus.io/", color: "#FF7A45", slug: "prometheus" },
+            { name: "Grafana", url: "https://grafana.com/", color: "#F98A2B", slug: "grafana" },
+            { name: "Loki", url: "https://grafana.com/oss/loki/", color: "#F98A2B", mono: "Loki" },
+            { name: "Jaeger", url: "https://www.jaegertracing.io/", color: "#7CDCEE", slug: "jaeger" },
+        ]},
+        { label: "Testing & Quality", items: [
+            { name: "Playwright", url: "https://playwright.dev/", color: "#4ADE80", mono: "PW" },
+            { name: "Testcontainers", url: "https://testcontainers.com/", color: "#C4B5FD", mono: "TC" },
+            { name: "NBomber", url: "https://nbomber.com/", color: "#F87171", mono: "NB" },
+        ]},
+    ];
+
+    const groupsRoot = document.getElementById("ts-groups");
+    for (const group of GROUPS) {
+        const g = document.createElement("div");
+        g.className = "ts-group";
+        const label = document.createElement("p");
+        label.className = "ts-group__label";
+        label.textContent = group.label;
+        g.appendChild(label);
+        const grid = document.createElement("div");
+        grid.className = "ts-grid";
+        for (const item of group.items) {
+            const a = document.createElement("a");
+            a.className = "ts-chip";
+            a.href = item.url;
+            a.target = "_blank";
+            a.rel = "noopener noreferrer";
+            a.style.setProperty("--glow", item.color);
+            if (item.slug) {
+                const img = document.createElement("img");
+                img.className = "ts-chip__img";
+                img.src = `https://cdn.simpleicons.org/${item.slug}/${item.color.replace("#", "")}`;
+                img.alt = item.name;
+                img.width = 34; img.height = 34;
+                img.loading = "lazy";
+                a.appendChild(img);
+            } else {
+                const mono = document.createElement("span");
+                mono.className = "ts-chip__mono";
+                mono.textContent = item.mono;
+                a.appendChild(mono);
+            }
+            const name = document.createElement("span");
+            name.className = "ts-chip__name";
+            name.textContent = item.name;
+            a.appendChild(name);
+            grid.appendChild(a);
+        }
+        g.appendChild(grid);
+        groupsRoot.appendChild(g);
+    }
+
+    /* ════════════════════════════════════════════════════════════
+       DOTTED GLOBE — hand-rolled canvas: fibonacci-lattice sphere,
+       slow Y rotation, Athens marker with glow + pulse ring.
+       ════════════════════════════════════════════════════════════ */
+    const globe = document.getElementById("globe");
+    const gctx = globe.getContext("2d");
+    if (gctx) {
+        const SIZE = 560, R = 215, CX = SIZE / 2, CY = SIZE / 2;
+        const gdpr = Math.min(devicePixelRatio || 1, 2);
+        globe.width = SIZE * gdpr; globe.height = SIZE * gdpr;
+        gctx.setTransform(gdpr, 0, 0, gdpr, 0, 0);
+
+        // fibonacci sphere: even dot coverage, no pole clumping
+        const DOTS = 900;
+        const pts = [];
+        const golden = Math.PI * (3 - Math.sqrt(5));
+        for (let i = 0; i < DOTS; i++) {
+            const y = 1 - (i / (DOTS - 1)) * 2;
+            const rad = Math.sqrt(1 - y * y);
+            const th = golden * i;
+            pts.push({ x: Math.cos(th) * rad, y, z: Math.sin(th) * rad });
+        }
+        // Athens: lat 37.98°N, lon 23.73°E
+        const lat = 37.98 * Math.PI / 180, lon = 23.73 * Math.PI / 180;
+        const athens = { x: Math.cos(lat) * Math.cos(lon), y: Math.sin(lat), z: Math.cos(lat) * Math.sin(lon) };
+
+        const drawGlobe = (time) => {
+            const t = time * 0.0001;
+            gctx.clearRect(0, 0, SIZE, SIZE);
+
+            // atmosphere
+            const atmo = gctx.createRadialGradient(CX, CY, R * 0.6, CX, CY, R * 1.25);
+            atmo.addColorStop(0, "rgba(138,43,226,0)");
+            atmo.addColorStop(0.8, "rgba(138,43,226,0.10)");
+            atmo.addColorStop(1, "rgba(138,43,226,0)");
+            gctx.fillStyle = atmo;
+            gctx.fillRect(0, 0, SIZE, SIZE);
+
+            const rot = reduced ? 0.5 : t;
+            const sin = Math.sin(rot), cos = Math.cos(rot);
+            const project = (p) => {
+                const x = p.x * cos - p.z * sin;
+                const z = p.x * sin + p.z * cos;
+                return { sx: CX + x * R, sy: CY - p.y * R, z };
+            };
+
+            for (const p of pts) {
+                const { sx, sy, z } = project(p);
+                const alpha = z > 0 ? 0.55 + z * 0.4 : 0.06;
+                const size = z > 0 ? 1.5 + z * 1.1 : 1;
+                gctx.globalAlpha = alpha;
+                gctx.fillStyle = z > 0 ? "#b8a6e8" : "#4a3d6e";
+                gctx.beginPath();
+                gctx.arc(sx, sy, size, 0, Math.PI * 2);
+                gctx.fill();
+            }
+            gctx.globalAlpha = 1;
+
+            // Athens marker (only when on the visible hemisphere)
+            const a = project(athens);
+            if (a.z > -0.15) {
+                const pulse = reduced ? 0.5 : (Math.sin(time * 0.003) + 1) / 2;
+                gctx.globalAlpha = Math.max(0.25, a.z + 0.4);
+                // pulse ring
+                gctx.strokeStyle = "rgba(255,117,31,0.7)";
+                gctx.lineWidth = 1.6;
+                gctx.beginPath();
+                gctx.arc(a.sx, a.sy, 7 + pulse * 9, 0, Math.PI * 2);
+                gctx.stroke();
+                // glow core
+                const glowGrad = gctx.createRadialGradient(a.sx, a.sy, 0, a.sx, a.sy, 16);
+                glowGrad.addColorStop(0, "rgba(255,117,31,0.95)");
+                glowGrad.addColorStop(1, "rgba(255,117,31,0)");
+                gctx.fillStyle = glowGrad;
+                gctx.beginPath();
+                gctx.arc(a.sx, a.sy, 16, 0, Math.PI * 2);
+                gctx.fill();
+                gctx.fillStyle = "#fff";
+                gctx.beginPath();
+                gctx.arc(a.sx, a.sy, 3, 0, Math.PI * 2);
+                gctx.fill();
+                gctx.globalAlpha = 1;
+            }
+        };
+
+        if (reduced) {
+            drawGlobe(16000);
+        } else {
+            let visible = false;
+            new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(globe);
+            const loop = (time) => { if (visible) drawGlobe(time); requestAnimationFrame(loop); };
+            requestAnimationFrame(loop);
+        }
+    }
+})();
+</script>
 </body>
 </html>

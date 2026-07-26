@@ -1,6 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PPT9YKKQF"></script>
     <script>
@@ -12,7 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="ΠΑΦΑΜΕ — enterprise food-ordering platform built by Software First. .NET 10, Next.js, Expo, real-time everything, 4% commission.">
-    <meta name="theme-color" content="#0a0512">
+    <meta name="theme-color" content="#faf8fd" id="theme-color-meta">
     <link rel="icon" href="assets/images/logo/logo-colored.png">
     <title>ΠΑΦΑΜΕ — Enterprise Food Ordering Platform · Software First</title>
 
@@ -99,6 +108,21 @@
         }
         .nav-cta:hover { box-shadow: 0 0 40px rgba(138,43,226,0.6); }
         .nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; flex: 0 0 34px;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.95rem; line-height: 1;
+            color: var(--text);
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background .25s, border-color .25s, transform .25s;
+        }
+        .theme-toggle:hover { border-color: rgba(138,43,226,0.55); transform: translateY(-1px); }
+        @media (prefers-reduced-motion: reduce) { .theme-toggle:hover { transform: none; } }
         @media (max-width: 860px) {
             .nav-links, .nav-cta { display: none; }
             .nav-toggle { display: block; }
@@ -354,6 +378,80 @@
         .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
         .footer-link { text-decoration: none; transition: color .2s; }
         .footer-link:hover { color: var(--text); }
+
+        /* ════════════════════════════════════════════════════════════════
+           LIGHT THEME — the default. Everything above is the dark edition;
+           this block re-tints it. The cracktro panel and the tech chips
+           stay dark on purpose: they're a CRT, and the vendor logos are
+           fetched pre-coloured for a dark backdrop.
+           ════════════════════════════════════════════════════════════════ */
+        :root[data-theme="light"] {
+            --bg: #faf8fd;
+            --bg-2: #f2eefa;
+            --text: #1a1030;
+            --text-muted: #5f5679;
+            --purple: #7c22ce;
+            --purple-soft: #7c3aed;
+            --orange: #d1490b;
+            --glass: rgba(255,255,255,0.72);
+            --stroke: rgba(26,16,48,0.10);
+        }
+        :root[data-theme="light"] ::selection { background: rgba(138,43,226,0.22); }
+        :root[data-theme="light"] .grain { opacity: 0.018; }
+        :root[data-theme="light"] .site-nav {
+            background: rgba(255,255,255,0.72);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 30px rgba(26,16,48,0.08);
+        }
+        :root[data-theme="light"] .site-nav.open .nav-links { background: rgba(255,255,255,0.96); }
+        :root[data-theme="light"] .hero-bg {
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(138,43,226,0.14), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(255,117,31,0.10), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(91,26,160,0.12), transparent 65%);
+        }
+        :root[data-theme="light"] .hero-grid-lines {
+            background-image:
+                linear-gradient(rgba(26,16,48,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(26,16,48,0.05) 1px, transparent 1px);
+        }
+        :root[data-theme="light"] .badge-pill {
+            color: #5b21b6;
+            background: rgba(138,43,226,0.08);
+            border-color: rgba(138,43,226,0.24);
+        }
+        :root[data-theme="light"] .badge-pill.orange {
+            color: #b8420a;
+            background: rgba(255,117,31,0.10);
+            border-color: rgba(255,117,31,0.38);
+        }
+        :root[data-theme="light"] .btn-ghost { background: rgba(255,255,255,0.85); box-shadow: 0 6px 18px rgba(26,16,48,0.06); }
+        :root[data-theme="light"] .glass-card {
+            box-shadow: 0 8px 26px rgba(26,16,48,0.06), inset 0 1px 0 #fff;
+        }
+        :root[data-theme="light"] .glass-card::before {
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(124,58,237,0.10), transparent 45%);
+        }
+        :root[data-theme="light"] .card-icon {
+            background: linear-gradient(135deg, rgba(138,43,226,0.16), rgba(255,117,31,0.10));
+            border-color: rgba(138,43,226,0.28);
+        }
+        :root[data-theme="light"] .portal-runtime {
+            color: #5b21b6;
+            background: rgba(138,43,226,0.08);
+            border-color: rgba(138,43,226,0.25);
+        }
+        :root[data-theme="light"] .arch-node { fill: rgba(26,16,48,0.04); stroke: rgba(26,16,48,0.14); }
+        :root[data-theme="light"] .arch-node-label { fill: #1a1030; }
+        :root[data-theme="light"] .arch-node-sub { fill: #5f5679; }
+        :root[data-theme="light"] .arch-wire { stroke: rgba(26,16,48,0.16); }
+        :root[data-theme="light"] .ts-group__label,
+        :root[data-theme="light"] .ts-footnote { color: var(--text-muted); }
+        :root[data-theme="light"] .cta-band {
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(138,43,226,0.14), transparent 65%),
+                rgba(255,255,255,0.75);
+            box-shadow: 0 12px 40px rgba(26,16,48,0.06);
+        }
     </style>
 </head>
 <body>
@@ -370,8 +468,11 @@
         <li><a href="#powered-by">Powered by</a></li>
         <li><a href="#greece">Reach</a></li>
     </ul>
-    <a href="https://pafame.gr" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit pafame.gr ↗</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        <a href="https://pafame.gr" target="_blank" rel="noopener noreferrer" class="nav-cta">Visit pafame.gr ↗</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
 </header>
 
 <!-- HERO -->
@@ -676,6 +777,34 @@
     "use strict";
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    /* ── Theme (light by default, shared with the main site) ────── */
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    // Set by the globe below so a theme flip repaints it under reduced motion.
+    let repaintGlobe = () => {};
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#faf8fd" : "#0a0512";
+        repaintGlobe();
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+
     /* ── Nav / reveals / card specular (same primitives as index) ── */
     document.getElementById("nav-toggle").addEventListener("click", () =>
         document.getElementById("site-nav").classList.toggle("open"));
@@ -922,6 +1051,11 @@
 
         const drawGlobe = (time) => {
             const t = time * 0.0001;
+            const light = isLight();
+            // Dot colours flip with the theme so the sphere reads on either backdrop.
+            const front = light ? "#6d28d9" : "#b8a6e8";
+            const back = light ? "#c7b8e6" : "#4a3d6e";
+            const marker = light ? "#2a0a45" : "#fff";
             gctx.clearRect(0, 0, SIZE, SIZE);
 
             // atmosphere
@@ -945,7 +1079,7 @@
                 const alpha = z > 0 ? 0.55 + z * 0.4 : 0.06;
                 const size = z > 0 ? 1.5 + z * 1.1 : 1;
                 gctx.globalAlpha = alpha;
-                gctx.fillStyle = z > 0 ? "#b8a6e8" : "#4a3d6e";
+                gctx.fillStyle = z > 0 ? front : back;
                 gctx.beginPath();
                 gctx.arc(sx, sy, size, 0, Math.PI * 2);
                 gctx.fill();
@@ -971,7 +1105,7 @@
                 gctx.beginPath();
                 gctx.arc(a.sx, a.sy, 16, 0, Math.PI * 2);
                 gctx.fill();
-                gctx.fillStyle = "#fff";
+                gctx.fillStyle = marker;
                 gctx.beginPath();
                 gctx.arc(a.sx, a.sy, 3, 0, Math.PI * 2);
                 gctx.fill();
@@ -981,6 +1115,7 @@
 
         if (reduced) {
             drawGlobe(16000);
+            repaintGlobe = () => drawGlobe(16000);
         } else {
             let visible = false;
             new IntersectionObserver(([e]) => { visible = e.isIntersecting; }).observe(globe);

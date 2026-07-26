@@ -1,6 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PPT9YKKQF"></script>
     <script>
@@ -12,7 +21,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Software First — custom software built for performance, scale, and reliability. From the first line of code to production.">
-    <meta name="theme-color" content="#07070b">
+    <meta name="theme-color" content="#f6f7fb" id="theme-color-meta">
     <link rel="icon" href="assets/images/logo/logo-colored.png">
     <title>Software First — We build software that scales</title>
 
@@ -132,6 +141,21 @@
         }
         .nav-cta:hover { box-shadow: 0 0 40px rgba(108,99,255,0.55); }
         .nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; flex: 0 0 34px;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.95rem; line-height: 1;
+            color: var(--text);
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background .25s, border-color .25s, transform .25s;
+        }
+        .theme-toggle:hover { border-color: rgba(108,99,255,0.55); transform: translateY(-1px); }
+        @media (prefers-reduced-motion: reduce) { .theme-toggle:hover { transform: none; } }
 
         /* ── HERO with shader canvas ── */
         .hero {
@@ -449,6 +473,73 @@
             }
             .hero-stats { gap: 1.8rem; }
         }
+
+        /* ════════════════════════════════════════════════════════════════
+           LIGHT THEME — the default. Everything above is the dark edition;
+           this block re-tints it. Toggling <html data-theme> swaps between
+           the two, and the choice is remembered in localStorage.
+           ════════════════════════════════════════════════════════════════ */
+        :root[data-theme="light"] {
+            --bg: #f6f7fb;
+            --bg-2: #eef1f8;
+            --text: #14162b;
+            --text-muted: #5c6079;
+            --accent: #5b52f0;
+            --accent-2: #0a92b8;
+            --accent-3: #9333ea;
+            --glass: rgba(255,255,255,0.72);
+            --glass-strong: rgba(255,255,255,0.92);
+            --stroke: rgba(20,22,43,0.10);
+        }
+        :root[data-theme="light"] ::selection { background: rgba(108,99,255,0.22); }
+        :root[data-theme="light"] .grain { opacity: 0.018; }
+        :root[data-theme="light"] .cursor-glow {
+            mix-blend-mode: multiply;
+            background: radial-gradient(circle, rgba(91,82,240,0.10) 0%, rgba(10,146,184,0.05) 40%, transparent 70%);
+        }
+        :root[data-theme="light"] .site-nav.scrolled {
+            background: rgba(255,255,255,0.72);
+            box-shadow:
+                inset 0 1px 0 rgba(255,255,255,0.9),
+                0 10px 30px rgba(20,22,43,0.08);
+        }
+        :root[data-theme="light"] .site-nav.open .nav-links { background: rgba(255,255,255,0.96); }
+        :root[data-theme="light"] .hero-fallback {
+            background:
+                radial-gradient(60% 80% at 20% 20%, rgba(91,82,240,0.16), transparent 60%),
+                radial-gradient(50% 70% at 80% 30%, rgba(10,146,184,0.12), transparent 60%),
+                radial-gradient(70% 60% at 50% 100%, rgba(147,51,234,0.10), transparent 60%);
+        }
+        :root[data-theme="light"] .hero-veil {
+            background: linear-gradient(180deg, rgba(246,247,251,0.2) 0%, rgba(246,247,251,0.05) 45%, var(--bg) 96%);
+        }
+        :root[data-theme="light"] .hero-badge { color: #453bbf; background: rgba(255,255,255,0.8); }
+        :root[data-theme="light"] .btn-ghost { background: rgba(255,255,255,0.85); box-shadow: 0 6px 18px rgba(20,22,43,0.06); }
+        :root[data-theme="light"] .glass-card {
+            box-shadow: 0 8px 26px rgba(20,22,43,0.06), inset 0 1px 0 #fff;
+        }
+        :root[data-theme="light"] .glass-card::before {
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(91,82,240,0.10), transparent 45%);
+        }
+        :root[data-theme="light"] .service-icon-wrap {
+            background: linear-gradient(135deg, rgba(91,82,240,0.16), rgba(10,146,184,0.10));
+            border-color: rgba(91,82,240,0.28);
+        }
+        :root[data-theme="light"] .process-svg .rail { stroke: rgba(20,22,43,0.12); }
+        :root[data-theme="light"] .process-dot,
+        :root[data-theme="light"] .about-pill { background: rgba(255,255,255,0.85); }
+        :root[data-theme="light"] .flagship-kicker { color: #7c3aed; }
+        :root[data-theme="light"] .flagship-tag {
+            color: #6d28d9;
+            background: rgba(138,43,226,0.08);
+            border-color: rgba(138,43,226,0.24);
+        }
+        :root[data-theme="light"] .cta-band {
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(91,82,240,0.12), transparent 65%),
+                rgba(255,255,255,0.75);
+            box-shadow: 0 12px 40px rgba(20,22,43,0.06);
+        }
     </style>
 </head>
 <body>
@@ -465,8 +556,11 @@
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Work</a></li>
     </ul>
-    <a href="mailto:info@softwarefirst.gr" class="nav-cta magnetic">Get in touch</a>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        <a href="mailto:info@softwarefirst.gr" class="nav-cta magnetic">Get in touch</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
 </header>
 
 <!-- HERO -->
@@ -694,6 +788,34 @@
     "use strict";
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
+    /* ── Theme (light by default, remembered per browser) ── */
+    const root = document.documentElement;
+    // Set by the shader block below so the hero repaints on a theme flip.
+    let repaintHero = () => {};
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f6f7fb" : "#07070b";
+        repaintHero();
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+
     /* ── Nav ─────────────────────────────────────────────── */
     const nav = document.getElementById("site-nav");
     const syncNav = () => nav.classList.toggle("scrolled", scrollY > 8 || innerWidth < 769);
@@ -796,7 +918,7 @@
         const VS = "attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}";
         const FS = `
 precision mediump float;
-uniform float u_t; uniform vec2 u_r;
+uniform float u_t; uniform vec2 u_r; uniform float u_light;
 float h(vec2 p){ return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
 float n(vec2 p){
   vec2 i = floor(p), f = fract(p);
@@ -821,12 +943,14 @@ void main(){
   vec3 c3 = vec3(.69, .42, 1.0);   // violet
   vec3 col = mix(c1, c2, smoothstep(.25, .75, f));
   col = mix(col, c3, smoothstep(.55, .95, fbm(q * 2.2 - w + t * .3)));
-  // keep it moody: dark base, glow where the noise peaks
   float glowAmt = smoothstep(.35, .9, f);
-  col *= glowAmt * .55 + .06;
-  // fade the whole field toward the top-left/darkness
-  col *= .5 + .5 * smoothstep(0., .9, uv.y + fbm(q + t) * .3);
-  gl_FragColor = vec4(col, 1.);
+  // fade the whole field toward the top of the viewport
+  float fade = .5 + .5 * smoothstep(0., .9, uv.y + fbm(q + t) * .3);
+  // dark edition: moody, near-black base with glow where the noise peaks
+  vec3 dark = col * (glowAmt * .55 + .06) * fade;
+  // light edition: the same aurora tinting a near-white canvas
+  vec3 light = mix(vec3(.97, .975, .99), col, (glowAmt * .42 + .10) * fade);
+  gl_FragColor = vec4(mix(dark, light, u_light), 1.);
 }`;
         const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
         const prog = gl.createProgram();
@@ -843,6 +967,7 @@ void main(){
             gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
             const uT = gl.getUniformLocation(prog, "u_t");
             const uR = gl.getUniformLocation(prog, "u_r");
+            const uL = gl.getUniformLocation(prog, "u_light");
             const fit = () => {
                 // Half-resolution: the gradient is soft anyway, and it keeps
                 // fill-rate trivial on integrated GPUs.
@@ -858,6 +983,7 @@ void main(){
                 if (visible) {
                     fit();
                     gl.uniform1f(uT, t * 0.001);
+                    gl.uniform1f(uL, isLight() ? 1 : 0);
                     gl.uniform2f(uR, canvas.width, canvas.height);
                     gl.drawArrays(gl.TRIANGLES, 0, 3);
                 }
@@ -865,6 +991,9 @@ void main(){
             };
             requestAnimationFrame(frame);
             addEventListener("resize", fit);
+            // Under reduced motion only one frame is drawn, so a theme flip
+            // has to ask for a fresh one explicitly.
+            repaintHero = () => { if (reduced) requestAnimationFrame(frame); };
         }
     }
 })();

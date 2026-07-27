@@ -433,6 +433,110 @@
         }
         .flagship-cta { margin-top: 0.8rem; font-size: 0.9rem; font-weight: 600; color: var(--accent-2); display: inline-flex; align-items: center; gap: 0.45rem; }
 
+        /* ── OPEN SOURCE: NuGet package showcase ──
+           The code surface stays dark in both themes, like .flagship-visual. */
+        .oss-grid {
+            display: grid; grid-template-columns: 1.02fr 1fr;
+            gap: 1.25rem; margin-top: 3.5rem; align-items: start;
+        }
+        @media (max-width: 900px) { .oss-grid { grid-template-columns: 1fr; } }
+
+        .pkg-head { display: flex; align-items: center; gap: 0.9rem; margin-bottom: 0.4rem; }
+        @media (max-width: 420px) { .pkg-head { gap: 0.7rem; } }
+        .pkg-mark {
+            width: 46px; height: 46px; border-radius: 13px; flex: none;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display); font-weight: 700; font-size: 1.3rem;
+            color: #fff; letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #6c63ff, #00d4ff);
+            box-shadow: 0 8px 22px rgba(108,99,255,0.35);
+        }
+        .pkg-id {
+            font-family: var(--font-display); font-weight: 700; letter-spacing: -0.02em;
+            font-size: clamp(0.98rem, 3.4vw, 1.15rem);
+            overflow-wrap: anywhere;
+        }
+        .pkg-ver {
+            display: inline-block; margin-left: 0.5rem; vertical-align: 0.12em;
+            font-family: 'Inter', sans-serif; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.04em;
+            padding: 0.14rem 0.48rem; border-radius: 6px;
+            background: rgba(0,212,255,0.14); border: 1px solid rgba(0,212,255,0.32);
+            color: var(--accent-2);
+        }
+        .pkg-tagline { font-size: 0.82rem; color: var(--text-muted); }
+
+        .oss-points { list-style: none; display: grid; gap: 0.8rem; margin: 1.5rem 0; }
+        .oss-points li { display: flex; gap: 0.6rem; font-size: 0.9rem; color: var(--text-muted); }
+        .oss-points li::before { content: "▸"; color: var(--accent-2); font-weight: 700; flex: none; }
+        .oss-points b { color: var(--text); font-weight: 600; }
+        .oss-points code {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.86em; color: var(--text);
+            padding: 0.08em 0.34em; border-radius: 5px;
+            background: rgba(108,99,255,0.13);
+            overflow-wrap: anywhere;
+        }
+
+        .install-row {
+            display: flex; align-items: center; gap: 0.5rem;
+            border-radius: 12px; padding: 0.6rem 0.6rem 0.6rem 0.9rem;
+            background: rgba(8,8,14,0.72); border: 1px solid rgba(255,255,255,0.1);
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.8rem;
+        }
+        .install-row code {
+            flex: 1; min-width: 0; color: #e6e8f2;
+            white-space: nowrap; overflow-x: auto; scrollbar-width: none;
+        }
+        .install-row code::-webkit-scrollbar { display: none; }
+        .install-row .prompt { color: #00d4ff; user-select: none; }
+        .copy-btn {
+            flex: none; cursor: pointer;
+            font: inherit; font-size: 0.72rem; font-weight: 600; font-family: 'Inter', sans-serif;
+            padding: 0.34rem 0.7rem; border-radius: 8px;
+            color: #cfd3e6; background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            transition: background .2s, color .2s, border-color .2s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+        .copy-btn.copied { color: #0b0b12; background: var(--accent-2); border-color: transparent; }
+
+        .oss-links { display: flex; flex-wrap: wrap; gap: 0.7rem; margin-top: 1.4rem; }
+        .oss-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.4rem; }
+        .oss-chip {
+            font-size: 0.72rem; font-weight: 600;
+            padding: 0.3rem 0.7rem; border-radius: 7px;
+            background: rgba(108,99,255,0.14);
+            border: 1px solid rgba(108,99,255,0.32);
+            color: var(--accent-3);
+        }
+
+        .code-panel {
+            border-radius: var(--radius); overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #0b0b12;
+            box-shadow: 0 16px 44px rgba(8,8,20,0.28);
+        }
+        .code-head {
+            display: flex; align-items: center; gap: 0.45rem;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.74rem; color: #8d90a8;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        .code-head .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+        .code-head .name { margin-left: 0.5rem; }
+        .code-panel pre {
+            margin: 0; padding: 1.3rem 1.4rem; overflow-x: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.775rem; line-height: 1.85; color: #dfe2ee;
+            tab-size: 4;
+        }
+        .tok-k { color: #b16cff; }
+        .tok-t { color: #00d4ff; }
+        .tok-s { color: #7fdba1; }
+        .tok-c { color: #6f7392; font-style: italic; }
+
         /* ── CTA band ── */
         .cta-band {
             border-radius: 24px;
@@ -534,6 +638,16 @@
             background: rgba(138,43,226,0.08);
             border-color: rgba(138,43,226,0.24);
         }
+        :root[data-theme="light"] .oss-chip {
+            color: #6d28d9;
+            background: rgba(147,51,234,0.08);
+            border-color: rgba(147,51,234,0.24);
+        }
+        :root[data-theme="light"] .pkg-ver {
+            color: #0a7f9e;
+            background: rgba(10,146,184,0.10);
+            border-color: rgba(10,146,184,0.28);
+        }
         :root[data-theme="light"] .cta-band {
             background:
                 radial-gradient(70% 120% at 50% 0%, rgba(91,82,240,0.12), transparent 65%),
@@ -555,6 +669,7 @@
         <li><a href="#process">Process</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#portfolio">Work</a></li>
+        <li><a href="#open-source">Open source</a></li>
     </ul>
     <div class="nav-actions">
         <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
@@ -761,6 +876,82 @@
     </div>
 </section>
 
+<!-- OPEN SOURCE -->
+<section class="sf-section" id="open-source">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Open source</span>
+            <h2 class="section-title">We ship the tools we depend on.</h2>
+            <p class="section-sub">When MediatR went commercial, we pulled our own mediator out of a production system, cleaned it up and published it under Apache 2.0. Free for everyone, including you.</p>
+        </div>
+
+        <div class="oss-grid">
+            <div class="glass-card rv" style="--d:.05s">
+                <div class="pkg-head">
+                    <div class="pkg-mark" aria-hidden="true">SB</div>
+                    <div>
+                        <div class="pkg-id">SoftwareFirst.Switchboard<span class="pkg-ver">v1.0.1</span></div>
+                        <div class="pkg-tagline">A lightweight, MediatR-compatible mediator for .NET</div>
+                    </div>
+                </div>
+
+                <ul class="oss-points">
+                    <li><span><b>Drop-in replacement.</b> Swap the package, change <code>using MediatR;</code> to <code>using Switchboard;</code> and <code>AddMediatR</code> to <code>AddSwitchboard</code> — handlers, behaviors and call sites compile unchanged.</span></li>
+                    <li><span><b>A few hundred lines, one dependency.</b> Just <code>Microsoft.Extensions.DependencyInjection.Abstractions</code>. Nothing to audit that you can't read in an afternoon.</span></li>
+                    <li><span><b>Predictable semantics.</b> Notification handlers run sequentially in registration order, so scoped state like an EF Core <code>DbContext</code> stays safe. Cancellation tokens never get dropped.</span></li>
+                    <li><span><b>Battle-tested.</b> Extracted from the platform behind ΠΑΦΑΜΕ, not written for a blog post.</span></li>
+                </ul>
+
+                <div class="install-row">
+                    <span class="prompt" aria-hidden="true">$</span>
+                    <code id="install-cmd">dotnet add package SoftwareFirst.Switchboard</code>
+                    <button class="copy-btn" type="button" data-copy="#install-cmd">Copy</button>
+                </div>
+
+                <div class="oss-meta">
+                    <span class="oss-chip">Apache-2.0</span>
+                    <span class="oss-chip">net10.0</span>
+                    <span class="oss-chip">CQRS</span>
+                    <span class="oss-chip">Pipeline behaviors</span>
+                    <span class="oss-chip">Notifications</span>
+                </div>
+
+                <div class="oss-links">
+                    <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" class="btn-solid magnetic" target="_blank" rel="noopener">View on NuGet →</a>
+                    <a href="https://github.com/Software-First-Gr/Switchboard" class="btn-ghost magnetic" target="_blank" rel="noopener">Source on GitHub</a>
+                </div>
+            </div>
+
+            <div class="code-panel rv" style="--d:.12s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">Program.cs</span>
+                </div>
+<pre><code><span class="tok-k">using</span> Switchboard;
+
+<span class="tok-c">// One registration call — assembly scanning included.</span>
+builder.Services.<span class="tok-t">AddSwitchboard</span>(cfg =&gt; cfg
+    .<span class="tok-t">RegisterServicesFromAssemblyContaining</span>&lt;<span class="tok-t">GetOrderHandler</span>&gt;()
+    .<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>(<span class="tok-t">LoggingBehaviour</span>&lt;,&gt;)));
+
+<span class="tok-k">public sealed record</span> <span class="tok-t">GetOrder</span>(<span class="tok-k">int</span> Id) : <span class="tok-t">IRequest</span>&lt;<span class="tok-t">OrderDto</span>&gt;;
+
+<span class="tok-k">public sealed class</span> <span class="tok-t">GetOrderHandler</span>
+    : <span class="tok-t">IRequestHandler</span>&lt;<span class="tok-t">GetOrder</span>, <span class="tok-t">OrderDto</span>&gt;
+{
+    <span class="tok-k">public</span> <span class="tok-t">Task</span>&lt;<span class="tok-t">OrderDto</span>&gt; <span class="tok-t">Handle</span>(
+        <span class="tok-t">GetOrder</span> request, <span class="tok-t">CancellationToken</span> ct) =&gt; <span class="tok-c">/* ... */</span>;
+}
+
+<span class="tok-c">// Inject ISender anywhere and send.</span>
+<span class="tok-k">await</span> sender.<span class="tok-t">Send</span>(<span class="tok-k">new</span> <span class="tok-t">GetOrder</span>(<span class="tok-s">42</span>), ct);</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- CTA -->
 <section class="sf-section" style="padding-top: 1rem;">
     <div class="container">
@@ -892,6 +1083,48 @@
             card.style.setProperty("--mx", `${e.clientX - r.left}px`);
             card.style.setProperty("--my", `${e.clientY - r.top}px`);
         }, { passive: true });
+    });
+
+    /* ── Copy-to-clipboard buttons ───────────────────────── */
+    // The async Clipboard API is the happy path; execCommand covers older
+    // Safari and non-secure contexts. If both are refused we select the text
+    // so a manual ⌘C still works.
+    const legacyCopy = (text) => {
+        const ta = document.createElement("textarea");
+        ta.value = text;
+        ta.setAttribute("readonly", "");
+        ta.style.cssText = "position:fixed;top:0;left:-9999px;opacity:0";
+        document.body.appendChild(ta);
+        ta.select();
+        let ok = false;
+        try { ok = document.execCommand("copy"); } catch (e) {}
+        ta.remove();
+        return ok;
+    };
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+        const src = document.querySelector(btn.dataset.copy);
+        if (!src) return;
+        let reset;
+        const flash = (label, ok) => {
+            btn.textContent = label;
+            btn.classList.toggle("copied", ok);
+            clearTimeout(reset);
+            reset = setTimeout(() => {
+                btn.textContent = "Copy";
+                btn.classList.remove("copied");
+            }, 1600);
+        };
+        btn.addEventListener("click", async () => {
+            const text = src.textContent.trim();
+            try {
+                await navigator.clipboard.writeText(text);
+                flash("Copied", true);
+                return;
+            } catch (e) { /* fall through */ }
+            if (legacyCopy(text)) { flash("Copied", true); return; }
+            getSelection().selectAllChildren(src);
+            flash("Press ⌘C", false);
+        });
     });
 
     /* ── Process beam: draws down as you scroll ──────────── */

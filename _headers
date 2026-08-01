@@ -1,0 +1,11 @@
+# Cloudflare Pages headers — https://developers.cloudflare.com/pages/configuration/headers/
+# Conservative security headers. No Content-Security-Policy on purpose:
+# the site relies on inline scripts + third-party vendor JS (jQuery, Swiper, etc.),
+# and a strict CSP would break them. Add HSTS at the Cloudflare zone level after
+# confirming HTTPS works on softwarefirst.gr (don't hard-code it here).
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()

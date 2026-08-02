@@ -21,9 +21,37 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Software First — custom software built for performance, scale, and reliability. From the first line of code to production.">
+    <link rel="canonical" href="https://softwarefirst.gr/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="Software First — We build software that scales">
+    <meta property="og:description" content="Custom software built for performance, scale, and reliability. From the first line of code to production.">
+    <meta property="og:url" content="https://softwarefirst.gr/">
+    <meta property="og:image" content="https://softwarefirst.gr/assets/images/logo/logo-colored.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Software First — We build software that scales">
+    <meta name="twitter:description" content="Custom software built for performance, scale, and reliability. From the first line of code to production.">
     <meta name="theme-color" content="#f6f7fb" id="theme-color-meta">
     <link rel="icon" href="assets/images/logo/logo-colored.png">
     <title>Software First — We build software that scales</title>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Software First",
+      "url": "https://softwarefirst.gr/",
+      "logo": "https://softwarefirst.gr/assets/images/logo/logo-colored.png",
+      "email": "info@softwarefirst.gr",
+      "description": "Custom software engineering studio in Athens, Greece — web, mobile, backend and AI integration, from the first line of code to production.",
+      "address": { "@type": "PostalAddress", "addressLocality": "Athens", "addressCountry": "GR" },
+      "sameAs": [
+        "https://github.com/Software-First-Gr",
+        "https://quietfiles.com/",
+        "https://pafame.gr/"
+      ]
+    }
+    </script>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,6 +461,22 @@
         }
         .flagship-cta { margin-top: 0.8rem; font-size: 0.9rem; font-weight: 600; color: var(--accent-2); display: inline-flex; align-items: center; gap: 0.45rem; }
 
+        /* QuietFiles edition of the flagship card — calm blue instead of purple. */
+        .flagship-qf:hover { border-color: rgba(37,99,235,0.55); }
+        .flagship-visual-qf {
+            background:
+                radial-gradient(80% 90% at 20% 10%, rgba(37,99,235,0.55), transparent 60%),
+                radial-gradient(70% 80% at 90% 90%, rgba(34,211,238,0.35), transparent 60%),
+                #071120;
+        }
+        .flagship-visual-qf span { letter-spacing: 0.05em; }
+        .flagship-kicker-qf { color: #7ab8ff; }
+        .flagship-tag-qf {
+            background: rgba(37,99,235,0.14);
+            border-color: rgba(37,99,235,0.4);
+            color: #a9c9ff;
+        }
+
         /* ── OPEN SOURCE: NuGet package showcase ──
            The code surface stays dark in both themes, like .flagship-visual. */
         .oss-grid {
@@ -637,6 +681,12 @@
             color: #6d28d9;
             background: rgba(138,43,226,0.08);
             border-color: rgba(138,43,226,0.24);
+        }
+        :root[data-theme="light"] .flagship-kicker-qf { color: #1d4ed8; }
+        :root[data-theme="light"] .flagship-tag-qf {
+            color: #1e40af;
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.24);
         }
         :root[data-theme="light"] .oss-chip {
             color: #6d28d9;
@@ -850,8 +900,8 @@
     <div class="container">
         <div class="rv">
             <span class="section-tag">Flagship work</span>
-            <h2 class="section-title">ΠΑΦΑΜΕ — a fairer food-ordering platform.</h2>
-            <p class="section-sub">Multi-tenant marketplace serving retail customers, restaurant owners and back-office ops — built and run end-to-end by Software First.</p>
+            <h2 class="section-title">Built, shipped and run by us.</h2>
+            <p class="section-sub">Not just client work — we design, build and operate our own products, end to end. Here are two of them.</p>
         </div>
         <a href="pafame.html" class="flagship rv" style="--d:.1s">
             <div class="flagship-visual"><span>ΠΑΦΑΜΕ</span></div>
@@ -871,6 +921,25 @@
                     <span class="flagship-tag">SignalR</span>
                 </div>
                 <span class="flagship-cta">Explore the platform →</span>
+            </div>
+        </a>
+        <a href="quietfiles.html" class="flagship flagship-qf rv" style="--d:.18s; margin-top: 1.5rem;">
+            <div class="flagship-visual flagship-visual-qf"><span>QuietFiles</span></div>
+            <div class="flagship-info">
+                <span class="flagship-kicker flagship-kicker-qf">Our product</span>
+                <span class="flagship-title">File conversion that never phones home.</span>
+                <span class="flagship-desc">
+                    HEIC → JPG and PDF → JPG converters running 100% in the browser — WASM decoders,
+                    Web Workers, zero uploads. No accounts, no cookies, free at quietfiles.com.
+                </span>
+                <div class="flagship-tags">
+                    <span class="flagship-tag flagship-tag-qf">Astro</span>
+                    <span class="flagship-tag flagship-tag-qf">TypeScript</span>
+                    <span class="flagship-tag flagship-tag-qf">WebAssembly</span>
+                    <span class="flagship-tag flagship-tag-qf">Web Workers</span>
+                    <span class="flagship-tag flagship-tag-qf">Cloudflare Pages</span>
+                </div>
+                <span class="flagship-cta">Explore QuietFiles →</span>
             </div>
         </a>
     </div>

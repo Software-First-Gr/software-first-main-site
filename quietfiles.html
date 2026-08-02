@@ -1,0 +1,797 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PPT9YKKQF"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0PPT9YKKQF');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="QuietFiles converts HEIC to JPG and PDF to JPG entirely in your browser — files never leave your device. No uploads, no accounts, no cookies. A privacy-first product built and run by Software First.">
+    <link rel="canonical" href="https://softwarefirst.gr/quietfiles.html">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="QuietFiles — file conversion that never leaves your device">
+    <meta property="og:description" content="Free HEIC→JPG and PDF→JPG converters that run 100% in your browser. Zero uploads, zero accounts, zero tracking — built and run by Software First.">
+    <meta property="og:url" content="https://softwarefirst.gr/quietfiles.html">
+    <meta property="og:image" content="https://softwarefirst.gr/assets/images/logo/logo-colored.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="QuietFiles — file conversion that never leaves your device">
+    <meta name="twitter:description" content="Free HEIC→JPG and PDF→JPG converters that run 100% in your browser. Zero uploads, zero accounts, zero tracking.">
+    <meta name="theme-color" content="#f4f8fd" id="theme-color-meta">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>QuietFiles — Private In-Browser File Conversion · Software First</title>
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "QuietFiles",
+        "url": "https://quietfiles.com/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Any (web browser)",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "description": "Free file conversion tools that run entirely in your browser. Your files never leave your device — no uploads, no accounts, no tracking.",
+        "featureList": [
+          "HEIC to JPG conversion",
+          "PDF to JPG conversion",
+          "100% client-side processing — zero uploads",
+          "Works offline once the page has loaded",
+          "No accounts, no cookies, no ads"
+        ],
+        "creator": {
+          "@type": "Organization",
+          "name": "Software First",
+          "url": "https://softwarefirst.gr/"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Software First", "item": "https://softwarefirst.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "QuietFiles", "item": "https://softwarefirst.gr/quietfiles.html" }
+        ]
+      }
+    ]
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ════════════════════════════════════════════════════════════════
+           QUIETFILES SHOWCASE — calm-blue edition. Self-contained like the
+           rest of the site: the privacy pipeline diagram and all motion are
+           hand-rolled, zero dependencies.
+           ════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #060b16;
+            --bg-2: #0a1322;
+            --text: #e9eef7;
+            --text-muted: #96a3bd;
+            --blue: #2563eb;
+            --blue-soft: #60a5fa;
+            --cyan: #22d3ee;
+            --green: #2ee08a;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --radius: 18px;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+        }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(37,99,235,0.45); }
+
+        .grain {
+            position: fixed; inset: -50%;
+            width: 200%; height: 200%;
+            pointer-events: none; z-index: 2000; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── NAV ── */
+        .site-nav {
+            position: fixed; top: 14px; left: 50%;
+            transform: translateX(-50%);
+            width: min(1120px, 100% - 2rem);
+            z-index: 1000; border-radius: 16px;
+            padding: 0.65rem 1.1rem;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(9,16,30,0.55);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(18px) saturate(1.6);
+            -webkit-backdrop-filter: blur(18px) saturate(1.6);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0,0,0,0.45);
+        }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--blue-soft), var(--cyan));
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+        .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            font-size: 0.85rem; font-weight: 600; color: #fff; text-decoration: none;
+            background: linear-gradient(120deg, var(--blue), #1d4ed8);
+            padding: 0.5rem 1.15rem; border-radius: 10px;
+            box-shadow: 0 0 24px rgba(37,99,235,0.4);
+            transition: box-shadow .25s;
+        }
+        .nav-cta:hover { box-shadow: 0 0 40px rgba(37,99,235,0.6); }
+        .nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; flex: 0 0 34px;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.95rem; line-height: 1;
+            color: var(--text);
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background .25s, border-color .25s, transform .25s;
+        }
+        .theme-toggle:hover { border-color: rgba(37,99,235,0.55); transform: translateY(-1px); }
+        @media (prefers-reduced-motion: reduce) { .theme-toggle:hover { transform: none; } }
+        @media (max-width: 860px) {
+            .nav-links, .nav-cta { display: none; }
+            .nav-toggle { display: block; }
+            .site-nav.open .nav-links {
+                display: flex; flex-direction: column;
+                position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+                background: rgba(9,16,30,0.94);
+                backdrop-filter: blur(18px);
+                border: 1px solid var(--stroke); border-radius: 14px;
+                padding: 1.4rem; gap: 1.1rem;
+            }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative; min-height: 92svh;
+            display: flex; align-items: center;
+            overflow: hidden; padding: 8rem 0 4rem;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(37,99,235,0.32), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(34,211,238,0.14), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(29,78,216,0.35), transparent 65%);
+        }
+        .hero-grid-lines {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: radial-gradient(75% 65% at 50% 35%, black 25%, transparent 100%);
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .badge-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.6rem; }
+        .badge-pill {
+            font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em;
+            color: #cfe0ff;
+            background: rgba(37,99,235,0.16);
+            border: 1px solid rgba(37,99,235,0.4);
+            border-radius: 50px; padding: 0.32rem 0.9rem;
+            backdrop-filter: blur(6px);
+        }
+        .badge-pill.green { color: #baf5d7; background: rgba(46,224,138,0.10); border-color: rgba(46,224,138,0.38); }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4.4rem);
+            font-weight: 700; letter-spacing: -0.035em; line-height: 1.06;
+            margin-bottom: 1.3rem; max-width: 830px;
+        }
+        .hero-title .grad {
+            background: linear-gradient(110deg, var(--blue-soft) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle { font-size: 1.08rem; color: var(--text-muted); max-width: 640px; margin-bottom: 2.3rem; }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-solid, .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.92rem; font-weight: 600;
+            padding: 0.85rem 1.9rem; border-radius: 12px; text-decoration: none;
+        }
+        .btn-solid {
+            color: #fff;
+            background: linear-gradient(120deg, var(--blue) 0%, #1d4ed8 100%);
+            box-shadow: 0 0 34px rgba(37,99,235,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .btn-ghost { color: var(--text); background: var(--glass); border: 1px solid var(--stroke); backdrop-filter: blur(8px); }
+        .btn-ghost:hover { border-color: rgba(34,211,238,0.55); }
+
+        .hero-stats {
+            display: flex; gap: 2.8rem; flex-wrap: wrap;
+            margin-top: 4rem; padding-top: 2.1rem;
+            border-top: 1px solid var(--stroke);
+        }
+        .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; }
+        .stat-num em { font-style: normal; color: var(--cyan); }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ── Reveals ── */
+        .rv {
+            opacity: 0; transform: translateY(26px); filter: blur(5px);
+            transition: opacity .7s ease var(--d, 0s), transform .7s ease var(--d, 0s), filter .7s ease var(--d, 0s);
+        }
+        .rv.in { opacity: 1; transform: none; filter: none; }
+        @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; filter: none; transition: none; } }
+
+        /* ── SECTIONS ── */
+        .sf-section { padding: 6.5rem 0; position: relative; }
+        .section-tag {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--cyan); margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .section-sub { color: var(--text-muted); max-width: 620px; }
+
+        /* ── GLASS CARDS ── */
+        .glass-card {
+            position: relative; border-radius: var(--radius); padding: 1.9rem;
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+            overflow: hidden;
+            transition: transform .3s ease, border-color .3s ease;
+        }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(37,99,235,0.5); }
+        @media (prefers-reduced-motion: reduce) { .glass-card:hover { transform: none; } }
+        .glass-card::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,0.08), transparent 45%);
+            opacity: 0; transition: opacity .3s; pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .glass-card p, .glass-card li { font-size: 0.89rem; color: var(--text-muted); }
+        .card-icon {
+            width: 46px; height: 46px; border-radius: 13px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+            background: linear-gradient(135deg, rgba(37,99,235,0.28), rgba(34,211,238,0.14));
+            border: 1px solid rgba(37,99,235,0.4);
+            margin-bottom: 1.1rem;
+        }
+
+        /* ── TOOLS ── */
+        .tools-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 3.2rem; }
+        .tool-list { list-style: none; margin-top: 0.7rem; }
+        .tool-list li { padding: 0.28rem 0; padding-left: 1.4rem; position: relative; }
+        .tool-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+        .tool-cta {
+            display: inline-flex; align-items: center; gap: 0.45rem;
+            margin-top: 1.2rem;
+            font-size: 0.88rem; font-weight: 600; color: var(--blue-soft);
+            text-decoration: none;
+        }
+        .tool-cta:hover { color: var(--cyan); }
+        .tool-fmt {
+            display: inline-block; margin-left: auto;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+            font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em;
+            color: #cfe0ff; background: rgba(37,99,235,0.16);
+            border: 1px solid rgba(37,99,235,0.35);
+            padding: 0.22rem 0.6rem; border-radius: 7px;
+        }
+        .tool-head { display: flex; align-items: center; gap: 0.8rem; }
+        .tool-head .card-icon { margin-bottom: 0; flex: none; }
+
+        /* ── PIPELINE DIAGRAM ── */
+        .arch-wrap { margin-top: 3.4rem; }
+        .arch-svg { width: 100%; height: auto; display: block; }
+        .arch-node { fill: rgba(255,255,255,0.05); stroke: rgba(255,255,255,0.14); }
+        .arch-node--hot { fill: rgba(37,99,235,0.10); stroke: rgba(96,165,250,0.55); }
+        .arch-node-label { fill: #e9eef7; font: 600 15px 'Space Grotesk', sans-serif; }
+        .arch-node-sub { fill: #96a3bd; font: 500 10.5px 'Inter', sans-serif; }
+        .arch-wire { stroke: rgba(255,255,255,0.14); stroke-width: 1.6; fill: none; }
+        .arch-device { fill: rgba(37,99,235,0.045); stroke: rgba(96,165,250,0.45); stroke-width: 1.6; stroke-dasharray: 7 7; }
+        .arch-device-label { fill: #60a5fa; font: 700 12px 'Space Grotesk', sans-serif; letter-spacing: 0.18em; }
+        .arch-blocked-node { fill: rgba(255,95,87,0.05); stroke: rgba(255,95,87,0.38); }
+        .arch-blocked-wire { stroke: rgba(255,95,87,0.45); stroke-width: 1.6; fill: none; stroke-dasharray: 6 7; }
+        .arch-blocked-x { fill: #ff5f57; font: 800 22px 'Space Grotesk', sans-serif; }
+        .arch-blocked-label { fill: #ff8a84; font: 600 11px 'Inter', sans-serif; }
+        @media (prefers-reduced-motion: reduce) { .arch-pulse { display: none; } }
+        .arch-legend { margin-top: 1rem; text-align: center; font-size: 0.8rem; color: var(--text-muted); }
+
+        /* ── COMPARE ── */
+        .compare-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 2.6rem; }
+        .compare-list { list-style: none; margin-top: 0.7rem; }
+        .compare-list li { padding: 0.28rem 0; padding-left: 1.5rem; position: relative; }
+        .compare-list.bad li::before { content: "✕"; position: absolute; left: 0; color: #ff5f57; font-weight: 700; }
+        .compare-list.good li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+        .compare-tag {
+            display: inline-block; font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            margin-bottom: 0.6rem;
+        }
+        .compare-tag.bad { color: #ff8a84; }
+        .compare-tag.good { color: var(--green); }
+
+        /* ── PRINCIPLES / STACK ── */
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(255px, 1fr)); gap: 1.2rem; margin-top: 3.2rem; }
+        .stack-chips { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2.4rem; }
+        .stack-chip {
+            font-size: 0.8rem; font-weight: 600;
+            padding: 0.45rem 0.95rem; border-radius: 10px;
+            color: #cfe0ff;
+            background: rgba(37,99,235,0.13);
+            border: 1px solid rgba(37,99,235,0.32);
+            backdrop-filter: blur(6px);
+        }
+        .stack-chip b { color: var(--cyan); font-weight: 700; }
+
+        /* ── CTA / FOOTER ── */
+        .cta-band {
+            border-radius: 24px; border: 1px solid var(--stroke);
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(37,99,235,0.26), transparent 65%),
+                var(--glass);
+            backdrop-filter: blur(14px);
+            padding: 4rem 2rem; text-align: center;
+        }
+        .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.8rem 0; margin-top: 4rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.4rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; transition: color .2s; }
+        .footer-link:hover { color: var(--text); }
+
+        /* ════════════════════════════════════════════════════════════════
+           LIGHT THEME — the default. Everything above is the dark edition;
+           this block re-tints it.
+           ════════════════════════════════════════════════════════════════ */
+        :root[data-theme="light"] {
+            --bg: #f4f8fd;
+            --bg-2: #e9f0fa;
+            --text: #0e1a2e;
+            --text-muted: #51607a;
+            --blue: #2563eb;
+            --blue-soft: #1d4ed8;
+            --cyan: #0a7f9e;
+            --green: #0e9f5d;
+            --glass: rgba(255,255,255,0.72);
+            --stroke: rgba(14,26,46,0.10);
+        }
+        :root[data-theme="light"] ::selection { background: rgba(37,99,235,0.22); }
+        :root[data-theme="light"] .grain { opacity: 0.018; }
+        :root[data-theme="light"] .site-nav {
+            background: rgba(255,255,255,0.72);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 30px rgba(14,26,46,0.08);
+        }
+        :root[data-theme="light"] .site-nav.open .nav-links { background: rgba(255,255,255,0.96); }
+        :root[data-theme="light"] .hero-bg {
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(37,99,235,0.13), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(34,211,238,0.10), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(29,78,216,0.10), transparent 65%);
+        }
+        :root[data-theme="light"] .hero-grid-lines {
+            background-image:
+                linear-gradient(rgba(14,26,46,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(14,26,46,0.05) 1px, transparent 1px);
+        }
+        :root[data-theme="light"] .badge-pill {
+            color: #1e40af;
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.24);
+        }
+        :root[data-theme="light"] .badge-pill.green {
+            color: #067647;
+            background: rgba(14,159,93,0.08);
+            border-color: rgba(14,159,93,0.32);
+        }
+        :root[data-theme="light"] .btn-ghost { background: rgba(255,255,255,0.85); box-shadow: 0 6px 18px rgba(14,26,46,0.06); }
+        :root[data-theme="light"] .glass-card {
+            box-shadow: 0 8px 26px rgba(14,26,46,0.06), inset 0 1px 0 #fff;
+        }
+        :root[data-theme="light"] .glass-card::before {
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(37,99,235,0.10), transparent 45%);
+        }
+        :root[data-theme="light"] .card-icon {
+            background: linear-gradient(135deg, rgba(37,99,235,0.14), rgba(34,211,238,0.10));
+            border-color: rgba(37,99,235,0.28);
+        }
+        :root[data-theme="light"] .tool-fmt {
+            color: #1e40af;
+            background: rgba(37,99,235,0.08);
+            border-color: rgba(37,99,235,0.25);
+        }
+        :root[data-theme="light"] .stack-chip {
+            color: #1e40af;
+            background: rgba(37,99,235,0.07);
+            border-color: rgba(37,99,235,0.22);
+        }
+        :root[data-theme="light"] .stack-chip b { color: #0a7f9e; }
+        :root[data-theme="light"] .arch-node { fill: rgba(14,26,46,0.04); stroke: rgba(14,26,46,0.14); }
+        :root[data-theme="light"] .arch-node--hot { fill: rgba(37,99,235,0.07); stroke: rgba(37,99,235,0.45); }
+        :root[data-theme="light"] .arch-node-label { fill: #0e1a2e; }
+        :root[data-theme="light"] .arch-node-sub { fill: #51607a; }
+        :root[data-theme="light"] .arch-wire { stroke: rgba(14,26,46,0.16); }
+        :root[data-theme="light"] .arch-device { fill: rgba(37,99,235,0.04); stroke: rgba(37,99,235,0.40); }
+        :root[data-theme="light"] .arch-device-label { fill: #1d4ed8; }
+        :root[data-theme="light"] .arch-blocked-node { fill: rgba(220,38,38,0.04); stroke: rgba(220,38,38,0.32); }
+        :root[data-theme="light"] .arch-blocked-wire { stroke: rgba(220,38,38,0.40); }
+        :root[data-theme="light"] .arch-blocked-x { fill: #dc2626; }
+        :root[data-theme="light"] .arch-blocked-label { fill: #b91c1c; }
+        :root[data-theme="light"] .compare-tag.bad { color: #b91c1c; }
+        :root[data-theme="light"] .compare-list.bad li::before { color: #dc2626; }
+        :root[data-theme="light"] .cta-band {
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(37,99,235,0.12), transparent 65%),
+                rgba(255,255,255,0.75);
+            box-shadow: 0 12px 40px rgba(14,26,46,0.06);
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="site-nav" id="site-nav">
+    <a href="index.html" class="nav-brand">QuietFiles <span>· Software First</span></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#tools">Tools</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#privacy">Privacy</a></li>
+        <li><a href="#stack">Stack</a></li>
+    </ul>
+    <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        <a href="https://quietfiles.com" target="_blank" rel="noopener noreferrer" class="nav-cta">Open quietfiles.com ↗</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="container hero-content">
+        <div class="badge-row rv">
+            <span class="badge-pill">100% in-browser</span>
+            <span class="badge-pill">WASM + Web Workers</span>
+            <span class="badge-pill">No sign-up</span>
+            <span class="badge-pill green">Free — your device does the work</span>
+        </div>
+        <h1 class="hero-title rv" style="--d:.08s">
+            File conversion where your files<br>
+            <span class="grad">never leave your device.</span>
+        </h1>
+        <p class="hero-subtitle rv" style="--d:.16s">
+            QuietFiles is a set of free converters — HEIC to JPG, PDF to JPG — that run entirely
+            in your browser. Nothing is uploaded, nothing is stored, nobody sees your files but you.
+            Built and run by Software First.
+        </p>
+        <div class="hero-actions rv" style="--d:.24s">
+            <a href="https://quietfiles.com" target="_blank" rel="noopener noreferrer" class="btn-solid">Try QuietFiles live ↗</a>
+            <a href="#how-it-works" class="btn-ghost">How it stays private ↓</a>
+        </div>
+        <div class="hero-stats rv" style="--d:.32s">
+            <div>
+                <div class="stat-num"><em>0</em> uploads</div>
+                <div class="stat-label">files are processed on your device</div>
+            </div>
+            <div>
+                <div class="stat-num"><em>0</em> accounts</div>
+                <div class="stat-label">no sign-up, no login, no email</div>
+            </div>
+            <div>
+                <div class="stat-num"><em>0</em> cookies</div>
+                <div class="stat-label">no trackers, no ads, no banner</div>
+            </div>
+            <div>
+                <div class="stat-num">2 tools</div>
+                <div class="stat-label">HEIC → JPG · PDF → JPG — more coming</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- TOOLS -->
+<section class="sf-section" id="tools">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">The tools</span>
+            <h2 class="section-title">Pick a converter. Drop a file. Done.</h2>
+            <p class="section-sub">Each tool works right on the page — drop zone above the fold, multi-file batches, and results that download straight out of your browser.</p>
+        </div>
+        <div class="tools-grid">
+            <div class="glass-card rv" style="--d:.05s">
+                <div class="tool-head">
+                    <div class="card-icon">📱</div>
+                    <h3 style="margin-bottom:0;">HEIC to JPG</h3>
+                    <span class="tool-fmt">.heic → .jpg</span>
+                </div>
+                <p style="margin-top:1rem;">
+                    iPhone photos come out of the camera as HEIC — efficient for storage, awkward
+                    everywhere else. QuietFiles decodes them with libheif compiled to WebAssembly
+                    and hands back universal JPGs, without your photos ever leaving the room.
+                </p>
+                <ul class="tool-list">
+                    <li>Multi-file batches in one go</li>
+                    <li>Personal photos stay personal — zero upload</li>
+                    <li>Works in Chrome, Safari, Firefox and Edge</li>
+                </ul>
+                <a href="https://quietfiles.com/heic-to-jpg" target="_blank" rel="noopener noreferrer" class="tool-cta">Open the HEIC converter ↗</a>
+            </div>
+            <div class="glass-card rv" style="--d:.12s">
+                <div class="tool-head">
+                    <div class="card-icon">📄</div>
+                    <h3 style="margin-bottom:0;">PDF to JPG</h3>
+                    <span class="tool-fmt">.pdf → .jpg</span>
+                </div>
+                <p style="margin-top:1rem;">
+                    Renders every page of a PDF into a crisp JPG image using Mozilla's pdf.js —
+                    parsed and rasterised locally, page by page. Contracts, statements and IDs
+                    are exactly the files you shouldn't be uploading to a stranger's server.
+                </p>
+                <ul class="tool-list">
+                    <li>Every page converted in one click</li>
+                    <li>Documents never touch a server</li>
+                    <li>Free, no watermarks, no page limits</li>
+                </ul>
+                <a href="https://quietfiles.com/pdf-to-jpg" target="_blank" rel="noopener noreferrer" class="tool-cta">Open the PDF converter ↗</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="sf-section" id="how-it-works" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Under the hood</span>
+            <h2 class="section-title">The pipeline never crosses this line.</h2>
+            <p class="section-sub">Most "free online converters" are an upload form in disguise: your file goes to their server and you trust them to delete it. QuietFiles inverts the architecture — the converter comes to you.</p>
+        </div>
+
+        <div class="arch-wrap rv" style="--d:.1s">
+            <svg class="arch-svg" viewBox="0 0 1000 430" role="img" aria-label="QuietFiles pipeline diagram: your file is decoded by a WASM Web Worker and encoded by the Canvas API entirely inside your device; the network path to cloud servers is never used — zero bytes sent">
+                <!-- device boundary -->
+                <rect class="arch-device" x="25" y="35" width="645" height="370" rx="22"/>
+                <text class="arch-device-label" x="50" y="70">YOUR DEVICE</text>
+                <text class="arch-node-sub" x="50" y="88">everything happens in the browser</text>
+
+                <!-- nodes inside the device -->
+                <rect class="arch-node" x="55" y="160" width="170" height="64" rx="14"/>
+                <text class="arch-node-label" x="140" y="188" text-anchor="middle">Your files</text>
+                <text class="arch-node-sub" x="140" y="206" text-anchor="middle">HEIC · PDF — never uploaded</text>
+
+                <rect class="arch-node arch-node--hot" x="280" y="105" width="180" height="64" rx="14"/>
+                <text class="arch-node-label" x="370" y="133" text-anchor="middle">Web Worker</text>
+                <text class="arch-node-sub" x="370" y="151" text-anchor="middle">WASM decode · off main thread</text>
+
+                <rect class="arch-node arch-node--hot" x="280" y="255" width="180" height="64" rx="14"/>
+                <text class="arch-node-label" x="370" y="283" text-anchor="middle">Canvas API</text>
+                <text class="arch-node-sub" x="370" y="301" text-anchor="middle">native JPG encode</text>
+
+                <rect class="arch-node" x="505" y="180" width="145" height="64" rx="14"/>
+                <text class="arch-node-label" x="577" y="208" text-anchor="middle">Saved locally</text>
+                <text class="arch-node-sub" x="577" y="226" text-anchor="middle">downloads folder</text>
+
+                <!-- the road not taken -->
+                <rect class="arch-blocked-node" x="795" y="105" width="175" height="64" rx="14"/>
+                <text class="arch-node-label" x="882" y="133" text-anchor="middle" opacity="0.65">Cloud servers</text>
+                <text class="arch-node-sub" x="882" y="151" text-anchor="middle">never contacted</text>
+                <text class="arch-blocked-label" x="882" y="195" text-anchor="middle">0 bytes — ever</text>
+
+                <!-- wires: local flow -->
+                <path class="arch-wire" id="qf-w1" d="M 225 180 C 255 180, 250 137, 280 137"/>
+                <path class="arch-wire" id="qf-w2" d="M 370 169 C 370 200, 370 225, 370 255"/>
+                <path class="arch-wire" id="qf-w3" d="M 460 287 C 485 287, 480 216, 505 216"/>
+                <!-- wire: blocked network path -->
+                <path class="arch-blocked-wire" d="M 670 212 C 735 212, 735 137, 795 137"/>
+                <text class="arch-blocked-x" x="737" y="183" text-anchor="middle">✕</text>
+
+                <!-- traveling pulses (SMIL; hidden under reduced motion) -->
+                <g class="arch-pulse">
+                    <circle r="4" fill="#60a5fa"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0s"><mpath href="#qf-w1"/></animateMotion></circle>
+                    <circle r="4" fill="#60a5fa"><animateMotion dur="2.4s" repeatCount="indefinite" begin="0.8s"><mpath href="#qf-w2"/></animateMotion></circle>
+                    <circle r="4" fill="#22d3ee"><animateMotion dur="2.4s" repeatCount="indefinite" begin="1.6s"><mpath href="#qf-w3"/></animateMotion></circle>
+                </g>
+            </svg>
+            <p class="arch-legend">
+                <span style="color:#60a5fa">●</span> your file, in motion — always inside the dashed line &nbsp;·&nbsp;
+                <span style="color:#ff5f57">✕</span> the network path QuietFiles never takes
+            </p>
+        </div>
+
+        <div class="compare-grid">
+            <div class="glass-card rv">
+                <span class="compare-tag bad">A typical online converter</span>
+                <h3>"Free" — paid for with your files.</h3>
+                <ul class="compare-list bad">
+                    <li>Your file uploads to their server</li>
+                    <li>Converted on hardware you don't control</li>
+                    <li>"Deleted after 24 hours" — you hope</li>
+                    <li>Sign-up walls, ads and file-size upsells</li>
+                </ul>
+            </div>
+            <div class="glass-card rv" style="--d:.08s">
+                <span class="compare-tag good">QuietFiles</span>
+                <h3>Free — because there's nothing to pay for.</h3>
+                <ul class="compare-list good">
+                    <li>Your file is opened locally by your browser</li>
+                    <li>Decoded and encoded on your own device</li>
+                    <li>Nothing to delete — nothing was ever sent</li>
+                    <li>No accounts, no ads, no limits</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PRIVACY -->
+<section class="sf-section" id="privacy">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">The quiet part</span>
+            <h2 class="section-title">Privacy as architecture, not policy.</h2>
+            <p class="section-sub">We can't lose, sell or leak files we never receive. That's a stronger guarantee than any privacy policy — and you can verify it yourself in your browser's network tab.</p>
+        </div>
+        <div class="features-grid">
+            <div class="glass-card rv"><div class="card-icon">🔒</div><h3>No uploads</h3><p>Conversion happens in the page. Open the network tab and watch: after load, nothing leaves your machine.</p></div>
+            <div class="glass-card rv" style="--d:.06s"><div class="card-icon">👤</div><h3>No accounts</h3><p>No sign-up, no login, no email capture, no "free tier" to outgrow. Open, convert, close.</p></div>
+            <div class="glass-card rv" style="--d:.12s"><div class="card-icon">🍪</div><h3>No cookies</h3><p>No cookie banner because there are no cookies — and no cross-site trackers or ad networks either.</p></div>
+            <div class="glass-card rv" style="--d:.18s"><div class="card-icon">📴</div><h3>Works offline</h3><p>Once the page has loaded you can go airplane-mode — conversion is local, so it keeps working.</p></div>
+            <div class="glass-card rv" style="--d:.24s"><div class="card-icon">⚡</div><h3>Fast by design</h3><p>Static pages from Cloudflare's edge, zero JavaScript until you pick a file, WASM loaded lazily.</p></div>
+            <div class="glass-card rv" style="--d:.30s"><div class="card-icon">🆓</div><h3>Free, sustainably</h3><p>Your device does the compute and a CDN serves the files — near-zero running cost means it stays free.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- STACK -->
+<section class="sf-section" id="stack" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Built with</span>
+            <h2 class="section-title">A small site, held to a serious bar.</h2>
+            <p class="section-sub">The same standard we hold for client work: strict TypeScript, a hard performance budget, and the lightest tool that does the job.</p>
+        </div>
+
+        <div class="stack-chips rv" style="--d:.06s">
+            <span class="stack-chip"><b>Astro</b> — static output, zero JS by default</span>
+            <span class="stack-chip"><b>TypeScript</b> — strict mode</span>
+            <span class="stack-chip"><b>Tailwind CSS</b></span>
+            <span class="stack-chip"><b>libheif → WASM</b> — HEIC decode</span>
+            <span class="stack-chip"><b>pdf.js</b> — PDF rendering</span>
+            <span class="stack-chip"><b>Canvas API</b> — native encode</span>
+            <span class="stack-chip"><b>Web Workers</b> — never blocks the UI</span>
+            <span class="stack-chip"><b>Cloudflare Pages</b> — edge hosting</span>
+        </div>
+
+        <div class="features-grid" style="margin-top: 2.4rem;">
+            <div class="glass-card rv"><h3>🚀 Zero-JS by default</h3><p>Astro ships plain HTML and CSS; JavaScript hydrates only the converter island, only when you use it.</p></div>
+            <div class="glass-card rv" style="--d:.07s"><h3>🧵 The UI never freezes</h3><p>Decoding runs in Web Workers off the main thread, so the page stays responsive through big batches.</p></div>
+            <div class="glass-card rv" style="--d:.14s"><h3>📈 Speed is the strategy</h3><p>Lighthouse 95+ on mobile is a hard requirement, not polish — performance is how a tool site earns its ranking.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="sf-section" style="padding-top: 1rem;">
+    <div class="container">
+        <div class="cta-band rv">
+            <h2 class="section-title" style="margin-bottom: 0.6rem;">Got a HEIC or a PDF on you right now?</h2>
+            <p style="color: var(--text-muted); max-width: 520px; margin: 0 auto 2rem;">
+                Try it — no sign-up, and your files won't go anywhere. That's the point.
+                And if you want software built like this for your business, talk to us.
+            </p>
+            <div class="cta-actions">
+                <a href="https://quietfiles.com" target="_blank" rel="noopener noreferrer" class="btn-solid">quietfiles.com ↗</a>
+                <a href="mailto:info@softwarefirst.gr" class="btn-ghost">Talk to Software First</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">QuietFiles · Software First</div>
+        <a href="index.html" class="footer-link">← softwarefirst.gr</a>
+        <a href="https://quietfiles.com" target="_blank" rel="noopener noreferrer" class="footer-link">quietfiles.com ↗</a>
+        <p class="footer-copy">© 2026 Software First. All rights reserved.</p>
+    </div>
+</footer>
+
+<script>
+(() => {
+    "use strict";
+
+    /* ── Theme (light by default, shared with the main site) ────── */
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f4f8fd" : "#060b16";
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+
+    /* ── Nav / reveals / card specular (same primitives as index) ── */
+    document.getElementById("nav-toggle").addEventListener("click", () =>
+        document.getElementById("site-nav").classList.toggle("open"));
+
+    const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+    document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+    document.querySelectorAll(".glass-card").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+            card.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }, { passive: true });
+    });
+})();
+</script>
+</body>
+</html>

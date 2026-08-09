@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0PPT9YKKQF"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-0PPT9YKKQF');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Switchboard is a free, open-source MediatR alternative for .NET 8, 9 and 10. Requests, notifications and pipeline behaviors with an identical API surface — swap the using directive and one registration call. Apache 2.0, one dependency, ~565 lines.">
+    <link rel="canonical" href="https://softwarefirst.gr/switchboard">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="Switchboard — a drop-in, open-source MediatR alternative for .NET">
+    <meta property="og:description" content="Requests, notifications and pipeline behaviors over Microsoft.Extensions.DependencyInjection. Apache 2.0, one dependency, net8.0/net9.0/net10.0 — the migration off MediatR is a find-and-replace.">
+    <meta property="og:url" content="https://softwarefirst.gr/switchboard">
+    <meta property="og:image" content="https://softwarefirst.gr/assets/images/logo/logo-colored.png">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Switchboard — a drop-in, open-source MediatR alternative for .NET">
+    <meta name="twitter:description" content="Free and Apache 2.0. Requests, notifications and pipeline behaviors with a deliberately identical API surface to MediatR. Targets .NET 8, 9 and 10.">
+    <meta name="theme-color" content="#f6f7fb" id="theme-color-meta">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>Switchboard — Free MediatR Alternative for .NET (Apache 2.0) · Software First</title>
+
+    <script type="application/ld+json">
+    [
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareSourceCode",
+        "name": "Switchboard",
+        "alternateName": "SoftwareFirst.Switchboard",
+        "url": "https://softwarefirst.gr/switchboard",
+        "codeRepository": "https://github.com/Software-First-Gr/Switchboard",
+        "programmingLanguage": "C#",
+        "runtimePlatform": [".NET 8", ".NET 9", ".NET 10"],
+        "license": "https://www.apache.org/licenses/LICENSE-2.0",
+        "description": "A lightweight, MediatR-compatible mediator for .NET. Implements the request/response, notification and pipeline-behavior surface of MediatR on top of Microsoft.Extensions.DependencyInjection, with a single dependency and a deliberately identical API surface.",
+        "author": {
+          "@type": "Organization",
+          "name": "Software First",
+          "url": "https://softwarefirst.gr/"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "SoftwareFirst.Switchboard",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": ".NET 8, .NET 9, .NET 10",
+        "softwareVersion": "1.1.0",
+        "downloadUrl": "https://www.nuget.org/packages/SoftwareFirst.Switchboard",
+        "url": "https://softwarefirst.gr/switchboard",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "description": "Free, Apache-2.0 licensed mediator library for .NET — a drop-in replacement for the MediatR surface most applications actually use.",
+        "featureList": [
+          "IRequest / IRequestHandler request-response dispatch",
+          "INotification / INotificationHandler publish, sequential in registration order",
+          "IPipelineBehavior open and closed pipeline behaviors",
+          "Assembly scanning for handler registration",
+          "ISender, IPublisher, IMediator and Unit, identical to MediatR",
+          "Single dependency: Microsoft.Extensions.DependencyInjection.Abstractions"
+        ],
+        "author": {
+          "@type": "Organization",
+          "name": "Software First",
+          "url": "https://softwarefirst.gr/"
+        }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Is Switchboard a drop-in replacement for MediatR?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "For the request/response, notification and pipeline-behavior surface, yes. Change the package reference, replace 'using MediatR;' with 'using Switchboard;' and 'AddMediatR' with 'AddSwitchboard'. Handlers, behaviors and call sites compile unchanged. Streaming requests, pre-/post-processors, exception handlers and custom publish strategies are not implemented."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How much does Switchboard cost?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nothing. Switchboard is released under the Apache 2.0 licence, free for commercial use, with no per-seat or per-organisation fee."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Which .NET versions does Switchboard support?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Switchboard multi-targets net8.0, net9.0 and net10.0, so you can move off MediatR without upgrading your framework first. The dependency on Microsoft.Extensions.DependencyInjection.Abstractions is floored at the lowest patch of each major, so it never drags your other Microsoft.Extensions.* packages forward."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Do notification handlers run in parallel?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. Notification handlers run sequentially, in registration order, so scoped state such as an EF Core DbContext stays safe to share. Custom publish strategies are not supported."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Switchboard use source generators?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. It uses plain reflection over the DI container, the way MediatR does. There are no source generators, analyzers or build-time steps to audit. If you need maximum throughput or streaming, a source-generated alternative is the better fit."
+            }
+          }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Software First", "item": "https://softwarefirst.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Switchboard", "item": "https://softwarefirst.gr/switchboard" }
+        ]
+      }
+    ]
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ════════════════════════════════════════════════════════════════
+           SWITCHBOARD SHOWCASE — indigo edition, matching the open-source
+           section on the homepage. Self-contained like the rest of the
+           site: no build step, no dependencies, one file.
+           ════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #07070b;
+            --bg-2: #0b0b12;
+            --text: #eceef4;
+            --text-muted: #9a9ab0;
+            --accent: #6c63ff;
+            --accent-2: #00d4ff;
+            --accent-3: #b16cff;
+            --green: #2ee08a;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --radius: 18px;
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .container { width: min(1120px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(108,99,255,0.4); }
+
+        .grain {
+            position: fixed; inset: -50%;
+            width: 200%; height: 200%;
+            pointer-events: none; z-index: 2000; opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+        }
+
+        /* ── NAV ── */
+        .site-nav {
+            position: fixed; top: 14px; left: 50%;
+            transform: translateX(-50%);
+            width: min(1120px, 100% - 2rem);
+            z-index: 1000; border-radius: 16px;
+            padding: 0.65rem 1.1rem;
+            display: flex; align-items: center; justify-content: space-between;
+            background: rgba(11,11,18,0.55);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(18px) saturate(1.6);
+            -webkit-backdrop-filter: blur(18px) saturate(1.6);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.08), 0 12px 40px rgba(0,0,0,0.45);
+        }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1.1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 1.6rem; list-style: none; }
+        .nav-links a { font-size: 0.85rem; font-weight: 500; color: var(--text-muted); text-decoration: none; transition: color .2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta {
+            font-size: 0.85rem; font-weight: 600; color: #fff; text-decoration: none;
+            background: linear-gradient(120deg, var(--accent), #4f46e5);
+            padding: 0.5rem 1.15rem; border-radius: 10px;
+            box-shadow: 0 0 24px rgba(108,99,255,0.4);
+            transition: box-shadow .25s;
+        }
+        .nav-cta:hover { box-shadow: 0 0 40px rgba(108,99,255,0.6); }
+        .nav-toggle { display: none; background: none; border: 0; color: var(--text); font-size: 1.5rem; cursor: pointer; line-height: 1; }
+        .nav-actions { display: flex; align-items: center; gap: 0.6rem; }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 34px; height: 34px; flex: 0 0 34px;
+            border-radius: 10px; cursor: pointer;
+            font-size: 0.95rem; line-height: 1;
+            color: var(--text);
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            transition: background .25s, border-color .25s, transform .25s;
+        }
+        .theme-toggle:hover { border-color: rgba(108,99,255,0.55); transform: translateY(-1px); }
+        @media (prefers-reduced-motion: reduce) { .theme-toggle:hover { transform: none; } }
+        @media (max-width: 940px) {
+            .nav-links, .nav-cta { display: none; }
+            .nav-toggle { display: block; }
+            .site-nav.open .nav-links {
+                display: flex; flex-direction: column;
+                position: absolute; top: calc(100% + 10px); left: 0; right: 0;
+                background: rgba(11,11,18,0.94);
+                backdrop-filter: blur(18px);
+                border: 1px solid var(--stroke); border-radius: 14px;
+                padding: 1.4rem; gap: 1.1rem;
+            }
+        }
+
+        /* ── HERO ── */
+        .hero {
+            position: relative; min-height: 92svh;
+            display: flex; align-items: center;
+            overflow: hidden; padding: 8rem 0 4rem;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(108,99,255,0.32), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(0,212,255,0.13), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(177,108,255,0.28), transparent 65%);
+        }
+        .hero-grid-lines {
+            position: absolute; inset: 0;
+            background-image:
+                linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 54px 54px;
+            mask-image: radial-gradient(75% 65% at 50% 35%, black 25%, transparent 100%);
+        }
+        .hero-content { position: relative; z-index: 2; }
+        .badge-row { display: flex; flex-wrap: wrap; gap: 0.55rem; margin-bottom: 1.6rem; }
+        .badge-pill {
+            font-size: 0.74rem; font-weight: 600; letter-spacing: 0.04em;
+            color: #dcd8ff;
+            background: rgba(108,99,255,0.16);
+            border: 1px solid rgba(108,99,255,0.4);
+            border-radius: 50px; padding: 0.32rem 0.9rem;
+            backdrop-filter: blur(6px);
+        }
+        .badge-pill.green { color: #baf5d7; background: rgba(46,224,138,0.10); border-color: rgba(46,224,138,0.38); }
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(2.15rem, 4.6vw, 3.5rem);
+            font-weight: 700; letter-spacing: -0.035em; line-height: 1.08;
+            margin-bottom: 1.3rem; max-width: 960px;
+        }
+        .hero-title .grad {
+            background: linear-gradient(110deg, var(--accent-3) 0%, var(--accent-2) 100%);
+            -webkit-background-clip: text; background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-subtitle { font-size: 1.08rem; color: var(--text-muted); max-width: 660px; margin-bottom: 2rem; }
+        .hero-install { max-width: 520px; margin-bottom: 2.1rem; }
+        .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+        .btn-solid, .btn-ghost {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.92rem; font-weight: 600;
+            padding: 0.85rem 1.9rem; border-radius: 12px; text-decoration: none;
+        }
+        .btn-solid {
+            color: #fff;
+            background: linear-gradient(120deg, var(--accent) 0%, #4f46e5 100%);
+            box-shadow: 0 0 34px rgba(108,99,255,0.45), inset 0 1px 0 rgba(255,255,255,0.25);
+        }
+        .btn-ghost { color: var(--text); background: var(--glass); border: 1px solid var(--stroke); backdrop-filter: blur(8px); }
+        .btn-ghost:hover { border-color: rgba(0,212,255,0.55); }
+
+        .hero-stats {
+            display: flex; gap: 2.8rem; flex-wrap: wrap;
+            margin-top: 3.6rem; padding-top: 2.1rem;
+            border-top: 1px solid var(--stroke);
+        }
+        .stat-num { font-family: var(--font-display); font-size: 1.9rem; font-weight: 700; letter-spacing: -0.02em; }
+        .stat-num em { font-style: normal; color: var(--accent-2); }
+        .stat-label { font-size: 0.78rem; color: var(--text-muted); }
+
+        /* ── Reveals ── */
+        .rv {
+            opacity: 0; transform: translateY(26px); filter: blur(5px);
+            transition: opacity .7s ease var(--d, 0s), transform .7s ease var(--d, 0s), filter .7s ease var(--d, 0s);
+        }
+        .rv.in { opacity: 1; transform: none; filter: none; }
+        @media (prefers-reduced-motion: reduce) { .rv { opacity: 1; transform: none; filter: none; transition: none; } }
+
+        /* ── SECTIONS ── */
+        .sf-section { padding: 6.5rem 0; position: relative; }
+        .section-tag {
+            display: inline-block; font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.14em; text-transform: uppercase;
+            color: var(--accent-2); margin-bottom: 0.8rem;
+        }
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.8rem, 3.8vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+            margin-bottom: 1rem;
+        }
+        .section-sub { color: var(--text-muted); max-width: 660px; }
+
+        /* ── GLASS CARDS ── */
+        .glass-card {
+            position: relative; border-radius: var(--radius); padding: 1.9rem;
+            background: var(--glass);
+            border: 1px solid var(--stroke);
+            backdrop-filter: blur(14px) saturate(1.4);
+            -webkit-backdrop-filter: blur(14px) saturate(1.4);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.07);
+            overflow: hidden;
+            transition: transform .3s ease, border-color .3s ease;
+        }
+        .glass-card:hover { transform: translateY(-5px); border-color: rgba(108,99,255,0.5); }
+        @media (prefers-reduced-motion: reduce) { .glass-card:hover { transform: none; } }
+        .glass-card::before {
+            content: "";
+            position: absolute; inset: 0;
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(255,255,255,0.08), transparent 45%);
+            opacity: 0; transition: opacity .3s; pointer-events: none;
+        }
+        .glass-card:hover::before { opacity: 1; }
+        .glass-card h3 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .glass-card p, .glass-card li { font-size: 0.89rem; color: var(--text-muted); }
+        .card-icon {
+            width: 46px; height: 46px; border-radius: 13px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem;
+            background: linear-gradient(135deg, rgba(108,99,255,0.28), rgba(0,212,255,0.14));
+            border: 1px solid rgba(108,99,255,0.4);
+            margin-bottom: 1.1rem;
+        }
+
+        /* ── INSTALL ROW (shared with the homepage) ── */
+        .install-row {
+            display: flex; align-items: center; gap: 0.5rem;
+            border-radius: 12px; padding: 0.6rem 0.6rem 0.6rem 0.9rem;
+            background: rgba(8,8,14,0.72); border: 1px solid rgba(255,255,255,0.1);
+            font-family: var(--font-mono);
+            font-size: 0.8rem;
+        }
+        .install-row code {
+            flex: 1; min-width: 0; color: #e6e8f2;
+            white-space: nowrap; overflow-x: auto; scrollbar-width: none;
+        }
+        .install-row code::-webkit-scrollbar { display: none; }
+        .install-row .prompt { color: #00d4ff; user-select: none; }
+        .copy-btn {
+            flex: none; cursor: pointer;
+            font: inherit; font-size: 0.72rem; font-weight: 600; font-family: 'Inter', sans-serif;
+            padding: 0.34rem 0.7rem; border-radius: 8px;
+            color: #cfd3e6; background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.14);
+            transition: background .2s, color .2s, border-color .2s;
+        }
+        .copy-btn:hover { background: rgba(255,255,255,0.16); color: #fff; }
+        .copy-btn.copied { color: #0b0b12; background: var(--accent-2); border-color: transparent; }
+
+        /* ── CODE PANELS ── */
+        .code-panel {
+            border-radius: var(--radius); overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            background: #0b0b12;
+            box-shadow: 0 16px 44px rgba(8,8,20,0.28);
+        }
+        .code-head {
+            display: flex; align-items: center; gap: 0.45rem;
+            padding: 0.7rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-size: 0.74rem; color: #8d90a8;
+            font-family: var(--font-mono);
+        }
+        .code-head .dot { width: 10px; height: 10px; border-radius: 50%; flex: none; }
+        .code-head .name { margin-left: 0.5rem; }
+        .code-panel pre {
+            margin: 0; padding: 1.3rem 1.4rem; overflow-x: auto;
+            font-family: var(--font-mono);
+            font-size: 0.775rem; line-height: 1.85; color: #dfe2ee;
+            tab-size: 4;
+        }
+        .tok-k { color: #b16cff; }
+        .tok-t { color: #00d4ff; }
+        .tok-s { color: #7fdba1; }
+        .tok-c { color: #6f7392; font-style: italic; }
+
+        /* ── WHY GRID ── */
+        .why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; margin-top: 3.2rem; }
+        .why-list { list-style: none; margin-top: 0.7rem; }
+        .why-list li { padding: 0.28rem 0; padding-left: 1.4rem; position: relative; }
+        .why-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 700; }
+
+        /* ── STEP / CODE SPLIT ── */
+        .split { display: grid; grid-template-columns: 1fr 1.05fr; gap: 1.5rem; align-items: start; margin-top: 3.2rem; }
+        .split.reverse .split-copy { order: 2; }
+        @media (max-width: 940px) {
+            .split { grid-template-columns: 1fr; }
+            .split.reverse .split-copy { order: 0; }
+        }
+        .split-copy h3 { font-family: var(--font-display); font-size: 1.25rem; font-weight: 600; margin-bottom: 0.6rem; letter-spacing: -0.02em; }
+        .split-copy p { color: var(--text-muted); font-size: 0.93rem; }
+        .split-copy p + p { margin-top: 0.9rem; }
+        .hero-subtitle code, .split-copy code, .prose code {
+            font-family: var(--font-mono);
+            font-size: 0.86em; color: var(--text);
+            padding: 0.08em 0.34em; border-radius: 5px;
+            background: rgba(108,99,255,0.13);
+            overflow-wrap: anywhere;
+        }
+
+        /* ── STEPS ── */
+        .steps { display: grid; gap: 1rem; margin-top: 2.6rem; counter-reset: step; }
+        .step {
+            display: flex; gap: 1.1rem; align-items: flex-start;
+            border-radius: 14px; padding: 1.2rem 1.4rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .step-num {
+            flex: none; width: 30px; height: 30px; border-radius: 9px;
+            display: flex; align-items: center; justify-content: center;
+            font-family: var(--font-display); font-weight: 700; font-size: 0.85rem; color: #fff;
+            background: linear-gradient(135deg, var(--accent), var(--accent-2));
+        }
+        .step p { font-size: 0.92rem; color: var(--text-muted); }
+
+        /* ── COMPAT TABLE ── */
+        .table-wrap { margin-top: 2.6rem; overflow-x: auto; border-radius: var(--radius); border: 1px solid var(--stroke); background: var(--glass); }
+        table.compat { width: 100%; border-collapse: collapse; min-width: 560px; }
+        table.compat th, table.compat td { text-align: left; padding: 0.85rem 1.2rem; font-size: 0.87rem; }
+        table.compat thead th {
+            font-family: var(--font-display); font-size: 0.72rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+            border-bottom: 1px solid var(--stroke);
+        }
+        table.compat tbody tr + tr td { border-top: 1px solid var(--stroke); }
+        table.compat td:first-child { color: var(--text); }
+        table.compat td code {
+            font-family: var(--font-mono); font-size: 0.84em;
+            padding: 0.08em 0.34em; border-radius: 5px;
+            background: rgba(108,99,255,0.13);
+        }
+        .yes { color: var(--green); font-weight: 600; white-space: nowrap; }
+        .no { color: #ff8a84; font-weight: 600; }
+        table.compat td:last-child { color: var(--text-muted); }
+
+        /* ── SEMANTICS / FAQ ── */
+        .prose-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.2rem; margin-top: 3.2rem; }
+        .faq-list { margin-top: 2.8rem; display: grid; gap: 0.8rem; }
+        .faq-item {
+            border-radius: 14px; border: 1px solid var(--stroke);
+            background: var(--glass); padding: 1.3rem 1.5rem;
+        }
+        .faq-item h3 { font-family: var(--font-display); font-size: 1rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .faq-item p { font-size: 0.9rem; color: var(--text-muted); }
+
+        .oss-meta { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 2.2rem; }
+        .oss-chip {
+            font-size: 0.72rem; font-weight: 600;
+            padding: 0.3rem 0.7rem; border-radius: 7px;
+            background: rgba(108,99,255,0.14);
+            border: 1px solid rgba(108,99,255,0.32);
+            color: var(--accent-3);
+        }
+
+        /* ── CTA / FOOTER ── */
+        .cta-band {
+            border-radius: 24px; border: 1px solid var(--stroke);
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(108,99,255,0.26), transparent 65%),
+                var(--glass);
+            backdrop-filter: blur(14px);
+            padding: 4rem 2rem; text-align: center;
+        }
+        .cta-actions { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.8rem 0; margin-top: 4rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.4rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; transition: color .2s; }
+        .footer-link:hover { color: var(--text); }
+
+        /* ════════════════════════════════════════════════════════════════
+           LIGHT THEME — the default. Everything above is the dark edition;
+           this block re-tints it. Code panels stay dark on purpose.
+           ════════════════════════════════════════════════════════════════ */
+        :root[data-theme="light"] {
+            --bg: #f6f7fb;
+            --bg-2: #eef1f8;
+            --text: #14162b;
+            --text-muted: #5c6079;
+            --accent: #5b52f0;
+            --accent-2: #0a92b8;
+            --accent-3: #9333ea;
+            --green: #0e9f5d;
+            --glass: rgba(255,255,255,0.72);
+            --stroke: rgba(20,22,43,0.10);
+        }
+        :root[data-theme="light"] ::selection { background: rgba(108,99,255,0.22); }
+        :root[data-theme="light"] .grain { opacity: 0.018; }
+        :root[data-theme="light"] .site-nav {
+            background: rgba(255,255,255,0.72);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,0.9), 0 10px 30px rgba(20,22,43,0.08);
+        }
+        :root[data-theme="light"] .site-nav.open .nav-links { background: rgba(255,255,255,0.96); }
+        :root[data-theme="light"] .hero-bg {
+            background:
+                radial-gradient(70% 90% at 15% 15%, rgba(91,82,240,0.14), transparent 60%),
+                radial-gradient(55% 70% at 85% 25%, rgba(10,146,184,0.10), transparent 60%),
+                radial-gradient(80% 60% at 50% 110%, rgba(147,51,234,0.10), transparent 65%);
+        }
+        :root[data-theme="light"] .hero-grid-lines {
+            background-image:
+                linear-gradient(rgba(20,22,43,0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(20,22,43,0.05) 1px, transparent 1px);
+        }
+        :root[data-theme="light"] .badge-pill {
+            color: #453bbf;
+            background: rgba(91,82,240,0.08);
+            border-color: rgba(91,82,240,0.24);
+        }
+        :root[data-theme="light"] .badge-pill.green {
+            color: #067647;
+            background: rgba(14,159,93,0.08);
+            border-color: rgba(14,159,93,0.32);
+        }
+        :root[data-theme="light"] .btn-ghost { background: rgba(255,255,255,0.85); box-shadow: 0 6px 18px rgba(20,22,43,0.06); }
+        :root[data-theme="light"] .glass-card {
+            box-shadow: 0 8px 26px rgba(20,22,43,0.06), inset 0 1px 0 #fff;
+        }
+        :root[data-theme="light"] .glass-card::before {
+            background: radial-gradient(420px circle at var(--mx, 50%) var(--my, 0%), rgba(91,82,240,0.10), transparent 45%);
+        }
+        :root[data-theme="light"] .card-icon {
+            background: linear-gradient(135deg, rgba(91,82,240,0.14), rgba(10,146,184,0.10));
+            border-color: rgba(91,82,240,0.28);
+        }
+        :root[data-theme="light"] .oss-chip {
+            color: #6d28d9;
+            background: rgba(147,51,234,0.08);
+            border-color: rgba(147,51,234,0.24);
+        }
+        :root[data-theme="light"] .hero-subtitle code,
+        :root[data-theme="light"] .split-copy code,
+        :root[data-theme="light"] .prose code,
+        :root[data-theme="light"] table.compat td code {
+            background: rgba(91,82,240,0.10);
+        }
+        :root[data-theme="light"] .no { color: #b91c1c; }
+        :root[data-theme="light"] .step,
+        :root[data-theme="light"] .faq-item,
+        :root[data-theme="light"] .table-wrap { box-shadow: 0 6px 20px rgba(20,22,43,0.05); }
+        :root[data-theme="light"] .cta-band {
+            background:
+                radial-gradient(70% 120% at 50% 0%, rgba(91,82,240,0.12), transparent 65%),
+                rgba(255,255,255,0.75);
+            box-shadow: 0 12px 40px rgba(20,22,43,0.06);
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain" aria-hidden="true"></div>
+
+<!-- NAV -->
+<header class="site-nav" id="site-nav">
+    <a href="/" class="nav-brand">Switchboard <span>· Software First</span></a>
+    <ul class="nav-links" id="nav-links">
+        <li><a href="#why">Why</a></li>
+        <li><a href="#quick-start">Quick start</a></li>
+        <li><a href="#migrating">Migrating</a></li>
+        <li><a href="#semantics">Semantics</a></li>
+        <li><a href="#faq">FAQ</a></li>
+    </ul>
+    <div class="nav-actions">
+        <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        <a href="https://github.com/Software-First-Gr/Switchboard" target="_blank" rel="noopener noreferrer" class="nav-cta">GitHub ↗</a>
+        <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu">☰</button>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-bg" aria-hidden="true"></div>
+    <div class="hero-grid-lines" aria-hidden="true"></div>
+    <div class="container hero-content">
+        <div class="badge-row rv">
+            <span class="badge-pill">net8.0 · net9.0 · net10.0</span>
+            <span class="badge-pill">One dependency</span>
+            <span class="badge-pill">No source generators</span>
+            <span class="badge-pill green">Apache 2.0 — free, including commercially</span>
+        </div>
+        <h1 class="hero-title rv" style="--d:.08s">
+            A drop-in MediatR alternative<br>
+            <span class="grad">you can read in an afternoon.</span>
+        </h1>
+        <p class="hero-subtitle rv" style="--d:.16s">
+            Switchboard implements the request/response, notification and pipeline-behavior surface of
+            MediatR on top of <code>Microsoft.Extensions.DependencyInjection</code>. It was extracted from a
+            production system that moved off MediatR when it became commercially licensed — swap your
+            <code>using</code> directives, change one registration call, and your handlers, behaviors and
+            call sites compile unchanged.
+        </p>
+        <div class="hero-install rv" style="--d:.2s">
+            <div class="install-row">
+                <span class="prompt" aria-hidden="true">$</span>
+                <code id="install-cmd">dotnet add package SoftwareFirst.Switchboard</code>
+                <button class="copy-btn" type="button" data-copy="#install-cmd">Copy</button>
+            </div>
+        </div>
+        <div class="hero-actions rv" style="--d:.24s">
+            <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" target="_blank" rel="noopener noreferrer" class="btn-solid">View on NuGet ↗</a>
+            <a href="#migrating" class="btn-ghost">How the migration works ↓</a>
+        </div>
+        <div class="hero-stats rv" style="--d:.32s">
+            <div>
+                <div class="stat-num"><em>1</em> dependency</div>
+                <div class="stat-label">DependencyInjection.Abstractions — that's it</div>
+            </div>
+            <div>
+                <div class="stat-num"><em>~565</em> lines</div>
+                <div class="stat-label">across 15 files you can read end to end</div>
+            </div>
+            <div>
+                <div class="stat-num"><em>3</em> targets</div>
+                <div class="stat-label">net8.0, net9.0 and net10.0</div>
+            </div>
+            <div>
+                <div class="stat-num">v1.1.0</div>
+                <div class="stat-label">on NuGet as SoftwareFirst.Switchboard</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- WHY -->
+<section class="sf-section" id="why">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Why this one</span>
+            <h2 class="section-title">Several MediatR alternatives exist. This one competes on being small.</h2>
+            <p class="section-sub">
+                Most of the alternatives that appeared after MediatR went commercial compete on throughput
+                or feature count. Switchboard optimises for the thing that actually made the migration
+                painful: how much new surface you have to trust, and how much of your code has to change.
+            </p>
+        </div>
+        <div class="why-grid">
+            <div class="glass-card rv" style="--d:.05s">
+                <div class="card-icon">🔁</div>
+                <h3>A find-and-replace, not a rewrite</h3>
+                <p>
+                    The API surface is deliberately identical. <code>ISender</code>, <code>IPublisher</code>,
+                    <code>IMediator</code>, <code>IRequest&lt;T&gt;</code>, <code>IRequestHandler&lt;,&gt;</code>,
+                    <code>INotification</code>, <code>IPipelineBehavior&lt;,&gt;</code> and <code>Unit</code>
+                    all keep their names and shapes.
+                </p>
+                <ul class="why-list">
+                    <li>Handlers compile unchanged</li>
+                    <li>Behaviors compile unchanged</li>
+                    <li>Call sites compile unchanged</li>
+                </ul>
+            </div>
+            <div class="glass-card rv" style="--d:.12s">
+                <div class="card-icon">📦</div>
+                <h3>One dependency, floored on purpose</h3>
+                <p>
+                    Only <code>Microsoft.Extensions.DependencyInjection.Abstractions</code>, referenced at the
+                    lowest patch of each major — so adding Switchboard never drags the rest of your
+                    <code>Microsoft.Extensions.*</code> graph forward a version.
+                </p>
+                <ul class="why-list">
+                    <li>No transitive surprises</li>
+                    <li>Nothing to audit you can't read</li>
+                    <li>Symbols and source link published</li>
+                </ul>
+            </div>
+            <div class="glass-card rv" style="--d:.19s">
+                <div class="card-icon">🔍</div>
+                <h3>No build-time magic</h3>
+                <p>
+                    Plain reflection over the DI container, the way MediatR does it. No source generators,
+                    no analyzers, no MSBuild steps that change what ships. What you read in the repo is
+                    what runs in production.
+                </p>
+                <ul class="why-list">
+                    <li>Debuggable stack traces</li>
+                    <li>Works with trimming caveats you already know</li>
+                    <li>Nothing generated behind your back</li>
+                </ul>
+            </div>
+            <div class="glass-card rv" style="--d:.26s">
+                <div class="card-icon">🏗️</div>
+                <h3>Extracted, not invented</h3>
+                <p>
+                    Switchboard came out of the platform behind ΠΑΦΑΜΕ — a production system that made this
+                    exact switch — then got cleaned up and published under Apache 2.0. It wasn't written for
+                    a blog post.
+                </p>
+                <ul class="why-list">
+                    <li>Apache 2.0, free commercially</li>
+                    <li>CI on every push</li>
+                    <li>Multi-targeted so you don't have to upgrade first</li>
+                </ul>
+            </div>
+        </div>
+        <div class="oss-meta rv" style="--d:.3s">
+            <span class="oss-chip">Apache-2.0</span>
+            <span class="oss-chip">net8.0</span>
+            <span class="oss-chip">net9.0</span>
+            <span class="oss-chip">net10.0</span>
+            <span class="oss-chip">CQRS</span>
+            <span class="oss-chip">Pipeline behaviors</span>
+            <span class="oss-chip">Notifications</span>
+        </div>
+    </div>
+</section>
+
+<!-- QUICK START -->
+<section class="sf-section" id="quick-start" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Quick start</span>
+            <h2 class="section-title">Define a request, register once, send.</h2>
+            <p class="section-sub">
+                The package ID is prefixed, but the assembly and namespace are both plain
+                <code>Switchboard</code> — you write <code>using Switchboard;</code>.
+            </p>
+        </div>
+
+        <div class="split">
+            <div class="split-copy rv">
+                <h3>Requests and handlers</h3>
+                <p>
+                    A request carries its response type. Its handler is found by assembly scanning and
+                    resolved from the same scope the mediator was resolved from, so scoped dependencies
+                    behave exactly as you'd expect.
+                </p>
+                <p>
+                    Void requests implement <code>IRequest</code> with no type argument and are handled by
+                    <code>IRequestHandler&lt;TRequest&gt;</code>. Under the hood they run through the same
+                    pipeline with <code>TResponse == Unit</code>, so open-generic behaviors apply to them
+                    unchanged.
+                </p>
+            </div>
+            <div class="code-panel rv" style="--d:.08s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">GetOrder.cs</span>
+                </div>
+<pre><code><span class="tok-k">using</span> Switchboard;
+
+<span class="tok-k">public sealed record</span> <span class="tok-t">GetOrder</span>(<span class="tok-k">int</span> Id) : <span class="tok-t">IRequest</span>&lt;<span class="tok-t">OrderDto</span>&gt;;
+
+<span class="tok-k">public sealed class</span> <span class="tok-t">GetOrderHandler</span>
+    : <span class="tok-t">IRequestHandler</span>&lt;<span class="tok-t">GetOrder</span>, <span class="tok-t">OrderDto</span>&gt;
+{
+    <span class="tok-k">public</span> <span class="tok-t">Task</span>&lt;<span class="tok-t">OrderDto</span>&gt; <span class="tok-t">Handle</span>(
+        <span class="tok-t">GetOrder</span> request, <span class="tok-t">CancellationToken</span> cancellationToken)
+        =&gt; <span class="tok-c">/* ... */</span>;
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="split reverse" style="margin-top: 1.5rem;">
+            <div class="split-copy rv">
+                <h3>One registration call</h3>
+                <p>
+                    <code>AddSwitchboard</code> takes the same configuration methods MediatR does —
+                    <code>RegisterServicesFromAssemblyContaining</code>,
+                    <code>RegisterServicesFromAssembly</code> and <code>AddOpenBehavior</code> — so the
+                    registration block usually survives the migration with one word changed.
+                </p>
+                <p>
+                    Inject <code>ISender</code> (or <code>IPublisher</code>, or <code>IMediator</code>)
+                    anywhere in your app and dispatch.
+                </p>
+            </div>
+            <div class="code-panel rv" style="--d:.08s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">Program.cs</span>
+                </div>
+<pre><code><span class="tok-k">using</span> Switchboard;
+
+<span class="tok-c">// One registration call — assembly scanning included.</span>
+builder.Services.<span class="tok-t">AddSwitchboard</span>(cfg =&gt; cfg
+    .<span class="tok-t">RegisterServicesFromAssemblyContaining</span>&lt;<span class="tok-t">GetOrderHandler</span>&gt;()
+    .<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>(<span class="tok-t">LoggingBehaviour</span>&lt;,&gt;)));
+
+<span class="tok-k">public sealed class</span> <span class="tok-t">OrderController</span>(<span class="tok-t">ISender</span> sender)
+    : <span class="tok-t">ControllerBase</span>
+{
+    [<span class="tok-t">HttpGet</span>(<span class="tok-s">"{id}"</span>)]
+    <span class="tok-k">public</span> <span class="tok-t">Task</span>&lt;<span class="tok-t">OrderDto</span>&gt; <span class="tok-t">Get</span>(<span class="tok-k">int</span> id, <span class="tok-t">CancellationToken</span> ct)
+        =&gt; sender.<span class="tok-t">Send</span>(<span class="tok-k">new</span> <span class="tok-t">GetOrder</span>(id), ct);
+}</code></pre>
+            </div>
+        </div>
+
+        <div class="split" style="margin-top: 1.5rem;">
+            <div class="split-copy rv">
+                <h3>Pipeline behaviors</h3>
+                <p>
+                    Behaviors wrap every handler, outermost first in the order they are added. Open generics
+                    go in with <code>AddOpenBehavior</code>; a behavior bound to one specific request/response
+                    pair goes in with <code>AddBehavior</code>.
+                </p>
+                <p>
+                    Both kinds share a single ordering, so the first one added is outermost regardless of which
+                    kind it is. Registering straight against the container still works too:
+                    <code>services.AddTransient&lt;IPipelineBehavior&lt;GetOrder, OrderDto&gt;, MyBehavior&gt;()</code>.
+                </p>
+            </div>
+            <div class="code-panel rv" style="--d:.08s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">LoggingBehaviour.cs</span>
+                </div>
+<pre><code><span class="tok-k">public sealed class</span> <span class="tok-t">LoggingBehaviour</span>&lt;<span class="tok-t">TRequest</span>, <span class="tok-t">TResponse</span>&gt;
+    : <span class="tok-t">IPipelineBehavior</span>&lt;<span class="tok-t">TRequest</span>, <span class="tok-t">TResponse</span>&gt;
+{
+    <span class="tok-k">public async</span> <span class="tok-t">Task</span>&lt;<span class="tok-t">TResponse</span>&gt; <span class="tok-t">Handle</span>(
+        <span class="tok-t">TRequest</span> request,
+        <span class="tok-t">RequestHandlerDelegate</span>&lt;<span class="tok-t">TResponse</span>&gt; next,
+        <span class="tok-t">CancellationToken</span> cancellationToken)
+    {
+        <span class="tok-c">// before</span>
+        <span class="tok-k">var</span> response = <span class="tok-k">await</span> next(cancellationToken);
+        <span class="tok-c">// after</span>
+        <span class="tok-k">return</span> response;
+    }
+}
+
+<span class="tok-c">// Ordering is shared between open and closed behaviors:</span>
+cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>(<span class="tok-t">LoggingBehaviour</span>&lt;,&gt;))   <span class="tok-c">// outermost</span>
+   .<span class="tok-t">AddBehavior</span>&lt;<span class="tok-t">AuditGetOrder</span>&gt;()
+   .<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>(<span class="tok-t">ValidationBehaviour</span>&lt;,&gt;)); <span class="tok-c">// innermost</span></code></pre>
+            </div>
+        </div>
+
+        <div class="split reverse" style="margin-top: 1.5rem;">
+            <div class="split-copy rv">
+                <h3>Notifications</h3>
+                <p>
+                    Publish a notification and every registered handler runs — <b>sequentially, in registration
+                    order</b>, never in parallel. That's a deliberate choice: it means handlers can safely share
+                    scoped state such as an EF Core <code>DbContext</code>.
+                </p>
+                <p>
+                    Publishing to zero handlers is a no-op, mirroring MediatR.
+                </p>
+            </div>
+            <div class="code-panel rv" style="--d:.08s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">OrderPlaced.cs</span>
+                </div>
+<pre><code><span class="tok-k">public sealed record</span> <span class="tok-t">OrderPlaced</span>(<span class="tok-k">int</span> OrderId) : <span class="tok-t">INotification</span>;
+
+<span class="tok-k">public sealed class</span> <span class="tok-t">SendReceipt</span>
+    : <span class="tok-t">INotificationHandler</span>&lt;<span class="tok-t">OrderPlaced</span>&gt; { <span class="tok-c">/* ... */</span> }
+
+<span class="tok-k">public sealed class</span> <span class="tok-t">UpdateStats</span>
+    : <span class="tok-t">INotificationHandler</span>&lt;<span class="tok-t">OrderPlaced</span>&gt; { <span class="tok-c">/* ... */</span> }
+
+<span class="tok-c">// Runs SendReceipt, then UpdateStats — one after the other.</span>
+<span class="tok-k">await</span> publisher.<span class="tok-t">Publish</span>(<span class="tok-k">new</span> <span class="tok-t">OrderPlaced</span>(<span class="tok-s">42</span>), cancellationToken);</code></pre>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- MIGRATING -->
+<section class="sf-section" id="migrating">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Migrating from MediatR</span>
+            <h2 class="section-title">Three steps, then read the table.</h2>
+            <p class="section-sub">
+                The first three steps cover almost every codebase. The table is the honest part: if you're
+                using something in the bottom half, Switchboard is not your library and the README says so too.
+            </p>
+        </div>
+
+        <div class="steps">
+            <div class="step rv" style="--d:.05s">
+                <span class="step-num">1</span>
+                <p>Replace the <code>MediatR</code> package reference with <code>SoftwareFirst.Switchboard</code>.</p>
+            </div>
+            <div class="step rv" style="--d:.1s">
+                <span class="step-num">2</span>
+                <p>Replace <code>using MediatR;</code> with <code>using Switchboard;</code>.</p>
+            </div>
+            <div class="step rv" style="--d:.15s">
+                <span class="step-num">3</span>
+                <p>
+                    Replace <code>services.AddMediatR(...)</code> with <code>services.AddSwitchboard(...)</code> —
+                    the configuration methods keep their names.
+                </p>
+            </div>
+        </div>
+
+        <div class="table-wrap rv" style="--d:.2s">
+            <table class="compat">
+                <thead>
+                    <tr>
+                        <th scope="col">MediatR feature</th>
+                        <th scope="col">Switchboard</th>
+                        <th scope="col">Notes</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>IRequest</code>, <code>IRequest&lt;T&gt;</code>, <code>IRequestHandler&lt;,&gt;</code>, <code>IRequestHandler&lt;&gt;</code></td>
+                        <td class="yes">✅ identical</td>
+                        <td>Same names, same shapes</td>
+                    </tr>
+                    <tr>
+                        <td><code>INotification</code>, <code>INotificationHandler&lt;&gt;</code></td>
+                        <td class="yes">✅ identical</td>
+                        <td>Sequential publish, registration order</td>
+                    </tr>
+                    <tr>
+                        <td><code>IPipelineBehavior&lt;,&gt;</code></td>
+                        <td class="yes">✅ identical</td>
+                        <td>First registered runs outermost</td>
+                    </tr>
+                    <tr>
+                        <td><code>ISender</code>, <code>IPublisher</code>, <code>IMediator</code>, <code>Unit</code></td>
+                        <td class="yes">✅ identical</td>
+                        <td>Inject whichever you already inject</td>
+                    </tr>
+                    <tr>
+                        <td>Untyped <code>Send(object)</code> / <code>Publish(object)</code></td>
+                        <td class="yes">✅ identical</td>
+                        <td>For dynamic dispatch call sites</td>
+                    </tr>
+                    <tr>
+                        <td>Assembly scanning for handlers</td>
+                        <td class="yes">✅ identical</td>
+                        <td><code>RegisterServicesFromAssembly…</code></td>
+                    </tr>
+                    <tr>
+                        <td>Streaming (<code>IStreamRequest&lt;&gt;</code>)</td>
+                        <td class="no">❌ not implemented</td>
+                        <td>Use a source-generated alternative</td>
+                    </tr>
+                    <tr>
+                        <td>Request pre-/post-processors</td>
+                        <td class="no">❌ not implemented</td>
+                        <td>Use a pipeline behavior instead</td>
+                    </tr>
+                    <tr>
+                        <td>Exception handlers/actions (<code>IRequestExceptionHandler</code>)</td>
+                        <td class="no">❌ not implemented</td>
+                        <td>Use a pipeline behavior instead</td>
+                    </tr>
+                    <tr>
+                        <td>Custom publish strategies (parallel, etc.)</td>
+                        <td class="no">❌ not implemented</td>
+                        <td>Sequential only, on purpose</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- SEMANTICS -->
+<section class="sf-section" id="semantics" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">Semantics worth knowing</span>
+            <h2 class="section-title">The four behaviours people actually get bitten by.</h2>
+            <p class="section-sub">
+                A mediator is mostly invisible until something surprises you at 2am. These are the choices
+                Switchboard makes, stated up front.
+            </p>
+        </div>
+        <div class="prose-grid">
+            <div class="glass-card rv prose" style="--d:.05s">
+                <h3>Cancellation is never lost</h3>
+                <p>
+                    The <code>CancellationToken</code> passed to <code>Send</code> flows to every behavior and
+                    to the handler — even when a behavior calls <code>next()</code> with no arguments.
+                </p>
+            </div>
+            <div class="glass-card rv prose" style="--d:.12s">
+                <h3>Handlers and behaviors are transient</h3>
+                <p>
+                    They're resolved from the scope the mediator was resolved from, so your scoped
+                    dependencies work exactly as they do today.
+                </p>
+            </div>
+            <div class="glass-card rv prose" style="--d:.19s">
+                <h3>Publishing to zero handlers is a no-op</h3>
+                <p>
+                    No exception, no warning — the same thing MediatR does, so a partially migrated codebase
+                    doesn't start throwing.
+                </p>
+            </div>
+            <div class="glass-card rv prose" style="--d:.26s">
+                <h3>Wrapper types are cached</h3>
+                <p>
+                    Handler-type wrappers are cached statically per request type. The cache is stateless and
+                    thread-safe, so the reflection cost is paid once.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ -->
+<section class="sf-section" id="faq">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">FAQ</span>
+            <h2 class="section-title">Questions we got asked before publishing it.</h2>
+        </div>
+        <div class="faq-list">
+            <div class="faq-item rv" style="--d:.04s">
+                <h3>Is Switchboard really a drop-in replacement for MediatR?</h3>
+                <p>
+                    For the request/response, notification and pipeline-behavior surface — yes. Change the
+                    package reference, replace <code>using MediatR;</code> with <code>using Switchboard;</code>
+                    and <code>AddMediatR</code> with <code>AddSwitchboard</code>. Handlers, behaviors and call
+                    sites compile unchanged. Streaming, pre-/post-processors, exception handlers and custom
+                    publish strategies are not implemented — see the table above.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.08s">
+                <h3>What does it cost?</h3>
+                <p>
+                    Nothing. It's Apache 2.0 — free for commercial use, no per-seat or per-organisation fee,
+                    no licence key. That's the whole reason it exists.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.12s">
+                <h3>Which .NET versions are supported?</h3>
+                <p>
+                    <code>net8.0</code>, <code>net9.0</code> and <code>net10.0</code>. You can move off MediatR
+                    without moving frameworks first. The single dependency is floored at the lowest patch of
+                    each major, so it won't pull your other <code>Microsoft.Extensions.*</code> packages forward.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.16s">
+                <h3>Do notification handlers run in parallel?</h3>
+                <p>
+                    No — sequentially, in registration order, always. That keeps scoped state such as an EF Core
+                    <code>DbContext</code> safe to share between handlers. If you need a parallel publish
+                    strategy, Switchboard isn't the right fit.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.2s">
+                <h3>Are there source generators or analyzers?</h3>
+                <p>
+                    None. It's plain reflection over the DI container, the way MediatR does it. If you need
+                    maximum throughput or streaming, a source-generated alternative is genuinely the better
+                    choice — we'd rather say that than sell you the wrong library.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.24s">
+                <h3>Why is the package ID prefixed but the namespace isn't?</h3>
+                <p>
+                    The package ID is <code>SoftwareFirst.Switchboard</code> because NuGet IDs are global; the
+                    assembly and namespace are both plain <code>Switchboard</code>, so your code reads
+                    <code>using Switchboard;</code> and nothing else.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.28s">
+                <h3>Who maintains it?</h3>
+                <p>
+                    <a href="/" class="footer-link" style="color: var(--accent-2); font-size: inherit;">Software First</a>,
+                    a software studio in Athens. We run it in our own production systems — that's the maintenance
+                    model, not a promise on a page.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- CTA -->
+<section class="sf-section" style="padding-top: 1rem;">
+    <div class="container">
+        <div class="cta-band rv">
+            <h2 class="section-title" style="margin-bottom: 0.6rem;">Still on MediatR and reading the invoice?</h2>
+            <p style="color: var(--text-muted); max-width: 540px; margin: 0 auto 2rem;">
+                Install it, run your test suite, and see how much actually breaks. If you'd rather we
+                looked at your architecture properly, that's what the rest of this site is about.
+            </p>
+            <div class="cta-actions">
+                <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" target="_blank" rel="noopener noreferrer" class="btn-solid">Get it on NuGet ↗</a>
+                <a href="https://github.com/Software-First-Gr/Switchboard" target="_blank" rel="noopener noreferrer" class="btn-ghost">Read the source ↗</a>
+                <a href="mailto:info@softwarefirst.gr" class="btn-ghost">Talk to Software First</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">Switchboard · Software First</div>
+        <a href="/" class="footer-link">← softwarefirst.gr</a>
+        <a href="https://github.com/Software-First-Gr/Switchboard" target="_blank" rel="noopener noreferrer" class="footer-link">GitHub ↗</a>
+        <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" target="_blank" rel="noopener noreferrer" class="footer-link">NuGet ↗</a>
+        <p class="footer-copy">© 2026 Software First. Switchboard is Apache 2.0.</p>
+    </div>
+</footer>
+
+<script>
+(() => {
+    "use strict";
+
+    /* ── Theme (light by default, shared with the main site) ────── */
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f6f7fb" : "#07070b";
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+
+    /* ── Nav / reveals / card specular (same primitives as index) ── */
+    document.getElementById("nav-toggle").addEventListener("click", () =>
+        document.getElementById("site-nav").classList.toggle("open"));
+
+    const io = new IntersectionObserver((entries) => {
+        for (const e of entries) if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); }
+    }, { threshold: 0.12, rootMargin: "0px 0px -30px 0px" });
+    document.querySelectorAll(".rv").forEach(el => io.observe(el));
+
+    document.querySelectorAll(".glass-card").forEach((card) => {
+        card.addEventListener("pointermove", (e) => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty("--mx", `${e.clientX - r.left}px`);
+            card.style.setProperty("--my", `${e.clientY - r.top}px`);
+        }, { passive: true });
+    });
+
+    /* ── Copy-to-clipboard for the install command ── */
+    document.querySelectorAll(".copy-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+            const target = document.querySelector(btn.dataset.copy);
+            if (!target) return;
+            try {
+                await navigator.clipboard.writeText(target.textContent.trim());
+                btn.textContent = "Copied";
+                btn.classList.add("copied");
+                setTimeout(() => { btn.textContent = "Copy"; btn.classList.remove("copied"); }, 1600);
+            } catch (e) { /* clipboard blocked — leave the text selectable */ }
+        });
+    });
+})();
+</script>
+</body>
+</html>

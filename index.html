@@ -959,7 +959,7 @@
                 <div class="pkg-head">
                     <div class="pkg-mark" aria-hidden="true">SB</div>
                     <div>
-                        <div class="pkg-id">SoftwareFirst.Switchboard<span class="pkg-ver">v1.0.1</span></div>
+                        <div class="pkg-id">SoftwareFirst.Switchboard<span class="pkg-ver">v1.1.0</span></div>
                         <div class="pkg-tagline">A lightweight, MediatR-compatible mediator for .NET</div>
                     </div>
                 </div>
@@ -967,6 +967,7 @@
                 <ul class="oss-points">
                     <li><span><b>Drop-in replacement.</b> Swap the package, change <code>using MediatR;</code> to <code>using Switchboard;</code> and <code>AddMediatR</code> to <code>AddSwitchboard</code> — handlers, behaviors and call sites compile unchanged.</span></li>
                     <li><span><b>A few hundred lines, one dependency.</b> Just <code>Microsoft.Extensions.DependencyInjection.Abstractions</code>. Nothing to audit that you can't read in an afternoon.</span></li>
+                    <li><span><b>Targets net8.0, net9.0 and net10.0.</b> Move off MediatR without moving frameworks first.</span></li>
                     <li><span><b>Predictable semantics.</b> Notification handlers run sequentially in registration order, so scoped state like an EF Core <code>DbContext</code> stays safe. Cancellation tokens never get dropped.</span></li>
                     <li><span><b>Battle-tested.</b> Extracted from the platform behind ΠΑΦΑΜΕ, not written for a blog post.</span></li>
                 </ul>
@@ -979,6 +980,8 @@
 
                 <div class="oss-meta">
                     <span class="oss-chip">Apache-2.0</span>
+                    <span class="oss-chip">net8.0</span>
+                    <span class="oss-chip">net9.0</span>
                     <span class="oss-chip">net10.0</span>
                     <span class="oss-chip">CQRS</span>
                     <span class="oss-chip">Pipeline behaviors</span>
@@ -986,8 +989,9 @@
                 </div>
 
                 <div class="oss-links">
-                    <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" class="btn-solid magnetic" target="_blank" rel="noopener">View on NuGet →</a>
-                    <a href="https://github.com/Software-First-Gr/Switchboard" class="btn-ghost magnetic" target="_blank" rel="noopener">Source on GitHub</a>
+                    <a href="/switchboard" class="btn-solid magnetic">Explore Switchboard →</a>
+                    <a href="https://www.nuget.org/packages/SoftwareFirst.Switchboard" class="btn-ghost magnetic" target="_blank" rel="noopener">NuGet ↗</a>
+                    <a href="https://github.com/Software-First-Gr/Switchboard" class="btn-ghost magnetic" target="_blank" rel="noopener">GitHub ↗</a>
                 </div>
             </div>
 

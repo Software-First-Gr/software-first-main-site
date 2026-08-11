@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- No analytics on this page on purpose. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Terms of use and end user licence agreement (EULA) for the Retro Palette mobile app by Software First.">
+    <link rel="canonical" href="https://softwarefirst.gr/retropalette-terms">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="Retro Palette — Terms of Use">
+    <meta property="og:description" content="Terms of use and end user licence agreement for the Retro Palette mobile app.">
+    <meta property="og:url" content="https://softwarefirst.gr/retropalette-terms">
+    <meta name="theme-color" content="#f7f5ec" id="theme-color-meta">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>Terms of Use — Retro Palette · Software First</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Shared legal/support document layout — see retropalette-privacy.html. */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #070a07;
+            --bg-2: #0b110b;
+            --text: #edf0e6;
+            --text-muted: #9aa38f;
+            --accent: #8bac0f;
+            --accent-2: #cfe86b;
+            --accent-3: #ffc24b;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        :root[data-theme="light"] {
+            --bg: #f7f5ec;
+            --bg-2: #efeade;
+            --text: #1d2318;
+            --text-muted: #5d6353;
+            --accent: #4f7a17;
+            --accent-2: #2e7d32;
+            --accent-3: #a86a00;
+            --glass: rgba(255,255,255,0.74);
+            --stroke: rgba(29,35,24,0.11);
+        }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            line-height: 1.75; -webkit-font-smoothing: antialiased;
+        }
+        .container { width: min(760px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(139,172,15,0.3); }
+        a { color: var(--accent-2); }
+        a:hover { color: var(--accent-3); }
+
+        .site-nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 0.9rem 0;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            border-bottom: 1px solid var(--stroke);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
+        .nav-actions a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; }
+        .nav-actions a:hover { color: var(--text); }
+        @media (max-width: 620px) { .nav-actions a.hide-sm { display: none; } }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; flex: 0 0 32px;
+            border-radius: 9px; cursor: pointer; font-size: 0.9rem; line-height: 1;
+            color: var(--text); background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .theme-toggle:hover { border-color: rgba(139,172,15,0.55); }
+
+        .doc { padding: 3.5rem 0 2rem; }
+        .doc-kicker {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--accent-2); margin-bottom: 0.7rem;
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 5vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+            margin-bottom: 0.7rem;
+        }
+        .doc-meta { font-size: 0.85rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text); font-weight: 600; }
+
+        .tldr {
+            margin: 2.2rem 0 0; border-radius: 16px; padding: 1.5rem 1.7rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .tldr h2 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+        .tldr ul { list-style: none; display: grid; gap: 0.5rem; }
+        .tldr li { display: flex; gap: 0.65rem; font-size: 0.92rem; color: var(--text-muted); }
+        .tldr li::before { content: "✓"; color: var(--accent-2); font-weight: 700; flex: none; }
+
+        .toc {
+            margin: 2rem 0 0; border-radius: 14px; padding: 1.2rem 1.5rem;
+            border: 1px solid var(--stroke);
+        }
+        .toc h2 {
+            font-family: var(--font-display); font-size: 0.74rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 0.7rem;
+        }
+        .toc ol { margin-left: 1.1rem; }
+        .toc li { font-size: 0.88rem; margin-bottom: 0.2rem; }
+        .toc a { text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        section.clause { margin-top: 3rem; scroll-margin-top: 5rem; }
+        section.clause h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em;
+            margin-bottom: 0.9rem; padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--stroke);
+        }
+        section.clause h3 {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+            margin: 1.7rem 0 0.5rem;
+        }
+        section.clause p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        section.clause ul, section.clause ol { color: var(--text-muted); margin: 0 0 1rem 1.3rem; font-size: 0.95rem; }
+        section.clause li { margin-bottom: 0.45rem; }
+        section.clause strong { color: var(--text); font-weight: 600; }
+        code {
+            font-family: var(--font-mono); font-size: 0.87em; color: var(--text);
+            padding: 0.08em 0.36em; border-radius: 5px;
+            background: rgba(139,172,15,0.16); overflow-wrap: anywhere;
+        }
+        :root[data-theme="light"] code { background: rgba(79,122,23,0.12); }
+
+        .callout {
+            border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .callout p:last-child { margin-bottom: 0; }
+
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.6rem 0; margin-top: 4.5rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; }
+        .footer-link:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<header class="site-nav">
+    <div class="container nav-inner">
+        <a href="/retropalette" class="nav-brand">Retro Palette <span>· Software First</span></a>
+        <div class="nav-actions">
+            <a href="/retropalette" class="hide-sm">Overview</a>
+            <a href="/retropalette-privacy" class="hide-sm">Privacy</a>
+            <a href="/retropalette-support">Support</a>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        </div>
+    </div>
+</header>
+
+<main class="container doc">
+    <div class="doc-kicker">Retro Palette — mobile app</div>
+    <h1>Terms of Use</h1>
+    <p class="doc-meta">
+        Also serving as the <strong>end user licence agreement (EULA)</strong> for the app.<br>
+        Version <strong>1.0</strong> · Effective <strong>11 August 2026</strong> · Last updated <strong>11 August 2026</strong><br>
+        Applies to <strong>Retro Palette</strong> for iOS and Android (<code>gr.softwarefirst.retropalette</code>),
+        published by Software First, Athens, Greece.
+    </p>
+
+    <div class="tldr">
+        <h2>The short version</h2>
+        <ul>
+            <li>Use the app on your own devices, as much as you like, for personal or commercial work.</li>
+            <li>The images you convert are yours. We take no rights in them and never see them.</li>
+            <li>Retro Palette Pro is a one-time purchase, not a subscription, and can be restored on your devices.</li>
+            <li>Refunds go through the store you bought from — Apple or Google.</li>
+            <li>The app is provided as is; nothing here takes away your statutory consumer rights.</li>
+        </ul>
+    </div>
+
+    <nav class="toc" aria-label="Contents">
+        <h2>Contents</h2>
+        <ol>
+            <li><a href="#agreement">The agreement</a></li>
+            <li><a href="#licence">Licence to use the app</a></li>
+            <li><a href="#your-content">Your images and your rights in them</a></li>
+            <li><a href="#acceptable">Acceptable use</a></li>
+            <li><a href="#pro">The free tier and Retro Palette Pro</a></li>
+            <li><a href="#payment">Payment, pricing and refunds</a></li>
+            <li><a href="#availability">Availability, updates and discontinuation</a></li>
+            <li><a href="#ip">Intellectual property and third-party names</a></li>
+            <li><a href="#third-party">Third-party services</a></li>
+            <li><a href="#warranty">Disclaimer of warranties</a></li>
+            <li><a href="#liability">Limitation of liability</a></li>
+            <li><a href="#consumer">Your statutory consumer rights</a></li>
+            <li><a href="#termination">Termination</a></li>
+            <li><a href="#law">Governing law</a></li>
+            <li><a href="#apple">Additional terms for the Apple App Store</a></li>
+            <li><a href="#google">Additional terms for Google Play</a></li>
+            <li><a href="#changes">Changes to these terms</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ol>
+    </nav>
+
+    <section class="clause" id="agreement">
+        <h2>1. The agreement</h2>
+        <p>
+            These Terms of Use (the “<strong>Terms</strong>”) form an agreement between you and
+            <strong>Software First</strong>, a software studio based in Athens, Greece (“<strong>we</strong>”,
+            “<strong>us</strong>”), covering your use of the Retro Palette mobile application and any updates to it
+            (the “<strong>App</strong>”).
+        </p>
+        <p>
+            By downloading, installing or using the App you accept these Terms. If you do not accept them, do not
+            use the App. Our <a href="/retropalette-privacy">Privacy Policy</a> is part of this agreement and
+            explains how the App handles data — in short, it collects none.
+        </p>
+    </section>
+
+    <section class="clause" id="licence">
+        <h2>2. Licence to use the app</h2>
+        <p>
+            We grant you a personal, worldwide, non-exclusive, non-transferable, revocable licence to install and
+            use the App on devices you own or control, in accordance with the rules of the store you obtained it
+            from and with these Terms. This licence covers both personal and commercial use of the App.
+        </p>
+        <p>You may not:</p>
+        <ul>
+            <li>copy, sell, rent, sublicense or redistribute the App itself;</li>
+            <li>reverse engineer, decompile or disassemble it, except to the extent that applicable law expressly permits despite this restriction;</li>
+            <li>remove or alter any proprietary notices it contains; or</li>
+            <li>attempt to circumvent the purchase or entitlement checks, or use a modified build to obtain paid features without paying for them.</li>
+        </ul>
+        <p>
+            The App is licensed, not sold. We retain all rights not expressly granted here.
+        </p>
+    </section>
+
+    <section class="clause" id="your-content">
+        <h2>3. Your images and your rights in them</h2>
+        <p>
+            <strong>The images you open in the App, and the converted images it produces, are yours.</strong> We
+            claim no ownership and no licence over them. We do not receive, store, transmit or process them on any
+            server — the conversion happens entirely on your device, which is why we could not use your images even
+            if we wanted to.
+        </p>
+        <p>
+            You may use the images the App produces however you wish, including commercially: prints, games,
+            social media, client work. You do not owe us attribution, though we are always glad to see what people
+            make.
+        </p>
+        <p>
+            You are responsible for having the rights to the source images you convert. Converting a photograph
+            does not grant you rights in it that you did not already have.
+        </p>
+    </section>
+
+    <section class="clause" id="acceptable">
+        <h2>4. Acceptable use</h2>
+        <p>You agree not to use the App:</p>
+        <ul>
+            <li>to process material you have no right to process, or that infringes someone else's rights;</li>
+            <li>to produce or distribute material that is unlawful where you are, including child sexual abuse material, which we will report to the competent authorities if we ever become aware of it;</li>
+            <li>in any way that breaks applicable law or the terms of the App Store or Google Play.</li>
+        </ul>
+        <p>
+            Because the App has no backend and no account system, we have no ability to monitor what you convert
+            and no wish to. This section states your obligations; it does not describe surveillance we perform.
+        </p>
+    </section>
+
+    <section class="clause" id="pro">
+        <h2>5. The free tier and Retro Palette Pro</h2>
+        <p>
+            The App is free to download and use. The free tier includes the Game Boy, NES and Commodore 64
+            palettes, all conversion features, unwatermarked exports and no time limit.
+        </p>
+        <p>
+            <strong>Retro Palette Pro</strong> (<code>retropalette.pro</code>) is a single, one-time,
+            <strong>non-consumable</strong> in-app purchase. It is <strong>not a subscription</strong>: it does not
+            renew, and nothing is charged again. It unlocks:
+        </p>
+        <ul>
+            <li>the PICO-8, ZX Spectrum, CGA and Virtual Boy palettes; and</li>
+            <li>a higher export resolution cap — 4096&nbsp;px on the long side instead of 1024&nbsp;px.</li>
+        </ul>
+        <p>
+            The unlock is tied to the App Store or Google Play account you bought it with, not to any account with
+            us. You can restore it on your devices by signing in to that same store account and using
+            <strong>Restore purchases</strong> in the App. We cannot transfer a purchase between an Apple account
+            and a Google account — the two stores are separate, and neither shares purchase records with the other.
+        </p>
+        <p>
+            We may add palettes or features to either tier over time. We will not move a feature out of the free
+            tier and behind the Pro unlock after you have come to rely on it, and we will not turn Pro into a
+            subscription for anyone who has already bought it.
+        </p>
+    </section>
+
+    <section class="clause" id="payment">
+        <h2>6. Payment, pricing and refunds</h2>
+        <p>
+            All payments are processed by <strong>Apple</strong> or <strong>Google</strong>, depending on where you
+            installed the App. We never receive or handle your payment details. The price applicable to you, in
+            your own currency and including any applicable taxes, is displayed inside the App before you confirm
+            the purchase.
+        </p>
+        <p>
+            We may change the price of Retro Palette Pro for future purchasers. A price change never affects a
+            purchase you have already made.
+        </p>
+        <h3>6.1 Refunds</h3>
+        <p>
+            <strong>Refunds are handled by the store you bought from, not by us</strong>, and are subject to that
+            store's policy:
+        </p>
+        <ul>
+            <li><strong>Apple App Store:</strong> request a refund at
+                <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a>.
+                Apple decides all App Store refunds; we have no ability to issue one.</li>
+            <li><strong>Google Play:</strong> request a refund through your
+                <a href="https://play.google.com/store/account/orderhistory" target="_blank" rel="noopener noreferrer">Google Play order history</a>.
+                Outside Google's own automatic refund window, you can write to us at
+                <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> and we will consider the request
+                and, where we agree it is warranted, ask Google to refund it.</li>
+        </ul>
+        <p>
+            If the App fails to deliver what this page says it delivers, contact us before contacting the store —
+            in most cases we can simply fix it.
+        </p>
+    </section>
+
+    <section class="clause" id="availability">
+        <h2>7. Availability, updates and discontinuation</h2>
+        <p>
+            The App runs on your device and does not depend on a service we operate, so it keeps working offline
+            and will keep working if our website is down. We may release updates that add, change or remove
+            features, and operating system changes by Apple or Google may require updates for the App to keep
+            functioning.
+        </p>
+        <p>
+            If we ever discontinue the App, copies you have already installed continue to work for as long as your
+            device and operating system support them. We would announce a discontinuation on this website in
+            advance where reasonably possible.
+        </p>
+    </section>
+
+    <section class="clause" id="ip">
+        <h2>8. Intellectual property and third-party names</h2>
+        <p>
+            The App, its source code, its user interface and the name “Retro Palette” belong to Software First and
+            are protected by copyright and other laws.
+        </p>
+        <div class="callout">
+            <p>
+                <strong>Retro Palette is an independent product and is not affiliated with, endorsed by or
+                sponsored by</strong> Nintendo, Commodore, Sinclair Research, Amstrad, International Business
+                Machines Corporation, Lexaloffle Games or any other hardware or platform holder. Names such as
+                “Game Boy”, “NES”, “Commodore 64”, “ZX Spectrum”, “CGA”, “Virtual Boy” and “PICO-8” are used
+                descriptively, to identify the historical display hardware whose colour characteristics a palette
+                reproduces. All trade marks are the property of their respective owners.
+            </p>
+            <p>
+                The App contains <strong>no game software, no ROM images, no emulator and no copyrighted game
+                assets</strong> of any kind. A palette in this App is a list of colour values.
+            </p>
+        </div>
+    </section>
+
+    <section class="clause" id="third-party">
+        <h2>9. Third-party services</h2>
+        <p>
+            The App uses <strong>RevenueCat</strong> to validate store receipts and determine whether your Pro
+            entitlement is active, as described in section 4 of the
+            <a href="/retropalette-privacy">Privacy Policy</a>. Your use of the App Store or Google Play is
+            governed by Apple's and Google's own terms. We are not responsible for those services, but we are
+            responsible for choosing them and for what we ask them to do.
+        </p>
+    </section>
+
+    <section class="clause" id="warranty">
+        <h2>10. Disclaimer of warranties</h2>
+        <p>
+            To the maximum extent permitted by law, and without limiting section 12, the App is provided
+            “<strong>as is</strong>” and “<strong>as available</strong>”, without warranties of any kind, whether
+            express or implied, including implied warranties of merchantability, fitness for a particular purpose
+            and non-infringement.
+        </p>
+        <p>
+            In particular, we do not warrant that the App will be uninterrupted or error-free, that a conversion
+            will match any particular artistic expectation, or that it will be compatible with every device or
+            future operating system version. <strong>Keep your original images.</strong> The App writes new files
+            and does not modify your originals, but no software should be your only copy of anything you care
+            about.
+        </p>
+    </section>
+
+    <section class="clause" id="liability">
+        <h2>11. Limitation of liability</h2>
+        <p>
+            Nothing in these Terms limits or excludes our liability for death or personal injury caused by
+            negligence, for fraud or fraudulent misrepresentation, or for any other liability that cannot lawfully
+            be limited or excluded.
+        </p>
+        <p>
+            Subject to that, and to the maximum extent permitted by law, we will not be liable for indirect,
+            incidental, special or consequential loss, loss of profits, loss of goodwill or loss of data arising
+            out of your use of the App. Our total aggregate liability arising out of or in connection with the App
+            is limited to the greater of (a) the amount you actually paid us, through Apple or Google, for the App
+            in the twelve months before the event giving rise to the claim, and (b) €50.
+        </p>
+    </section>
+
+    <section class="clause" id="consumer">
+        <h2>12. Your statutory consumer rights</h2>
+        <p>
+            If you are a consumer resident in the European Union, the European Economic Area or the United
+            Kingdom, you have rights under mandatory consumer protection law that these Terms cannot take away —
+            including rights concerning digital content that is not as described or not of satisfactory quality.
+            <strong>Nothing in these Terms affects those rights</strong>, and sections 10 and 11 apply only to the
+            extent that the applicable law permits.
+        </p>
+        <p>
+            You normally have a 14-day right of withdrawal for digital content bought online. When you buy the Pro
+            unlock, the content is delivered to you immediately; the store asks for and records the consent that
+            accompanies immediate delivery, and the right of withdrawal may be lost once delivery has begun. Refund
+            requests are handled as described in section 6.1, and we will not hide behind a technicality if the App
+            genuinely did not do what we said it does.
+        </p>
+    </section>
+
+    <section class="clause" id="termination">
+        <h2>13. Termination</h2>
+        <p>
+            You may end this agreement at any time by deleting the App from your devices. We may end it if you
+            materially breach these Terms — in practice, by ceasing to license the App to you; because the App has
+            no account system, we have no ability to disable an installed copy remotely.
+        </p>
+        <p>
+            Sections 3, 8, 10, 11, 12 and 14 survive termination.
+        </p>
+    </section>
+
+    <section class="clause" id="law">
+        <h2>14. Governing law</h2>
+        <p>
+            These Terms are governed by the laws of Greece, excluding its conflict-of-law rules, and the courts of
+            Athens, Greece have jurisdiction. If you are a consumer, this does not deprive you of the protection of
+            the mandatory law of the country where you live, and you may also bring proceedings in the courts of
+            that country.
+        </p>
+        <p>
+            As an EU consumer you may also use the European Commission's online dispute resolution platform, though
+            writing to <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> is faster and usually
+            enough.
+        </p>
+    </section>
+
+    <section class="clause" id="apple">
+        <h2>15. Additional terms for the Apple App Store</h2>
+        <p>These terms apply if you obtained the App from the Apple App Store, and prevail over any conflicting term above:</p>
+        <ol>
+            <li>This agreement is between you and Software First only, <strong>not with Apple</strong>. Software First, not Apple, is solely responsible for the App and its content.</li>
+            <li>Apple has <strong>no obligation whatsoever</strong> to furnish any maintenance or support services for the App.</li>
+            <li>If the App fails to conform to any applicable warranty, you may notify Apple, and Apple will refund the purchase price of the App to you. To the maximum extent permitted by law, Apple has no other warranty obligation with respect to the App.</li>
+            <li>Software First, not Apple, is responsible for addressing any claims by you or a third party relating to the App or your possession and use of it, including product liability claims, any claim that the App fails to conform to a legal or regulatory requirement, and claims arising under consumer protection or similar legislation.</li>
+            <li>In the event of a third-party claim that the App or your possession and use of it infringes that party's intellectual property rights, Software First, not Apple, is solely responsible for the investigation, defence, settlement and discharge of that claim.</li>
+            <li>You represent that you are not located in a country subject to a U.S. Government embargo or designated as a “terrorist supporting” country, and that you are not listed on any U.S. Government list of prohibited or restricted parties.</li>
+            <li><strong>Apple and its subsidiaries are third-party beneficiaries of this agreement</strong>, and upon your acceptance of these Terms, Apple has the right (and is deemed to have accepted the right) to enforce this agreement against you as a third-party beneficiary of it.</li>
+        </ol>
+    </section>
+
+    <section class="clause" id="google">
+        <h2>16. Additional terms for Google Play</h2>
+        <p>
+            If you obtained the App from Google Play, your use is also subject to the
+            <a href="https://play.google.com/intl/en/about/play-terms/" target="_blank" rel="noopener noreferrer">Google Play Terms of Service</a>.
+            Google is not a party to this agreement and is not responsible for the App. Refunds for Google Play
+            purchases follow Google's refund policy, as described in section 6.1.
+        </p>
+    </section>
+
+    <section class="clause" id="changes">
+        <h2>17. Changes to these terms</h2>
+        <p>
+            We may update these Terms, for example when the App gains features or when the law changes. The version
+            and effective date at the top of this page always identify the current version, and the previous
+            version is available on request. Continuing to use the App after a change means you accept the updated
+            Terms; if you do not accept them, stop using the App and, if you wish, request a refund through the
+            relevant store.
+        </p>
+    </section>
+
+    <section class="clause" id="contact">
+        <h2>18. Contact</h2>
+        <p>
+            <strong>Software First</strong> — Athens, Greece<br>
+            <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a><br>
+            <a href="https://softwarefirst.gr/">softwarefirst.gr</a>
+        </p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">Retro Palette · Software First</div>
+        <a href="/retropalette" class="footer-link">← Retro Palette</a>
+        <a href="/retropalette-privacy" class="footer-link">Privacy policy</a>
+        <a href="/retropalette-support" class="footer-link">Support</a>
+        <p class="footer-copy">© 2026 Software First.</p>
+    </div>
+</footer>
+
+<script>
+(() => {
+    "use strict";
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f7f5ec" : "#070a07";
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+})();
+</script>
+</body>
+</html>

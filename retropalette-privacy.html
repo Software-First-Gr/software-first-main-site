@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- No analytics on this page on purpose: a privacy policy should not be
+         the page that tracks you. See §9 for what the rest of the site does. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Privacy policy for the Retro Palette mobile app by Software First. Retro Palette collects no personal data: images are converted entirely on your device and are never uploaded.">
+    <link rel="canonical" href="https://softwarefirst.gr/retropalette-privacy">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="Retro Palette — Privacy Policy">
+    <meta property="og:description" content="Retro Palette collects no personal data. Images are converted on your device and never leave it.">
+    <meta property="og:url" content="https://softwarefirst.gr/retropalette-privacy">
+    <meta name="theme-color" content="#f7f5ec" id="theme-color-meta">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>Privacy Policy — Retro Palette · Software First</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ════════════════════════════════════════════════════════════════
+           RETRO PALETTE — legal/support document layout. Shares the app
+           page's palette and theme toggle; a single readable prose column
+           instead of the showcase sections.
+           ════════════════════════════════════════════════════════════════ */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #070a07;
+            --bg-2: #0b110b;
+            --text: #edf0e6;
+            --text-muted: #9aa38f;
+            --accent: #8bac0f;
+            --accent-2: #cfe86b;
+            --accent-3: #ffc24b;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        :root[data-theme="light"] {
+            --bg: #f7f5ec;
+            --bg-2: #efeade;
+            --text: #1d2318;
+            --text-muted: #5d6353;
+            --accent: #4f7a17;
+            --accent-2: #2e7d32;
+            --accent-3: #a86a00;
+            --glass: rgba(255,255,255,0.74);
+            --stroke: rgba(29,35,24,0.11);
+        }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            line-height: 1.75; -webkit-font-smoothing: antialiased;
+        }
+        .container { width: min(760px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(139,172,15,0.3); }
+        a { color: var(--accent-2); }
+        a:hover { color: var(--accent-3); }
+
+        /* ── NAV ── */
+        .site-nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 0.9rem 0;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            border-bottom: 1px solid var(--stroke);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
+        .nav-actions a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; }
+        .nav-actions a:hover { color: var(--text); }
+        @media (max-width: 620px) { .nav-actions a.hide-sm { display: none; } }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; flex: 0 0 32px;
+            border-radius: 9px; cursor: pointer; font-size: 0.9rem; line-height: 1;
+            color: var(--text); background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .theme-toggle:hover { border-color: rgba(139,172,15,0.55); }
+
+        /* ── DOC ── */
+        .doc { padding: 3.5rem 0 2rem; }
+        .doc-kicker {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--accent-2); margin-bottom: 0.7rem;
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 5vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+            margin-bottom: 0.7rem;
+        }
+        .doc-meta { font-size: 0.85rem; color: var(--text-muted); }
+        .doc-meta strong { color: var(--text); font-weight: 600; }
+
+        .tldr {
+            margin: 2.2rem 0 0; border-radius: 16px; padding: 1.5rem 1.7rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .tldr h2 { font-family: var(--font-display); font-size: 1rem; font-weight: 700; margin-bottom: 0.6rem; }
+        .tldr ul { list-style: none; display: grid; gap: 0.5rem; }
+        .tldr li { display: flex; gap: 0.65rem; font-size: 0.92rem; color: var(--text-muted); }
+        .tldr li::before { content: "✓"; color: var(--accent-2); font-weight: 700; flex: none; }
+
+        .toc {
+            margin: 2rem 0 0; border-radius: 14px; padding: 1.2rem 1.5rem;
+            border: 1px solid var(--stroke);
+        }
+        .toc h2 {
+            font-family: var(--font-display); font-size: 0.74rem; font-weight: 700;
+            letter-spacing: 0.12em; text-transform: uppercase; color: var(--text-muted);
+            margin-bottom: 0.7rem;
+        }
+        .toc ol { margin-left: 1.1rem; }
+        .toc li { font-size: 0.88rem; margin-bottom: 0.2rem; }
+        .toc a { text-decoration: none; }
+        .toc a:hover { text-decoration: underline; }
+
+        section.clause { margin-top: 3rem; scroll-margin-top: 5rem; }
+        section.clause h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em;
+            margin-bottom: 0.9rem; padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--stroke);
+        }
+        section.clause h3 {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 600;
+            margin: 1.7rem 0 0.5rem;
+        }
+        section.clause p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        section.clause ul, section.clause ol { color: var(--text-muted); margin: 0 0 1rem 1.3rem; font-size: 0.95rem; }
+        section.clause li { margin-bottom: 0.45rem; }
+        section.clause strong { color: var(--text); font-weight: 600; }
+        code {
+            font-family: var(--font-mono); font-size: 0.87em; color: var(--text);
+            padding: 0.08em 0.36em; border-radius: 5px;
+            background: rgba(139,172,15,0.16); overflow-wrap: anywhere;
+        }
+        :root[data-theme="light"] code { background: rgba(79,122,23,0.12); }
+
+        .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--stroke); margin-bottom: 1.2rem; }
+        table { width: 100%; border-collapse: collapse; min-width: 520px; }
+        th, td { text-align: left; padding: 0.75rem 1.1rem; font-size: 0.88rem; color: var(--text-muted); vertical-align: top; }
+        thead th {
+            font-family: var(--font-display); font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+            border-bottom: 1px solid var(--stroke);
+        }
+        tbody tr + tr td { border-top: 1px solid var(--stroke); }
+        td:first-child { color: var(--text); font-weight: 500; }
+        .no { color: #ff8a84; font-weight: 600; }
+        :root[data-theme="light"] .no { color: #b91c1c; }
+
+        .callout {
+            border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .callout p:last-child { margin-bottom: 0; }
+
+        /* ── FOOTER ── */
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.6rem 0; margin-top: 4.5rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; }
+        .footer-link:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<header class="site-nav">
+    <div class="container nav-inner">
+        <a href="/retropalette" class="nav-brand">Retro Palette <span>· Software First</span></a>
+        <div class="nav-actions">
+            <a href="/retropalette" class="hide-sm">Overview</a>
+            <a href="/retropalette-terms" class="hide-sm">Terms</a>
+            <a href="/retropalette-support">Support</a>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        </div>
+    </div>
+</header>
+
+<main class="container doc">
+    <div class="doc-kicker">Retro Palette — mobile app</div>
+    <h1>Privacy Policy</h1>
+    <p class="doc-meta">
+        Version <strong>1.0</strong> · Effective <strong>11 August 2026</strong> · Last updated <strong>11 August 2026</strong><br>
+        Applies to the <strong>Retro Palette</strong> app for iOS and Android
+        (bundle / application id <code>gr.softwarefirst.retropalette</code>), published by Software First.
+    </p>
+
+    <div class="tldr">
+        <h2>The short version</h2>
+        <ul>
+            <li>Retro Palette does not collect, store or transmit any personal data.</li>
+            <li>Your photos are converted entirely on your device and are never uploaded to us or anyone else.</li>
+            <li>There is no account, no login, no email address and no user database.</li>
+            <li>There is no analytics SDK and no advertising SDK in the app.</li>
+            <li>The only outbound network traffic is the purchase check for the optional Pro unlock.</li>
+        </ul>
+    </div>
+
+    <nav class="toc" aria-label="Contents">
+        <h2>Contents</h2>
+        <ol>
+            <li><a href="#who">Who we are</a></li>
+            <li><a href="#photos">Your images and how they are processed</a></li>
+            <li><a href="#not-collected">What we do not collect</a></li>
+            <li><a href="#purchases">Purchases and the Pro unlock</a></li>
+            <li><a href="#permissions">Device permissions</a></li>
+            <li><a href="#local">Data stored on your device</a></li>
+            <li><a href="#advertising">Advertising</a></li>
+            <li><a href="#children">Children</a></li>
+            <li><a href="#website">This website</a></li>
+            <li><a href="#rights">Your rights under the GDPR</a></li>
+            <li><a href="#retention">Retention, deletion and transfers</a></li>
+            <li><a href="#security">Security</a></li>
+            <li><a href="#changes">Changes to this policy</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ol>
+    </nav>
+
+    <section class="clause" id="who">
+        <h2>1. Who we are</h2>
+        <p>
+            Retro Palette is developed and published by <strong>Software First</strong>, a software studio based in
+            Athens, Greece. Where this policy describes processing of personal data, Software First is the
+            <strong>data controller</strong> for the purposes of Regulation (EU) 2016/679 (the GDPR).
+        </p>
+        <p>
+            You can reach us at <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> for any question
+            about this policy or about the app. We do not have a statutory Data Protection Officer, because the
+            scale and nature of our processing does not require one; the address above reaches the people who
+            actually wrote the app.
+        </p>
+    </section>
+
+    <section class="clause" id="photos">
+        <h2>2. Your images and how they are processed</h2>
+        <p>
+            Retro Palette converts an image you choose into a retro console colour palette. Every step of that
+            conversion — reading the image, matching colours, dithering, scaling and writing the result — happens
+            <strong>locally on your device</strong>, using the device's own processor.
+        </p>
+        <ul>
+            <li>Your images are <strong>never uploaded</strong> to Software First or to any third party.</li>
+            <li>There is <strong>no server, no backend and no cloud processing</strong> behind this app.</li>
+            <li>There is <strong>no AI or machine-learning service</strong> involved; the conversion is deterministic local computation.</li>
+            <li>We never see your images, and we have no technical means of doing so.</li>
+            <li>The app reads only the single image you pick, at the moment you pick it. It does not scan, index or browse your photo library.</li>
+        </ul>
+        <p>
+            When you save a converted image, it is written to your device's own photo gallery. From that point it
+            is an ordinary photo on your device, governed by your device and by whatever backup or sync settings
+            you have configured with Apple or Google — not by us.
+        </p>
+    </section>
+
+    <section class="clause" id="not-collected">
+        <h2>3. What we do not collect</h2>
+        <p>
+            To be explicit, because “we care about your privacy” is worth nothing without a list. The app does not
+            collect, request, generate or transmit any of the following:
+        </p>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Category</th><th>Collected?</th><th>Notes</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>Name, email, phone number</td><td class="no">No</td><td>There is no account and no sign-up form.</td></tr>
+                    <tr><td>Photos or videos</td><td class="no">No</td><td>Processed on device only; never transmitted.</td></tr>
+                    <tr><td>Location data</td><td class="no">No</td><td>The app never requests location permission.</td></tr>
+                    <tr><td>Contacts, calendar, microphone, camera roll browsing</td><td class="no">No</td><td>None of these permissions are requested.</td></tr>
+                    <tr><td>Advertising identifiers (IDFA / AAID)</td><td class="no">No</td><td>No ad SDK is present, so nothing reads them.</td></tr>
+                    <tr><td>Analytics or usage events</td><td class="no">No</td><td>No analytics SDK is bundled in the app.</td></tr>
+                    <tr><td>Crash reports</td><td class="no">No</td><td>We ship no crash-reporting SDK. Apple and Google may offer you their own opt-in diagnostics; that is their process, not ours.</td></tr>
+                    <tr><td>Cookies or web tracking inside the app</td><td class="no">No</td><td>The app has no embedded web content that tracks you.</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            Because we hold no personal data about you, there is nothing about you for us to sell, share, profile
+            or hand over. <strong>We do not sell or share personal data, and we never have.</strong>
+        </p>
+    </section>
+
+    <section class="clause" id="purchases">
+        <h2>4. Purchases and the Pro unlock</h2>
+        <p>
+            Retro Palette is free to use. It offers one optional in-app purchase, <strong>Retro Palette Pro</strong>
+            (<code>retropalette.pro</code>), a one-time non-consumable unlock for the additional palettes and the
+            higher export resolution.
+        </p>
+
+        <h3>4.1 Apple and Google process the payment</h3>
+        <p>
+            The purchase itself is handled entirely by the <strong>Apple App Store</strong> or <strong>Google
+            Play</strong>, depending on where you installed the app. Your payment details are entered into, and held
+            by, that store. <strong>We never see and never receive your card details, billing address or store
+            account credentials.</strong> Their handling of your data is governed by
+            <a href="https://www.apple.com/legal/privacy/" target="_blank" rel="noopener noreferrer">Apple's Privacy Policy</a>
+            and <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+        </p>
+
+        <h3>4.2 RevenueCat validates the receipt</h3>
+        <p>
+            To know whether you own the Pro unlock — including on a new device after you tap “Restore purchases” —
+            the app uses <strong>RevenueCat, Inc.</strong>, a purchase-infrastructure provider. When the app starts
+            or when you make or restore a purchase, it contacts RevenueCat, which validates the store receipt and
+            returns whether the <code>pro</code> entitlement is active.
+        </p>
+        <p>What is involved in that exchange:</p>
+        <ul>
+            <li>An <strong>anonymous app user identifier</strong> generated by the RevenueCat SDK. We do not set it from any identity of yours, because we do not have one.</li>
+            <li>The <strong>store receipt or purchase token</strong> issued by Apple or Google.</li>
+            <li>Basic technical context needed to validate it, such as the platform, the app version, the store country and device/OS information collected by the SDK.</li>
+        </ul>
+        <p>
+            No name, no email address, no photo and no content from your device is sent. The purpose of this
+            processing is to deliver the product you paid for and to let you restore it; the legal basis under
+            Article 6(1)(b) GDPR is <strong>performance of a contract</strong> with you. RevenueCat acts as our
+            processor — see the <a href="https://www.revenuecat.com/privacy/" target="_blank" rel="noopener noreferrer">RevenueCat Privacy Policy</a>.
+        </p>
+        <div class="callout">
+            <p>
+                If you never buy anything, the app still contacts RevenueCat once at startup to confirm that no
+                entitlement is active. That check carries the anonymous identifier described above and nothing else.
+                The app is fully usable offline; if the check fails, Retro Palette simply keeps working with its
+                locally cached entitlement state.
+            </p>
+        </div>
+    </section>
+
+    <section class="clause" id="permissions">
+        <h2>5. Device permissions</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Permission</th><th>Platform</th><th>Why it is needed</th></tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Photo library — read</td><td>iOS</td>
+                        <td>To let you pick the one image you want to convert. Requested at the moment you tap to choose a photo.</td>
+                    </tr>
+                    <tr>
+                        <td>Photo library — add</td><td>iOS</td>
+                        <td>To save the converted image back to your gallery. Requested when you tap save.</td>
+                    </tr>
+                    <tr>
+                        <td>Photo picker / media store</td><td>Android</td>
+                        <td>Android 10 and later let the app receive the picked photo and write the export through the system media store without broad storage permissions, so the app does not request any.</td>
+                    </tr>
+                    <tr>
+                        <td><code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code></td><td>Android</td>
+                        <td>Used solely for the purchase/entitlement check described in section 4. Image conversion never uses the network.</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            You can withdraw photo access at any time in your device settings. The app will simply be unable to
+            open or save pictures until you grant it again.
+        </p>
+    </section>
+
+    <section class="clause" id="local">
+        <h2>6. Data stored on your device</h2>
+        <p>Retro Palette keeps a very small amount of state locally, in the app's own private storage:</p>
+        <ul>
+            <li>Whether you have completed the onboarding screen, so it is not shown to you again.</li>
+            <li>A cached flag recording whether the <code>pro</code> entitlement is active, so the app starts instantly and works offline.</li>
+        </ul>
+        <p>
+            Neither of these identifies you. They never leave the device, and uninstalling the app removes them.
+        </p>
+    </section>
+
+    <section class="clause" id="advertising">
+        <h2>7. Advertising</h2>
+        <p>
+            <strong>This version of Retro Palette contains no advertising.</strong> No advertising SDK is bundled
+            in the app, no ads are displayed, and no advertising identifier is read.
+        </p>
+        <p>
+            We may introduce advertising in a future version. If we do, we will update this policy
+            <strong>before</strong> that version is released, describe exactly which advertising provider is used
+            and what it processes, and — for users in the EEA, the UK and Switzerland — present a consent dialogue
+            through a certified consent management platform before any ad is loaded. Owners of the Pro unlock would
+            not see ads.
+        </p>
+    </section>
+
+    <section class="clause" id="children">
+        <h2>8. Children</h2>
+        <p>
+            Retro Palette is a general-audience utility. It is not directed at children, and we do not knowingly
+            collect personal data from anyone, including children — the app collects no personal data at all. If
+            you believe a child has somehow provided us with personal data, contact us and we will look into it,
+            though in practice there is no channel through which that could happen.
+        </p>
+    </section>
+
+    <section class="clause" id="website">
+        <h2>9. This website</h2>
+        <p>
+            This policy covers the app. Separately, the marketing pages on <code>softwarefirst.gr</code> — including
+            the <a href="/retropalette">Retro Palette overview page</a> — use <strong>Google Analytics</strong> to
+            count visits. That is a website measurement tool and is entirely unconnected to the app; nothing it
+            records is linked to anything in Retro Palette.
+        </p>
+        <p>
+            This privacy policy page, the <a href="/retropalette-terms">terms of use</a> and the
+            <a href="/retropalette-support">support page</a> deliberately load <strong>no analytics and no
+            third-party scripts</strong>. Reading our policy should not be a tracked event.
+        </p>
+    </section>
+
+    <section class="clause" id="rights">
+        <h2>10. Your rights under the GDPR</h2>
+        <p>
+            If you are in the European Economic Area, the United Kingdom or Switzerland, you have the rights of
+            access, rectification, erasure, restriction, data portability and objection, as well as the right not
+            to be subject to solely automated decision-making, in respect of personal data a controller holds about
+            you.
+        </p>
+        <p>
+            In our case the honest answer is that <strong>we hold no personal data about you</strong>, so there is
+            nothing for us to retrieve, correct, export or delete. The purchase record described in section 4 sits
+            with Apple, Google and RevenueCat, tied to an anonymous identifier and to your store account.
+        </p>
+        <p>
+            You can still write to <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> to exercise any
+            of these rights. We will respond within one month. If you give us the anonymous app user id shown by
+            our support team's instructions, or your store transaction id, we can ask RevenueCat to delete the
+            associated purchase record on your behalf — bear in mind that doing so may prevent you from restoring
+            a purchase you have paid for.
+        </p>
+        <p>
+            You also have the right to lodge a complaint with a supervisory authority. In Greece that is the
+            <a href="https://www.dpa.gr/en" target="_blank" rel="noopener noreferrer">Hellenic Data Protection
+            Authority</a>; if you live elsewhere in the EEA, you may complain to your own national authority.
+        </p>
+    </section>
+
+    <section class="clause" id="retention">
+        <h2>11. Retention, deletion and international transfers</h2>
+        <h3>11.1 Retention</h3>
+        <p>
+            We retain nothing, because we collect nothing. Purchase records held by RevenueCat on our behalf are
+            kept for as long as the app is operated, so that you can restore a purchase you paid for, and are
+            deleted when they are no longer needed for that purpose.
+        </p>
+        <h3>11.2 Deleting your data</h3>
+        <p>
+            Uninstalling Retro Palette removes everything the app stored on your device. Because there is no
+            account, there is no account to delete. For the purchase record, see section 10.
+        </p>
+        <h3>11.3 International transfers</h3>
+        <p>
+            RevenueCat, Inc. is based in the United States, so the receipt-validation exchange described in
+            section 4 involves a transfer outside the EEA. That transfer is covered by the Standard Contractual
+            Clauses incorporated into our agreement with RevenueCat. Apple and Google likewise operate globally
+            under their own published transfer safeguards.
+        </p>
+    </section>
+
+    <section class="clause" id="security">
+        <h2>12. Security</h2>
+        <p>
+            The strongest security property of this app is architectural: your images stay on your device, so there
+            is no server for anyone to breach and no database of user content to leak. Communication with the
+            purchase service uses HTTPS. The app's local storage is the operating system's private per-app storage,
+            protected by the device's own sandboxing and encryption.
+        </p>
+    </section>
+
+    <section class="clause" id="changes">
+        <h2>13. Changes to this policy</h2>
+        <p>
+            If we change how the app handles data, we will update this page and change the version and effective
+            date at the top. Material changes — in particular, introducing advertising or analytics — will be
+            published here <strong>before</strong> the version that makes them is released to the stores. Previous
+            versions are available on request.
+        </p>
+    </section>
+
+    <section class="clause" id="contact">
+        <h2>14. Contact</h2>
+        <p>
+            Questions, requests or corrections about this policy:<br>
+            <strong>Software First</strong> — Athens, Greece<br>
+            <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a>
+        </p>
+        <p>
+            For help using the app, the <a href="/retropalette-support">support page</a> is the faster route.
+        </p>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">Retro Palette · Software First</div>
+        <a href="/retropalette" class="footer-link">← Retro Palette</a>
+        <a href="/retropalette-terms" class="footer-link">Terms of use</a>
+        <a href="/retropalette-support" class="footer-link">Support</a>
+        <p class="footer-copy">© 2026 Software First.</p>
+    </div>
+</footer>
+
+<script>
+(() => {
+    "use strict";
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f7f5ec" : "#070a07";
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+})();
+</script>
+</body>
+</html>

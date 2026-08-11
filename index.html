@@ -477,6 +477,32 @@
             color: #a9c9ff;
         }
 
+        /* Retro Palette edition of the flagship card — Game Boy DMG green. */
+        .flagship-rp:hover { border-color: rgba(139,172,15,0.6); }
+        .flagship-visual-rp {
+            background:
+                radial-gradient(80% 90% at 20% 10%, rgba(139,172,15,0.5), transparent 60%),
+                radial-gradient(70% 80% at 90% 90%, rgba(255,167,51,0.28), transparent 60%),
+                #0f1a0c;
+        }
+        .flagship-visual-rp span { letter-spacing: 0.05em; }
+        /* The DMG four-shade ramp, as a strip under the wordmark. */
+        .flagship-visual-rp .ramp {
+            position: absolute; z-index: 1; bottom: 2.2rem; left: 50%;
+            transform: translateX(-50%);
+            display: flex; gap: 4px;
+        }
+        .flagship-visual-rp .ramp i {
+            display: block; width: 30px; height: 12px; border-radius: 3px;
+            box-shadow: inset 0 0 0 1px rgba(0,0,0,0.25);
+        }
+        .flagship-kicker-rp { color: #bcd455; }
+        .flagship-tag-rp {
+            background: rgba(139,172,15,0.14);
+            border-color: rgba(139,172,15,0.4);
+            color: #d6e88f;
+        }
+
         /* ── OPEN SOURCE: NuGet package showcase ──
            The code surface stays dark in both themes, like .flagship-visual. */
         .oss-grid {
@@ -687,6 +713,12 @@
             color: #1e40af;
             background: rgba(37,99,235,0.08);
             border-color: rgba(37,99,235,0.24);
+        }
+        :root[data-theme="light"] .flagship-kicker-rp { color: #3f7c12; }
+        :root[data-theme="light"] .flagship-tag-rp {
+            color: #3d5c0a;
+            background: rgba(79,122,23,0.09);
+            border-color: rgba(79,122,23,0.26);
         }
         :root[data-theme="light"] .oss-chip {
             color: #6d28d9;
@@ -901,7 +933,7 @@
         <div class="rv">
             <span class="section-tag">Flagship work</span>
             <h2 class="section-title">Built, shipped and run by us.</h2>
-            <p class="section-sub">Not just client work — we design, build and operate our own products, end to end. Here are two of them.</p>
+            <p class="section-sub">Not just client work — we design, build and operate our own products, end to end. Here are three of them.</p>
         </div>
         <a href="/pafame" class="flagship rv" style="--d:.1s">
             <div class="flagship-visual"><span>ΠΑΦΑΜΕ</span></div>
@@ -940,6 +972,31 @@
                     <span class="flagship-tag flagship-tag-qf">Cloudflare Pages</span>
                 </div>
                 <span class="flagship-cta">Explore QuietFiles →</span>
+            </div>
+        </a>
+        <a href="/retropalette" class="flagship flagship-rp rv" style="--d:.26s; margin-top: 1.5rem;">
+            <div class="flagship-visual flagship-visual-rp">
+                <span>Retro Palette</span>
+                <div class="ramp" aria-hidden="true">
+                    <i style="background:#0F380F"></i><i style="background:#306230"></i><i style="background:#8BAC0F"></i><i style="background:#9BBC0F"></i>
+                </div>
+            </div>
+            <div class="flagship-info">
+                <span class="flagship-kicker flagship-kicker-rp">Our product</span>
+                <span class="flagship-title">Photos, redrawn on hardware that no longer exists.</span>
+                <span class="flagship-desc">
+                    An iOS and Android app that quantizes any picture to an authentic console palette —
+                    Game Boy, NES, C64 and more — with period-correct dithering. Entirely on-device:
+                    no upload, no account, no tracking.
+                </span>
+                <div class="flagship-tags">
+                    <span class="flagship-tag flagship-tag-rp">.NET MAUI</span>
+                    <span class="flagship-tag flagship-tag-rp">C#</span>
+                    <span class="flagship-tag flagship-tag-rp">SkiaSharp</span>
+                    <span class="flagship-tag flagship-tag-rp">iOS &amp; Android</span>
+                    <span class="flagship-tag flagship-tag-rp">Offline-first</span>
+                </div>
+                <span class="flagship-cta">Explore Retro Palette →</span>
             </div>
         </a>
     </div>

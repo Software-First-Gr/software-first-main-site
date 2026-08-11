@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <!-- Theme boot: applies the saved theme before first paint (light by default). -->
+    <script>
+      (function () {
+        try {
+          var t = localStorage.getItem("sf-theme");
+          if (t === "dark" || t === "light") document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- No analytics on this page on purpose. -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support for the Retro Palette mobile app by Software First — how to restore a purchase, where converted images are saved, troubleshooting, and how to reach a human.">
+    <link rel="canonical" href="https://softwarefirst.gr/retropalette-support">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Software First">
+    <meta property="og:title" content="Retro Palette — Support">
+    <meta property="og:description" content="Help with Retro Palette: restoring purchases, saving images, troubleshooting, and contacting the people who wrote the app.">
+    <meta property="og:url" content="https://softwarefirst.gr/retropalette-support">
+    <meta name="theme-color" content="#f7f5ec" id="theme-color-meta">
+    <link rel="icon" href="assets/images/logo/logo-colored.png">
+    <title>Support — Retro Palette · Software First</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Shared legal/support document layout — see retropalette-privacy.html. */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg: #070a07;
+            --bg-2: #0b110b;
+            --text: #edf0e6;
+            --text-muted: #9aa38f;
+            --accent: #8bac0f;
+            --accent-2: #cfe86b;
+            --accent-3: #ffc24b;
+            --glass: rgba(255,255,255,0.045);
+            --stroke: rgba(255,255,255,0.09);
+            --font-display: 'Space Grotesk', 'Inter', sans-serif;
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+        }
+        :root[data-theme="light"] {
+            --bg: #f7f5ec;
+            --bg-2: #efeade;
+            --text: #1d2318;
+            --text-muted: #5d6353;
+            --accent: #4f7a17;
+            --accent-2: #2e7d32;
+            --accent-3: #a86a00;
+            --glass: rgba(255,255,255,0.74);
+            --stroke: rgba(29,35,24,0.11);
+        }
+
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg); color: var(--text);
+            line-height: 1.75; -webkit-font-smoothing: antialiased;
+        }
+        .container { width: min(760px, 100% - 3rem); margin-inline: auto; }
+        ::selection { background: rgba(139,172,15,0.3); }
+        a { color: var(--accent-2); }
+        a:hover { color: var(--accent-3); }
+
+        .site-nav {
+            position: sticky; top: 0; z-index: 100;
+            padding: 0.9rem 0;
+            background: color-mix(in srgb, var(--bg) 88%, transparent);
+            border-bottom: 1px solid var(--stroke);
+            backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+        }
+        .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+        .nav-brand {
+            font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+            color: var(--text); text-decoration: none; letter-spacing: -0.01em;
+        }
+        .nav-brand span {
+            background: linear-gradient(120deg, var(--accent), var(--accent-2));
+            -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-actions { display: flex; align-items: center; gap: 0.9rem; }
+        .nav-actions a { font-size: 0.82rem; color: var(--text-muted); text-decoration: none; }
+        .nav-actions a:hover { color: var(--text); }
+        @media (max-width: 620px) { .nav-actions a.hide-sm { display: none; } }
+        .theme-toggle {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 32px; height: 32px; flex: 0 0 32px;
+            border-radius: 9px; cursor: pointer; font-size: 0.9rem; line-height: 1;
+            color: var(--text); background: var(--glass); border: 1px solid var(--stroke);
+        }
+        .theme-toggle:hover { border-color: rgba(139,172,15,0.55); }
+
+        .doc { padding: 3.5rem 0 2rem; }
+        .doc-kicker {
+            font-size: 0.72rem; font-weight: 700; letter-spacing: 0.14em;
+            text-transform: uppercase; color: var(--accent-2); margin-bottom: 0.7rem;
+        }
+        h1 {
+            font-family: var(--font-display);
+            font-size: clamp(1.9rem, 5vw, 2.6rem);
+            font-weight: 700; letter-spacing: -0.03em; line-height: 1.15;
+            margin-bottom: 0.7rem;
+        }
+        .lede { color: var(--text-muted); font-size: 1rem; }
+
+        .contact-card {
+            margin: 2.2rem 0 0; border-radius: 16px; padding: 1.6rem 1.7rem;
+            background: var(--glass); border: 1px solid var(--stroke);
+            display: grid; gap: 0.9rem;
+        }
+        .contact-card h2 { font-family: var(--font-display); font-size: 1.05rem; font-weight: 700; }
+        .contact-card p { font-size: 0.93rem; color: var(--text-muted); }
+        .mail-btn {
+            justify-self: start;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.92rem; font-weight: 600; text-decoration: none;
+            padding: 0.75rem 1.6rem; border-radius: 12px;
+            color: #10230a; background: linear-gradient(120deg, var(--accent-2) 0%, var(--accent) 100%);
+        }
+        :root[data-theme="light"] .mail-btn { color: #fff; background: linear-gradient(120deg, #5cb343 0%, #2e7d32 100%); }
+        .mail-btn:hover { color: #10230a; }
+        :root[data-theme="light"] .mail-btn:hover { color: #fff; }
+
+        section.clause { margin-top: 3rem; scroll-margin-top: 5rem; }
+        section.clause h2 {
+            font-family: var(--font-display);
+            font-size: 1.25rem; font-weight: 700; letter-spacing: -0.02em;
+            margin-bottom: 0.9rem; padding-bottom: 0.55rem;
+            border-bottom: 1px solid var(--stroke);
+        }
+        section.clause p { color: var(--text-muted); margin-bottom: 1rem; font-size: 0.95rem; }
+        section.clause ul, section.clause ol { color: var(--text-muted); margin: 0 0 1rem 1.3rem; font-size: 0.95rem; }
+        section.clause li { margin-bottom: 0.45rem; }
+        section.clause strong { color: var(--text); font-weight: 600; }
+        code {
+            font-family: var(--font-mono); font-size: 0.87em; color: var(--text);
+            padding: 0.08em 0.36em; border-radius: 5px;
+            background: rgba(139,172,15,0.16); overflow-wrap: anywhere;
+        }
+        :root[data-theme="light"] code { background: rgba(79,122,23,0.12); }
+
+        .faq { display: grid; gap: 0.8rem; }
+        details {
+            border-radius: 14px; border: 1px solid var(--stroke);
+            background: var(--glass); padding: 0 1.4rem;
+        }
+        details[open] { padding-bottom: 0.4rem; }
+        summary {
+            cursor: pointer; list-style: none;
+            font-family: var(--font-display); font-size: 0.97rem; font-weight: 600;
+            padding: 1.05rem 0; display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+        }
+        summary::-webkit-details-marker { display: none; }
+        summary::after { content: "+"; color: var(--accent-2); font-size: 1.2rem; flex: none; line-height: 1; }
+        details[open] summary::after { content: "−"; }
+        details p, details ul, details ol { font-size: 0.92rem; color: var(--text-muted); margin-bottom: 0.9rem; }
+        details ul, details ol { margin-left: 1.3rem; }
+
+        .table-wrap { overflow-x: auto; border-radius: 14px; border: 1px solid var(--stroke); margin-bottom: 1.2rem; }
+        table { width: 100%; border-collapse: collapse; min-width: 460px; }
+        th, td { text-align: left; padding: 0.75rem 1.1rem; font-size: 0.88rem; color: var(--text-muted); vertical-align: top; }
+        thead th {
+            font-family: var(--font-display); font-size: 0.7rem; font-weight: 700;
+            letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted);
+            border-bottom: 1px solid var(--stroke);
+        }
+        tbody tr + tr td { border-top: 1px solid var(--stroke); }
+        td:first-child { color: var(--text); font-weight: 500; }
+
+        pre {
+            border-radius: 12px; border: 1px solid var(--stroke);
+            background: rgba(0,0,0,0.28); color: var(--text);
+            padding: 1.1rem 1.3rem; overflow-x: auto; margin-bottom: 1.2rem;
+            font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.75;
+        }
+        :root[data-theme="light"] pre { background: rgba(29,35,24,0.05); }
+
+        .site-footer { border-top: 1px solid var(--stroke); padding: 2.6rem 0; margin-top: 4.5rem; }
+        .footer-inner { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.2rem; }
+        .footer-brand { font-family: var(--font-display); font-weight: 700; font-size: 0.95rem; }
+        .footer-copy, .footer-link { font-size: 0.82rem; color: var(--text-muted); }
+        .footer-link { text-decoration: none; }
+        .footer-link:hover { color: var(--text); }
+    </style>
+</head>
+<body>
+
+<header class="site-nav">
+    <div class="container nav-inner">
+        <a href="/retropalette" class="nav-brand">Retro Palette <span>· Software First</span></a>
+        <div class="nav-actions">
+            <a href="/retropalette" class="hide-sm">Overview</a>
+            <a href="/retropalette-privacy" class="hide-sm">Privacy</a>
+            <a href="/retropalette-terms">Terms</a>
+            <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch to dark theme">🌙</button>
+        </div>
+    </div>
+</header>
+
+<main class="container doc">
+    <div class="doc-kicker">Retro Palette — mobile app</div>
+    <h1>Support</h1>
+    <p class="lede">
+        Retro Palette is made by a small studio, and the people who answer this mailbox are the people who wrote
+        the app. There is no ticket system, no chatbot and no support tier — just an email address that works.
+    </p>
+
+    <div class="contact-card">
+        <h2>Contact us</h2>
+        <p>
+            Email <strong>info@softwarefirst.gr</strong> with “Retro Palette” in the subject line. We aim to reply
+            within <strong>two working days</strong>. We are in Athens, Greece (EET/EEST), so allow for the time
+            difference if you are far away.
+        </p>
+        <a class="mail-btn" href="mailto:info@softwarefirst.gr?subject=Retro%20Palette%20support">Email support →</a>
+        <p style="margin: 0;">
+            You do not need an account to get help, and we will never ask you for a password — Retro Palette has
+            no accounts and no passwords.
+        </p>
+    </div>
+
+    <section class="clause" id="common">
+        <h2>Common questions</h2>
+        <div class="faq">
+            <details>
+                <summary>I bought Pro but the palettes are still locked</summary>
+                <p>Open the Pro screen and tap <strong>Restore purchases</strong>. That re-checks your purchase with the store and unlocks everything within a few seconds.</p>
+                <p>If it does not work, check that:</p>
+                <ul>
+                    <li>you are signed in to the <strong>same App Store or Google Play account</strong> you bought with;</li>
+                    <li>the device has a working internet connection — restoring is the one thing the app cannot do offline;</li>
+                    <li>you are on the same platform. A purchase made on Android cannot be restored on iOS, or vice versa: Apple and Google do not share purchase records, and we have no way to bridge them.</li>
+                </ul>
+                <p>Still stuck? Email us with your store, your device model and the approximate date of purchase, and we will work it out.</p>
+            </details>
+            <details>
+                <summary>Where does the converted image go?</summary>
+                <p>Into your device's normal photo gallery, as a PNG, at the moment you tap save. There is no in-app library and no hidden folder — once it is saved, it is an ordinary photo you can share, edit or delete like any other.</p>
+                <p>If nothing appears, the most likely cause is that photo access was declined. See the next item.</p>
+            </details>
+            <details>
+                <summary>The app cannot open or save photos</summary>
+                <p>Retro Palette needs permission to read the photo you pick and to add the converted image back to your library. If you declined that prompt, grant it again in your device settings:</p>
+                <ul>
+                    <li><strong>iOS:</strong> Settings → Retro Palette → Photos.</li>
+                    <li><strong>Android:</strong> Settings → Apps → Retro Palette → Permissions.</li>
+                </ul>
+                <p>The app asks for nothing else — no location, no contacts, no camera.</p>
+            </details>
+            <details>
+                <summary>My conversion looks noisy, muddy or washed out</summary>
+                <p>Some source images fight the constraints harder than others. Things that usually help:</p>
+                <ul>
+                    <li><strong>Pick a bolder pixel size.</strong> <code>Chunky · 96px</code> and <code>Classic · 160px</code> read far better than a full-resolution conversion, because the palette has fewer, larger areas to commit to.</li>
+                    <li><strong>Try a different palette.</strong> The NES conversion commits to about 13 colours for the whole image, so a scene with two competing colour moods will lose one of them. The C64 or PICO-8 palettes handle that better.</li>
+                    <li><strong>Toggle dithering off.</strong> On graphic, high-contrast subjects — logos, silhouettes, strong portraits — flat colour often looks more authentic than dithered texture.</li>
+                    <li><strong>Start from a higher-contrast photo.</strong> Four green shades cannot rescue a flat, grey image; they can do wonderful things with a well-lit one.</li>
+                </ul>
+            </details>
+            <details>
+                <summary>My export is smaller than the original photo</summary>
+                <p>The free tier caps exports at <strong>1024&nbsp;px</strong> on the long side; <strong>Retro Palette Pro</strong> raises that to <strong>4096&nbsp;px</strong>. Aspect ratio is always preserved, and the app never upscales beyond your original.</p>
+                <p>Note that the pixel-size setting is a separate, deliberate effect: <code>Classic · 160px</code> renders the artwork at 160 pixels across and then scales it up with hard edges, which is what gives the chunky retro look.</p>
+            </details>
+            <details>
+                <summary>Are my photos uploaded anywhere?</summary>
+                <p>No. All conversion happens on your device, and the app contains no code that sends image data anywhere. The only network call it makes is the purchase check for the Pro unlock. The <a href="/retropalette-privacy">privacy policy</a> spells this out in detail.</p>
+            </details>
+            <details>
+                <summary>How do I get a refund?</summary>
+                <p>Refunds are handled by the store you bought from:</p>
+                <ul>
+                    <li><strong>Apple:</strong> <a href="https://reportaproblem.apple.com" target="_blank" rel="noopener noreferrer">reportaproblem.apple.com</a></li>
+                    <li><strong>Google Play:</strong> your <a href="https://play.google.com/store/account/orderhistory" target="_blank" rel="noopener noreferrer">order history</a></li>
+                </ul>
+                <p>If the app did not do what we said it does, email us first — it is usually faster, and we would rather fix the problem than take your money for something broken. See section 6 of the <a href="/retropalette-terms">terms of use</a>.</p>
+            </details>
+            <details>
+                <summary>Can I use the images commercially?</summary>
+                <p>Yes. The images you create are yours, with no attribution required and no licence owed to us. You are responsible for having the rights to the source photo you convert.</p>
+            </details>
+            <details>
+                <summary>Will you add more palettes / batch conversion / a custom palette editor?</summary>
+                <p>Possibly, and we genuinely like hearing which one you want most — it is the clearest signal we get about what to build next. Email us. We would rather ship a small app that works than a large one that does not, so the list moves slowly on purpose.</p>
+            </details>
+            <details>
+                <summary>Does it work with emulators or ROMs?</summary>
+                <p>No, and that is deliberate. Retro Palette handles no game data of any kind. A palette here is a list of colour values measured from the original display hardware, applied to photographs you already own.</p>
+            </details>
+        </div>
+    </section>
+
+    <section class="clause" id="requirements">
+        <h2>Device requirements</h2>
+        <div class="table-wrap">
+            <table>
+                <thead>
+                    <tr><th>Platform</th><th>Minimum version</th><th>Devices</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td>iOS / iPadOS</td><td>iOS 15.0 or later</td><td>iPhone and iPad</td></tr>
+                    <tr><td>Android</td><td>Android 10 (API 29) or later</td><td>Phones and tablets</td></tr>
+                </tbody>
+            </table>
+        </div>
+        <p>
+            An internet connection is needed only to buy or restore the Pro unlock. Everything else — including
+            every conversion and every export — works with the device offline.
+        </p>
+    </section>
+
+    <section class="clause" id="bug">
+        <h2>Reporting a bug</h2>
+        <p>
+            The app has no crash reporting and no analytics, which means we genuinely do not know something is
+            wrong until someone tells us. If you hit a problem, this is the most useful thing you can send:
+        </p>
+        <pre>Device:        e.g. iPhone 14, iOS 18.4  /  Pixel 7, Android 15
+App version:   shown on the onboarding screen
+Store:         App Store or Google Play
+Palette:       e.g. NES
+Pixel size:    e.g. Classic · 160px
+Dither:        on / off
+What happened: what you did, what you expected, what you got</pre>
+        <p>
+            A screenshot of the result helps enormously. Please <strong>do not send us a photo you would not want
+            a stranger to see</strong> — we only need enough to reproduce the problem, and we delete what you send
+            once it is fixed.
+        </p>
+        <p>
+            Send it to <a href="mailto:info@softwarefirst.gr?subject=Retro%20Palette%20bug%20report">info@softwarefirst.gr</a>.
+        </p>
+    </section>
+
+    <section class="clause" id="legal">
+        <h2>Policies</h2>
+        <ul>
+            <li><a href="/retropalette-privacy">Privacy policy</a> — what the app does and does not collect (it does not collect).</li>
+            <li><a href="/retropalette-terms">Terms of use</a> — the licence, the Pro unlock, refunds and the legal boilerplate.</li>
+            <li><a href="/retropalette">Retro Palette overview</a> — what the app is and which palettes it ships with.</li>
+        </ul>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container footer-inner">
+        <div class="footer-brand">Retro Palette · Software First</div>
+        <a href="/retropalette" class="footer-link">← Retro Palette</a>
+        <a href="/retropalette-privacy" class="footer-link">Privacy policy</a>
+        <a href="/retropalette-terms" class="footer-link">Terms of use</a>
+        <p class="footer-copy">© 2026 Software First.</p>
+    </div>
+</footer>
+
+<script>
+(() => {
+    "use strict";
+    const root = document.documentElement;
+    const isLight = () => root.getAttribute("data-theme") !== "dark";
+    const themeBtn = document.getElementById("theme-toggle");
+    const themeMeta = document.getElementById("theme-color-meta");
+    const syncTheme = () => {
+        const light = isLight();
+        if (themeBtn) {
+            themeBtn.textContent = light ? "🌙" : "☀️";
+            const label = light ? "Switch to dark theme" : "Switch to light theme";
+            themeBtn.setAttribute("aria-label", label);
+            themeBtn.title = label;
+        }
+        if (themeMeta) themeMeta.content = light ? "#f7f5ec" : "#070a07";
+    };
+    if (themeBtn) {
+        themeBtn.addEventListener("click", () => {
+            const next = isLight() ? "dark" : "light";
+            root.setAttribute("data-theme", next);
+            try { localStorage.setItem("sf-theme", next); } catch (e) {}
+            syncTheme();
+        });
+    }
+    syncTheme();
+})();
+</script>
+</body>
+</html>

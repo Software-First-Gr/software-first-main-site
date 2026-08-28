@@ -11,7 +11,7 @@
       })();
     </script>
     <!-- No analytics on this page on purpose: a privacy policy should not be
-         the page that tracks you. See §9 for what the rest of the site does. -->
+         the page that tracks you. See §10 for what the rest of the site does. -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Privacy policy for the Retro Palette mobile app by Software First. Retro Palette collects no personal data: images are converted entirely on your device and are never uploaded.">
@@ -127,6 +127,7 @@
         .tldr ul { list-style: none; display: grid; gap: 0.5rem; }
         .tldr li { display: flex; gap: 0.65rem; font-size: 0.92rem; color: var(--text-muted); }
         .tldr li::before { content: "✓"; color: var(--accent-2); font-weight: 700; flex: none; }
+        .tldr li.sends::before { content: "→"; color: var(--accent-3); }
 
         .toc {
             margin: 2rem 0 0; border-radius: 14px; padding: 1.2rem 1.5rem;
@@ -176,6 +177,8 @@
         td:first-child { color: var(--text); font-weight: 500; }
         .no { color: #ff8a84; font-weight: 600; }
         :root[data-theme="light"] .no { color: #b91c1c; }
+        .yes { color: #f0b429; font-weight: 600; }
+        :root[data-theme="light"] .yes { color: #a16207; }
 
         .callout {
             border-radius: 14px; padding: 1.2rem 1.4rem; margin-bottom: 1.2rem;
@@ -210,7 +213,7 @@
     <div class="doc-kicker">Retro Palette — mobile app</div>
     <h1>Privacy Policy</h1>
     <p class="doc-meta">
-        Version <strong>1.0</strong> · Effective <strong>11 August 2026</strong> · Last updated <strong>11 August 2026</strong><br>
+        Version <strong>1.1</strong> · Effective <strong>28 August 2026</strong> · Last updated <strong>28 August 2026</strong><br>
         Applies to the <strong>Retro Palette</strong> app for iOS and Android
         (bundle / application id <code>gr.softwarefirst.retropalette</code>), published by Software First.
     </p>
@@ -218,11 +221,14 @@
     <div class="tldr">
         <h2>The short version</h2>
         <ul>
-            <li>Retro Palette does not collect, store or transmit any personal data.</li>
+            <li>Retro Palette collects no personal data about you: no account, no profile, no tracking.</li>
             <li>Your photos are converted entirely on your device and are never uploaded to us or anyone else.</li>
             <li>There is no account, no login, no email address and no user database.</li>
             <li>There is no analytics SDK and no advertising SDK in the app.</li>
-            <li>The only outbound network traffic is the purchase check for the optional Pro unlock.</li>
+            <li class="sends">The app <em>does</em> send <strong>crash reports</strong>, so we can fix what
+                breaks. They describe the failure, not you — see <a href="#crashes">section 5</a>.</li>
+            <li>Outbound network traffic is limited to two things: the purchase check for the optional Pro
+                unlock, and those crash reports.</li>
         </ul>
     </div>
 
@@ -233,6 +239,7 @@
             <li><a href="#photos">Your images and how they are processed</a></li>
             <li><a href="#not-collected">What we do not collect</a></li>
             <li><a href="#purchases">Purchases and the Pro unlock</a></li>
+            <li><a href="#crashes">Crash and error reports</a></li>
             <li><a href="#permissions">Device permissions</a></li>
             <li><a href="#local">Data stored on your device</a></li>
             <li><a href="#advertising">Advertising</a></li>
@@ -299,8 +306,8 @@
                     <tr><td>Location data</td><td class="no">No</td><td>The app never requests location permission.</td></tr>
                     <tr><td>Contacts, calendar, microphone, camera roll browsing</td><td class="no">No</td><td>None of these permissions are requested.</td></tr>
                     <tr><td>Advertising identifiers (IDFA / AAID)</td><td class="no">No</td><td>No ad SDK is present, so nothing reads them.</td></tr>
-                    <tr><td>Analytics or usage events</td><td class="no">No</td><td>No analytics SDK is bundled in the app.</td></tr>
-                    <tr><td>Crash reports</td><td class="no">No</td><td>We ship no crash-reporting SDK. Apple and Google may offer you their own opt-in diagnostics; that is their process, not ours.</td></tr>
+                    <tr><td>Analytics or usage events</td><td class="no">No</td><td>No analytics SDK is bundled in the app. Nothing records which palettes you pick, how many images you convert, or what you do in the app.</td></tr>
+                    <tr><td>Crash reports</td><td class="yes">Yes</td><td>The app reports its own crashes and errors, so we can fix them. See <a href="#crashes">section 5</a> for exactly what a report contains — no images, and nothing that identifies you.</td></tr>
                     <tr><td>Cookies or web tracking inside the app</td><td class="no">No</td><td>The app has no embedded web content that tracks you.</td></tr>
                 </tbody>
             </table>
@@ -358,8 +365,75 @@
         </div>
     </section>
 
+    <section class="clause" id="crashes">
+        <h2>5. Crash and error reports</h2>
+        <p>
+            When Retro Palette crashes or hits an unexpected error, it sends a report so we can find and fix
+            the fault. This is the one place where the app tells us something without you asking it to, so it
+            is worth being precise about what a report is.
+        </p>
+        <p>
+            The reports are processed by <strong>Sentry</strong> (Functional Software, Inc., trading as
+            Sentry), a US error-monitoring provider acting as our processor. They are sent to a project used
+            only by this app.
+        </p>
+
+        <h3>5.1 What a report contains</h3>
+        <ul>
+            <li>The error itself — its type, its message and the stack trace showing which code failed.</li>
+            <li>The app version and build number, and whether it was a store build or a development one.</li>
+            <li>Device and operating-system information: model, OS version, language, available memory and
+                storage, and whether the device was low on either.</li>
+            <li>A short trail of the actions leading up to the failure — for example that a button was
+                tapped or a screen was opened. <strong>The text on those controls is deliberately excluded</strong>,
+                so the trail records that something was tapped, never what it said.</li>
+            <li>A random identifier generated when the app is first installed. It lets us tell "one person
+                crashed forty times" apart from "forty people crashed once", which changes how urgent a bug
+                is. It is not derived from you, your device's hardware ids, or any account; it is created on
+                the device, and reinstalling the app replaces it with a new one.</li>
+        </ul>
+
+        <h3>5.2 What a report never contains</h3>
+        <ul>
+            <li><strong>No images.</strong> Not the photo you picked, not the converted result, not a
+                thumbnail. Automatic screenshot attachment is a feature of the reporting SDK and it is
+                switched <strong>off</strong> in this app, deliberately and permanently — the screen almost
+                always shows one of your own photos.</li>
+            <li><strong>No IP address.</strong> The SDK is configured not to send one, and the receiving
+                project is additionally set to discard IP addresses before storage.</li>
+            <li>No name, email address, account or advertising identifier — the app has none of these to send.</li>
+            <li>Nothing about which palettes you use, how many images you convert, or how often you open the
+                app. Crash reporting is not analytics, and there is no analytics SDK in the app.</li>
+        </ul>
+
+        <h3>5.3 Why we are allowed to do this</h3>
+        <p>
+            The legal basis under Article 6(1)(f) GDPR is our <strong>legitimate interest</strong> in keeping
+            the app working and fixing defects that would otherwise be invisible to us. We consider this
+            proportionate because the reports are stripped of the things that would identify you, and because
+            the alternative — shipping updates without knowing what is broken on real devices — produces a
+            worse app for everyone. If you would rather not send them, see 5.5.
+        </p>
+
+        <h3>5.4 Storage, retention and transfers</h3>
+        <p>
+            Reports are transmitted over HTTPS and stored on Sentry's infrastructure in the
+            <strong>United States</strong>, which is a transfer outside the EEA. It is covered by the Standard
+            Contractual Clauses incorporated into our agreement with Sentry. Reports are kept only for a
+            limited retention period and are then deleted automatically; we do not archive them elsewhere.
+        </p>
+
+        <h3>5.5 If you would rather not send crash reports</h3>
+        <p>
+            The app has no in-app switch for this in the current version. If you object to this processing,
+            write to <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> — under Article 21 GDPR
+            you have the right to object to processing based on legitimate interests, and we will tell you how
+            to stop it. We are considering an opt-out toggle in a future version.
+        </p>
+    </section>
+
     <section class="clause" id="permissions">
-        <h2>5. Device permissions</h2>
+        <h2>6. Device permissions</h2>
         <div class="table-wrap">
             <table>
                 <thead>
@@ -380,7 +454,7 @@
                     </tr>
                     <tr>
                         <td><code>INTERNET</code>, <code>ACCESS_NETWORK_STATE</code></td><td>Android</td>
-                        <td>Used solely for the purchase/entitlement check described in section 4. Image conversion never uses the network.</td>
+                        <td>Used for the purchase/entitlement check in section 4 and the crash reports in section 5, and nothing else. Image conversion never uses the network.</td>
                     </tr>
                 </tbody>
             </table>
@@ -392,7 +466,7 @@
     </section>
 
     <section class="clause" id="local">
-        <h2>6. Data stored on your device</h2>
+        <h2>7. Data stored on your device</h2>
         <p>Retro Palette keeps a very small amount of state locally, in the app's own private storage:</p>
         <ul>
             <li>Whether you have completed the onboarding screen, so it is not shown to you again.</li>
@@ -404,7 +478,7 @@
     </section>
 
     <section class="clause" id="advertising">
-        <h2>7. Advertising</h2>
+        <h2>8. Advertising</h2>
         <p>
             <strong>This version of Retro Palette contains no advertising.</strong> No advertising SDK is bundled
             in the app, no ads are displayed, and no advertising identifier is read.
@@ -419,7 +493,7 @@
     </section>
 
     <section class="clause" id="children">
-        <h2>8. Children</h2>
+        <h2>9. Children</h2>
         <p>
             Retro Palette is a general-audience utility. It is not directed at children, and we do not knowingly
             collect personal data from anyone, including children — the app collects no personal data at all. If
@@ -429,7 +503,7 @@
     </section>
 
     <section class="clause" id="website">
-        <h2>9. This website</h2>
+        <h2>10. This website</h2>
         <p>
             This policy covers the app. Separately, the marketing pages on <code>softwarefirst.gr</code> — including
             the <a href="/retropalette">Retro Palette overview page</a> — use <strong>Google Analytics</strong> to
@@ -444,7 +518,7 @@
     </section>
 
     <section class="clause" id="rights">
-        <h2>10. Your rights under the GDPR</h2>
+        <h2>11. Your rights under the GDPR</h2>
         <p>
             If you are in the European Economic Area, the United Kingdom or Switzerland, you have the rights of
             access, rectification, erasure, restriction, data portability and objection, as well as the right not
@@ -452,13 +526,23 @@
             you.
         </p>
         <p>
-            In our case the honest answer is that <strong>we hold no personal data about you</strong>, so there is
-            nothing for us to retrieve, correct, export or delete. The purchase record described in section 4 sits
-            with Apple, Google and RevenueCat, tied to an anonymous identifier and to your store account.
+            In our case the honest answer is that <strong>we hold nothing that identifies you</strong> — no
+            name, no email address, no account. There are two records connected to your use of the app, and
+            neither is tied to your identity: the purchase record described in section 4 sits with Apple, Google
+            and RevenueCat against an anonymous identifier and your store account, and the crash reports
+            described in section 5 sit with Sentry against a random per-install identifier.
+        </p>
+        <p>
+            The practical consequence cuts both ways. It means there is almost nothing about you for anyone to
+            retrieve, profile or leak — but it also means that, given only your name or email address, we have
+            no way to find records relating to you, because no such link exists for us to follow. Where we
+            cannot identify you from the data we hold, Article 11 GDPR does not require us to acquire more
+            information purely to be able to.
         </p>
         <p>
             You can still write to <a href="mailto:info@softwarefirst.gr">info@softwarefirst.gr</a> to exercise any
-            of these rights. We will respond within one month. If you give us the anonymous app user id shown by
+            of these rights, including your <strong>right to object</strong> under Article 21 to the crash
+            reporting described in section 5. We will respond within one month. If you give us the anonymous app user id shown by
             our support team's instructions, or your store transaction id, we can ask RevenueCat to delete the
             associated purchase record on your behalf — bear in mind that doing so may prevent you from restoring
             a purchase you have paid for.
@@ -471,49 +555,61 @@
     </section>
 
     <section class="clause" id="retention">
-        <h2>11. Retention, deletion and international transfers</h2>
-        <h3>11.1 Retention</h3>
+        <h2>12. Retention, deletion and international transfers</h2>
+        <h3>12.1 Retention</h3>
         <p>
-            We retain nothing, because we collect nothing. Purchase records held by RevenueCat on our behalf are
-            kept for as long as the app is operated, so that you can restore a purchase you paid for, and are
-            deleted when they are no longer needed for that purpose.
+            We hold no personal data about you, so for the most part there is nothing to retain. The two
+            exceptions are both described above: purchase records held by RevenueCat on our behalf are kept for
+            as long as the app is operated, so that you can restore a purchase you paid for, and are deleted
+            when they are no longer needed for that purpose; crash reports are kept by Sentry for a limited
+            retention period and then deleted automatically (section 5.4).
         </p>
-        <h3>11.2 Deleting your data</h3>
+        <h3>12.2 Deleting your data</h3>
         <p>
             Uninstalling Retro Palette removes everything the app stored on your device. Because there is no
-            account, there is no account to delete. For the purchase record, see section 10.
+            account, there is no account to delete. For the purchase record, see section 11.
         </p>
-        <h3>11.3 International transfers</h3>
+        <h3>12.3 International transfers</h3>
         <p>
-            RevenueCat, Inc. is based in the United States, so the receipt-validation exchange described in
-            section 4 involves a transfer outside the EEA. That transfer is covered by the Standard Contractual
-            Clauses incorporated into our agreement with RevenueCat. Apple and Google likewise operate globally
-            under their own published transfer safeguards.
+            Two of our processors are based in the United States, so both exchanges involve a transfer outside
+            the EEA: <strong>RevenueCat, Inc.</strong> for the receipt validation described in section 4, and
+            <strong>Sentry</strong> for the crash reports described in section 5. Both transfers are covered by
+            the Standard Contractual Clauses incorporated into our agreements with them. Apple and Google
+            likewise operate globally under their own published transfer safeguards.
         </p>
     </section>
 
     <section class="clause" id="security">
-        <h2>12. Security</h2>
+        <h2>13. Security</h2>
         <p>
             The strongest security property of this app is architectural: your images stay on your device, so there
-            is no server for anyone to breach and no database of user content to leak. Communication with the
-            purchase service uses HTTPS. The app's local storage is the operating system's private per-app storage,
+            is no server for anyone to breach and no database of user content to leak. Both outbound channels —
+            the purchase check and the crash reports — use HTTPS. The app's local storage is the operating system's private per-app storage,
             protected by the device's own sandboxing and encryption.
         </p>
     </section>
 
     <section class="clause" id="changes">
-        <h2>13. Changes to this policy</h2>
+        <h2>14. Changes to this policy</h2>
         <p>
             If we change how the app handles data, we will update this page and change the version and effective
             date at the top. Material changes — in particular, introducing advertising or analytics — will be
             published here <strong>before</strong> the version that makes them is released to the stores. Previous
             versions are available on request.
         </p>
+        <h3>14.1 What changed in version 1.1</h3>
+        <p>
+            <strong>28 August 2026.</strong> Retro Palette now sends crash and error reports, which version 1.0
+            of this policy said it did not. The new <a href="#crashes">section 5</a> describes what a report
+            contains and what it excludes, and sections 6, 12 and 13 were corrected to match. This page was
+            updated before the change reached a public store release, as promised above. No other processing
+            changed: images are still converted entirely on your device, and there is still no analytics SDK
+            and no advertising in the app.
+        </p>
     </section>
 
     <section class="clause" id="contact">
-        <h2>14. Contact</h2>
+        <h2>15. Contact</h2>
         <p>
             Questions, requests or corrections about this policy:<br>
             <strong>Software First</strong> — Athens, Greece<br>

@@ -20,17 +20,17 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Switchboard is a free, open-source MediatR alternative for .NET 8, 9 and 10. Requests, notifications and pipeline behaviors with an identical API surface — swap the using directive and one registration call. Apache 2.0, one dependency, ~565 lines.">
+    <meta name="description" content="Switchboard is a free, open-source MediatR alternative for .NET 8, 9 and 10. Requests, notifications and pipeline behaviors with an identical API surface — swap the using directive and one registration call. Apache 2.0, one dependency, under 500 lines of code — now with startup validation, built-in OpenTelemetry and a scope per dispatch for Blazor Server.">
     <link rel="canonical" href="https://softwarefirst.gr/switchboard">
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Software First">
     <meta property="og:title" content="Switchboard — a drop-in, open-source MediatR alternative for .NET">
-    <meta property="og:description" content="Requests, notifications and pipeline behaviors over Microsoft.Extensions.DependencyInjection. Apache 2.0, one dependency, net8.0/net9.0/net10.0 — the migration off MediatR is a find-and-replace.">
+    <meta property="og:description" content="Requests, notifications and pipeline behaviors over Microsoft.Extensions.DependencyInjection. Apache 2.0, one dependency, net8.0/net9.0/net10.0 — the migration off MediatR is a find-and-replace. Version 1.2 adds startup validation, OpenTelemetry and a scope per dispatch for Blazor Server.">
     <meta property="og:url" content="https://softwarefirst.gr/switchboard">
     <meta property="og:image" content="https://softwarefirst.gr/assets/images/logo/logo-colored.png">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Switchboard — a drop-in, open-source MediatR alternative for .NET">
-    <meta name="twitter:description" content="Free and Apache 2.0. Requests, notifications and pipeline behaviors with a deliberately identical API surface to MediatR. Targets .NET 8, 9 and 10.">
+    <meta name="twitter:description" content="Free and Apache 2.0. Requests, notifications and pipeline behaviors with a deliberately identical API surface to MediatR. Targets .NET 8, 9 and 10. New in 1.2: startup validation and built-in OpenTelemetry.">
     <meta name="theme-color" content="#f6f7fb" id="theme-color-meta">
     <link rel="icon" href="assets/images/logo/logo-colored.png">
     <title>Switchboard — Free MediatR Alternative for .NET (Apache 2.0) · Software First</title>
@@ -60,7 +60,7 @@
         "name": "SoftwareFirst.Switchboard",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": ".NET 8, .NET 9, .NET 10",
-        "softwareVersion": "1.1.0",
+        "softwareVersion": "1.2.1",
         "downloadUrl": "https://www.nuget.org/packages/SoftwareFirst.Switchboard",
         "url": "https://softwarefirst.gr/switchboard",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
@@ -71,7 +71,10 @@
           "IPipelineBehavior open and closed pipeline behaviors",
           "Assembly scanning for handler registration",
           "ISender, IPublisher, IMediator and Unit, identical to MediatR",
-          "Single dependency: Microsoft.Extensions.DependencyInjection.Abstractions"
+          "Single dependency: Microsoft.Extensions.DependencyInjection.Abstractions",
+          "Startup validation of handlers and pipeline behaviors (ValidateSwitchboard)",
+          "Built-in OpenTelemetry tracing and metrics through ActivitySource and Meter",
+          "Scope per dispatch for Blazor Server (UseScopePerDispatch)"
         ],
         "author": {
           "@type": "Organization",
@@ -121,6 +124,30 @@
             "acceptedAnswer": {
               "@type": "Answer",
               "text": "No. It uses plain reflection over the DI container, the way MediatR does. There are no source generators, analyzers or build-time steps to audit. If you need maximum throughput or streaming, a source-generated alternative is the better fit."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How do I upgrade from Switchboard 1.1 to 1.2?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Bump the package to 1.2.1; no API was removed or changed. Then add services.ValidateSwitchboard() just before building the host and fix what it reports. The most common finding is a pipeline behavior constrained to IRequest<TResponse> that has silently been skipping void commands; constrain it to IBaseRequest instead. Telemetry and scope per dispatch are opt-in."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does Switchboard support OpenTelemetry?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes, since 1.2. It emits a span per Send, per Publish and per notification handler, plus switchboard.request.duration and switchboard.notification.duration histograms, through ActivitySource and Meter from the base class library, with no extra package. Subscribe with AddSource(SwitchboardTelemetry.ActivitySourceName) and AddMeter(SwitchboardTelemetry.MeterName); nothing is recorded until you do."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Can Switchboard fix 'A second operation was started on this context' in Blazor Server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. In Blazor Server the DI scope is the whole circuit, so one DbContext serves every click. cfg.UseScopePerDispatch() runs each top-level Send and Publish in its own scope; nested commands sent through an injected ISender share it, and a callback carries the current user into the new scope."
             }
           }
         ]
@@ -479,6 +506,7 @@
         }
         .yes { color: var(--green); font-weight: 600; white-space: nowrap; }
         .no { color: #ff8a84; font-weight: 600; }
+        .plus { color: var(--accent); font-weight: 600; white-space: nowrap; }
         table.compat td:last-child { color: var(--text-muted); }
 
         /* ── SEMANTICS / FAQ ── */
@@ -603,6 +631,7 @@
 <header class="site-nav" id="site-nav">
     <a href="/" class="nav-brand">Switchboard <span>· Software First</span></a>
     <ul class="nav-links" id="nav-links">
+        <li><a href="#new">New in 1.2</a></li>
         <li><a href="#why">Why</a></li>
         <li><a href="#quick-start">Quick start</a></li>
         <li><a href="#migrating">Migrating</a></li>
@@ -625,6 +654,7 @@
             <span class="badge-pill">net8.0 · net9.0 · net10.0</span>
             <span class="badge-pill">One dependency</span>
             <span class="badge-pill">No source generators</span>
+            <span class="badge-pill">New in 1.2: startup validation · OpenTelemetry</span>
             <span class="badge-pill green">Apache 2.0 — free, including commercially</span>
         </div>
         <h1 class="hero-title rv" style="--d:.08s">
@@ -655,16 +685,129 @@
                 <div class="stat-label">DependencyInjection.Abstractions — that's it</div>
             </div>
             <div>
-                <div class="stat-num"><em>~565</em> lines</div>
-                <div class="stat-label">across 15 files you can read end to end</div>
+                <div class="stat-num"><em>&lt;500</em> lines</div>
+                <div class="stat-label">of code, across 18 files you can read end to end</div>
             </div>
             <div>
                 <div class="stat-num"><em>3</em> targets</div>
                 <div class="stat-label">net8.0, net9.0 and net10.0</div>
             </div>
             <div>
-                <div class="stat-num">v1.1.0</div>
+                <div class="stat-num">v1.2.1</div>
                 <div class="stat-label">on NuGet as SoftwareFirst.Switchboard</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- NEW IN 1.2 -->
+<section class="sf-section" id="new" style="background: var(--bg-2); border-block: 1px solid var(--stroke);">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">New in 1.2</span>
+            <h2 class="section-title">Same API. Now it also catches the mistakes that reach production.</h2>
+            <p class="section-sub">
+                Version 1.2 is a drop-in upgrade from 1.1: nothing was removed or renamed. Everything new is
+                opt-in and adds no dependency — it's the safety net each of our own apps ended up writing by hand.
+            </p>
+        </div>
+        <div class="why-grid">
+            <div class="glass-card rv prose" style="--d:.05s">
+                <div class="card-icon">🛡️</div>
+                <h3>Startup validation</h3>
+                <p>
+                    <code>services.ValidateSwitchboard()</code> reads your registrations — without building the
+                    container or constructing a handler — and stops the app at startup with every problem listed:
+                    requests with no handler, requests with two, and behaviors that never run for void requests.
+                </p>
+                <ul class="why-list">
+                    <li>Fails the deploy, not a user</li>
+                    <li>Safe for handlers that need a request or a circuit</li>
+                    <li>Doubles as a one-line unit test</li>
+                </ul>
+            </div>
+            <div class="glass-card rv prose" style="--d:.12s">
+                <div class="card-icon">📡</div>
+                <h3>OpenTelemetry, built in</h3>
+                <p>
+                    A span per <code>Send</code>, per <code>Publish</code> and per notification handler, plus
+                    <code>switchboard.request.duration</code> and <code>switchboard.notification.duration</code>
+                    histograms — through <code>ActivitySource</code> and <code>Meter</code>, so there's no package to add.
+                </p>
+                <ul class="why-list">
+                    <li>One <code>AddSource</code> line to switch on</li>
+                    <li>Zero cost while nobody listens</li>
+                    <li>Tags carry type names, never request contents</li>
+                </ul>
+            </div>
+            <div class="glass-card rv prose" style="--d:.19s">
+                <div class="card-icon">🧵</div>
+                <h3>A scope per dispatch for Blazor Server</h3>
+                <p>
+                    In Blazor Server the DI scope is the whole circuit, so one <code>DbContext</code> serves every
+                    click. <code>UseScopePerDispatch()</code> gives each top-level <code>Send</code> and
+                    <code>Publish</code> its own scope, and a callback carries the current user across.
+                </p>
+                <ul class="why-list">
+                    <li>No more “a second operation was started on this context”</li>
+                    <li>Nested commands share one unit of work</li>
+                    <li>Scopes you create yourself stay isolated</li>
+                </ul>
+            </div>
+            <div class="glass-card rv prose" style="--d:.26s">
+                <div class="card-icon">🔂</div>
+                <h3>Registered twice, runs once</h3>
+                <p>
+                    Two modules that both scan a shared assembly used to register every handler twice — so every
+                    notification handler ran twice. <code>AddSwitchboard</code> is now safe to call as often as your
+                    composition root needs.
+                </p>
+                <ul class="why-list">
+                    <li>Handlers and behaviors deduplicated</li>
+                    <li>Pipeline order preserved</li>
+                    <li>Nothing to change in your code</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="split" style="margin-top: 1.5rem;">
+            <div class="split-copy rv">
+                <h3>Upgrading from 1.1</h3>
+                <p>
+                    Bump the package to <code>1.2.1</code>, then add <code>ValidateSwitchboard()</code> just before
+                    <code>Build()</code> and fix what it reports. The usual finding is a behavior constrained to
+                    <code>IRequest&lt;TResponse&gt;</code> — the shape most templates ship — that has been silently
+                    skipping your void commands. Constrain it to <code>IBaseRequest</code> instead.
+                </p>
+                <p>
+                    Telemetry and scope per dispatch are opt-in. The upgrade guide walks through each step, including
+                    replacing a hand-written Blazor scoping sender.
+                </p>
+                <div class="hero-actions" style="margin-top: 1.4rem;">
+                    <a href="https://github.com/Software-First-Gr/Switchboard#upgrading-to-12" target="_blank" rel="noopener noreferrer" class="btn-ghost">Upgrade guide ↗</a>
+                    <a href="https://github.com/Software-First-Gr/Switchboard/blob/main/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="btn-ghost">Changelog ↗</a>
+                </div>
+            </div>
+            <div class="code-panel rv" style="--d:.08s">
+                <div class="code-head">
+                    <span class="dot" style="background:#ff5f57"></span>
+                    <span class="dot" style="background:#febc2e"></span>
+                    <span class="dot" style="background:#28c840"></span>
+                    <span class="name">Program.cs</span>
+                </div>
+<pre><code>builder.Services.<span class="tok-t">AddSwitchboard</span>(cfg =&gt; cfg
+    .<span class="tok-t">RegisterServicesFromAssemblyContaining</span>&lt;<span class="tok-t">GetOrderHandler</span>&gt;()
+    .<span class="tok-t">UseScopePerDispatch</span>());   <span class="tok-c">// Blazor Server: a scope per command</span>
+
+<span class="tok-c">// Spans and duration histograms — nothing is recorded until you subscribe.</span>
+builder.Services.<span class="tok-t">AddOpenTelemetry</span>()
+    .<span class="tok-t">WithTracing</span>(t =&gt; t.<span class="tok-t">AddSource</span>(<span class="tok-t">SwitchboardTelemetry</span>.ActivitySourceName))
+    .<span class="tok-t">WithMetrics</span>(m =&gt; m.<span class="tok-t">AddMeter</span>(<span class="tok-t">SwitchboardTelemetry</span>.MeterName));
+
+<span class="tok-c">// Missing or duplicate handlers, behaviors that skip void requests:</span>
+<span class="tok-c">// the app refuses to start and lists every one.</span>
+builder.Services.<span class="tok-t">ValidateSwitchboard</span>();
+<span class="tok-k">var</span> app = builder.<span class="tok-t">Build</span>();</code></pre>
             </div>
         </div>
     </div>
@@ -923,8 +1066,9 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
             <span class="section-tag">Migrating from MediatR</span>
             <h2 class="section-title">Three steps, then read the table.</h2>
             <p class="section-sub">
-                The first three steps cover almost every codebase. The table is the honest part: if you're
-                using something in the bottom half, Switchboard is not your library and the README says so too.
+                The first three steps cover almost every codebase; the fourth is optional and worth it. The table
+                is the honest part: if you depend on one of the ❌ rows, Switchboard is not your library, and the
+                README says so too.
             </p>
         </div>
 
@@ -942,6 +1086,13 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
                 <p>
                     Replace <code>services.AddMediatR(...)</code> with <code>services.AddSwitchboard(...)</code> —
                     the configuration methods keep their names.
+                </p>
+            </div>
+            <div class="step rv" style="--d:.2s">
+                <span class="step-num">4</span>
+                <p>
+                    Optionally, add <code>services.ValidateSwitchboard()</code> just before building the host — it
+                    tends to find something on the first run.
                 </p>
             </div>
         </div>
@@ -987,6 +1138,21 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
                         <td><code>RegisterServicesFromAssembly…</code></td>
                     </tr>
                     <tr>
+                        <td>Startup validation of handlers and behaviors</td>
+                        <td class="plus">➕ Switchboard only</td>
+                        <td><code>ValidateSwitchboard()</code></td>
+                    </tr>
+                    <tr>
+                        <td>OpenTelemetry traces and metrics</td>
+                        <td class="plus">➕ Switchboard only</td>
+                        <td><code>SwitchboardTelemetry</code>, no extra package</td>
+                    </tr>
+                    <tr>
+                        <td>Scope per dispatch (Blazor Server)</td>
+                        <td class="plus">➕ Switchboard only</td>
+                        <td><code>UseScopePerDispatch()</code></td>
+                    </tr>
+                    <tr>
                         <td>Streaming (<code>IStreamRequest&lt;&gt;</code>)</td>
                         <td class="no">❌ not implemented</td>
                         <td>Use a source-generated alternative</td>
@@ -1017,7 +1183,7 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
     <div class="container">
         <div class="rv">
             <span class="section-tag">Semantics worth knowing</span>
-            <h2 class="section-title">The four behaviours people actually get bitten by.</h2>
+            <h2 class="section-title">The behaviours people actually get bitten by.</h2>
             <p class="section-sub">
                 A mediator is mostly invisible until something surprises you at 2am. These are the choices
                 Switchboard makes, stated up front.
@@ -1034,8 +1200,9 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
             <div class="glass-card rv prose" style="--d:.12s">
                 <h3>Handlers and behaviors are transient</h3>
                 <p>
-                    They're resolved from the scope the mediator was resolved from, so your scoped
-                    dependencies work exactly as they do today.
+                    They're resolved from the scope the mediator was resolved from — or from a fresh
+                    per-dispatch scope, if you turn that on — so your scoped dependencies work exactly as they
+                    do today.
                 </p>
             </div>
             <div class="glass-card rv prose" style="--d:.19s">
@@ -1050,6 +1217,22 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
                 <p>
                     Handler-type wrappers are cached statically per request type. The cache is stateless and
                     thread-safe, so the reflection cost is paid once.
+                </p>
+            </div>
+            <div class="glass-card rv prose" style="--d:.05s">
+                <h3>Void requests skip <code>IRequest&lt;TResponse&gt;</code> constraints</h3>
+                <p>
+                    A void request implements <code>IRequest</code>, not <code>IRequest&lt;Unit&gt;</code> — in
+                    MediatR 12+ too — so a behavior constrained to <code>IRequest&lt;TResponse&gt;</code> silently
+                    never runs for it. Constrain to <code>IBaseRequest</code>; <code>ValidateSwitchboard()</code>
+                    finds the ones that don't.
+                </p>
+            </div>
+            <div class="glass-card rv prose" style="--d:.12s">
+                <h3>Registering twice is harmless</h3>
+                <p>
+                    A handler or behavior that is already registered isn't added again, so modules that scan a
+                    shared assembly never make a handler run twice.
                 </p>
             </div>
         </div>
@@ -1103,6 +1286,36 @@ cfg.<span class="tok-t">AddOpenBehavior</span>(<span class="tok-k">typeof</span>
                     None. It's plain reflection over the DI container, the way MediatR does it. If you need
                     maximum throughput or streaming, a source-generated alternative is genuinely the better
                     choice — we'd rather say that than sell you the wrong library.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.22s">
+                <h3>How do I upgrade from 1.1 to 1.2?</h3>
+                <p>
+                    Bump the package to <code>1.2.1</code> — no API was removed or changed. Then add
+                    <code>services.ValidateSwitchboard()</code> just before building the host and fix what it reports.
+                    The most common finding is a behavior constrained to <code>IRequest&lt;TResponse&gt;</code> that has
+                    silently been skipping void commands. Telemetry and scope per dispatch are opt-in; the
+                    <a href="https://github.com/Software-First-Gr/Switchboard#upgrading-to-12" target="_blank" rel="noopener noreferrer" style="color: var(--accent-2);">upgrade guide</a>
+                    walks through each.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.22s">
+                <h3>Does it work with OpenTelemetry?</h3>
+                <p>
+                    Yes, since 1.2. It emits a span per <code>Send</code>, per <code>Publish</code> and per notification
+                    handler, plus <code>switchboard.request.duration</code> and <code>switchboard.notification.duration</code>
+                    histograms, through <code>ActivitySource</code> and <code>Meter</code> — no extra package. Subscribe with
+                    <code>AddSource(SwitchboardTelemetry.ActivitySourceName)</code> and
+                    <code>AddMeter(SwitchboardTelemetry.MeterName)</code>; nothing is recorded until you do.
+                </p>
+            </div>
+            <div class="faq-item rv" style="--d:.22s">
+                <h3>Can it fix “A second operation was started on this context” in Blazor Server?</h3>
+                <p>
+                    Yes. In Blazor Server the DI scope is the whole circuit, so one <code>DbContext</code> serves every
+                    click. <code>cfg.UseScopePerDispatch()</code> runs each top-level <code>Send</code> and
+                    <code>Publish</code> in its own scope; nested commands sent through an injected <code>ISender</code>
+                    share it, and a callback carries the current user into the new scope.
                 </p>
             </div>
             <div class="faq-item rv" style="--d:.24s">

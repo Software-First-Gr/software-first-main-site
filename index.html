@@ -1016,16 +1016,17 @@
                 <div class="pkg-head">
                     <div class="pkg-mark" aria-hidden="true">SB</div>
                     <div>
-                        <div class="pkg-id">SoftwareFirst.Switchboard<span class="pkg-ver">v1.1.0</span></div>
+                        <div class="pkg-id">SoftwareFirst.Switchboard<span class="pkg-ver">v1.2.1</span></div>
                         <div class="pkg-tagline">A lightweight, MediatR-compatible mediator for .NET</div>
                     </div>
                 </div>
 
                 <ul class="oss-points">
                     <li><span><b>Drop-in replacement.</b> Swap the package, change <code>using MediatR;</code> to <code>using Switchboard;</code> and <code>AddMediatR</code> to <code>AddSwitchboard</code> — handlers, behaviors and call sites compile unchanged.</span></li>
-                    <li><span><b>A few hundred lines, one dependency.</b> Just <code>Microsoft.Extensions.DependencyInjection.Abstractions</code>. Nothing to audit that you can't read in an afternoon.</span></li>
+                    <li><span><b>Under 500 lines of code, one dependency.</b> Just <code>Microsoft.Extensions.DependencyInjection.Abstractions</code>. Nothing to audit that you can't read in an afternoon.</span></li>
                     <li><span><b>Targets net8.0, net9.0 and net10.0.</b> Move off MediatR without moving frameworks first.</span></li>
                     <li><span><b>Predictable semantics.</b> Notification handlers run sequentially in registration order, so scoped state like an EF Core <code>DbContext</code> stays safe. Cancellation tokens never get dropped.</span></li>
+                    <li><span><b>New in 1.2.</b> Startup validation, built-in OpenTelemetry and a scope per dispatch for Blazor Server — all opt-in, no extra dependency.</span></li>
                     <li><span><b>Battle-tested.</b> Extracted from the platform behind ΠΑΦΑΜΕ, not written for a blog post.</span></li>
                 </ul>
 
@@ -1043,6 +1044,7 @@
                     <span class="oss-chip">CQRS</span>
                     <span class="oss-chip">Pipeline behaviors</span>
                     <span class="oss-chip">Notifications</span>
+                    <span class="oss-chip">OpenTelemetry</span>
                 </div>
 
                 <div class="oss-links">

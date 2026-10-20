@@ -584,7 +584,7 @@
         <div class="rv">
             <span class="section-tag">Under the hood</span>
             <h2 class="section-title">Clean Architecture, wired for real-time.</h2>
-            <p class="section-sub">CQRS with MediatR, EF Core on PostgreSQL, OpenSearch for instant catalog search, Valkey HybridCache, gRPC for the basket hot-path and SignalR pushing live order state to every client.</p>
+            <p class="section-sub">CQRS through <a href="switchboard.html">Switchboard</a>, our own open-source mediator, EF Core on PostgreSQL, OpenSearch for instant catalog search, Valkey HybridCache, gRPC for the basket hot-path and SignalR pushing live order state to every client.</p>
         </div>
 
         <div class="arch-wrap rv" style="--d:.1s">
@@ -695,9 +695,9 @@
             <div class="glass-card rv" style="--d:.06s"><div class="card-icon">🏷️</div><h3>Offers engine</h3><p>Four offer types plus happy-hour campaigns, evaluated at pricing time with strict stacking rules.</p></div>
             <div class="glass-card rv" style="--d:.12s"><div class="card-icon">📦</div><h3>Live stock</h3><p>Durable stock authority with hard rejection on sell-outs — no ghost orders, no disappointed customers.</p></div>
             <div class="glass-card rv" style="--d:.18s"><div class="card-icon">🤖</div><h3>AI everywhere it helps</h3><p>Claude-powered menu import from any URL and a restaurant copilot for owners — with budget caps.</p></div>
-            <div class="glass-card rv" style="--d:.24s"><div class="card-icon">🧾</div><h3>Automated invoicing</h3><p>Monthly auto-issue, overdue dunning, Stripe payments and re-verification on settle.</p></div>
+            <div class="glass-card rv" style="--d:.24s"><div class="card-icon">🧾</div><h3>Automated invoicing</h3><p>Monthly auto-issue, overdue dunning and re-verification on settle.</p></div>
             <div class="glass-card rv" style="--d:.30s"><div class="card-icon">👻</div><h3>Ghost kitchens</h3><p>Virtual brands on one account with shared verification, section mirroring and independent menus.</p></div>
-            <div class="glass-card rv" style="--d:.36s"><div class="card-icon">🔔</div><h3>Smart notifications</h3><p>Push via OneSignal, per-shop muting, delivery-aware statuses and metered SMS campaigns.</p></div>
+            <div class="glass-card rv" style="--d:.36s"><div class="card-icon">🔔</div><h3>Smart notifications</h3><p>Our own push service (APNs, FCM, Web Push), per-shop muting, delivery-aware statuses and metered SMS campaigns.</p></div>
             <div class="glass-card rv" style="--d:.42s"><div class="card-icon">🔐</div><h3>GDPR native</h3><p>Data export, verified erasure, retention jobs and an admin audit log — compliance as a feature.</p></div>
         </div>
     </div>
@@ -840,7 +840,7 @@
         "  ✦ ✦ ✦   WELCOME TO THE PAFAME CRACKTRO — 100% HANDCODED, ZERO VENTURE CAPITAL   ✦   " +
         "ONE PLATFORM, TWO STOREFRONTS, THREE RUNTIMES ... .NET 10 ON THE BACKEND, REACT & EXPO UP FRONT ... " +
         "SEARCH BY OPENSEARCH, CACHED BY VALKEY, TRUTH IN POSTGRES ... FULLY TRACED, LOAD-TESTED AND E2E-COVERED ... " +
-        "REAL-TIME ORDERS OVER SIGNALR, BACKGROUND JOBS ON HANGFIRE, PUSH VIA ONESIGNAL ... " +
+        "REAL-TIME ORDERS OVER SIGNALR, BACKGROUND JOBS ON HANGFIRE, COMMANDS ROUTED BY OUR OWN SWITCHBOARD, PUSH BY OUR OWN NOTIFY ... " +
         "JUST 4% COMMISSION — BUILT TO BE FAIR TO EVERY LOCAL SHOP ... " +
         "GREETINGS TO EVERY RESTAURANT, CAFE AND PSITOPOLEIO OUT THERE ... AND TO YOU, READING THE SOURCE ;) ... " +
         "WRAP AROUND >>>          ";
@@ -949,6 +949,7 @@
             { name: "Next.js", url: "https://nextjs.org/", color: "#ffffff", slug: "nextdotjs" },
             { name: "React", url: "https://react.dev/", color: "#61DAFB", slug: "react" },
             { name: "Expo", url: "https://expo.dev/", color: "#ffffff", slug: "expo" },
+            { name: "Blazor", url: "https://dotnet.microsoft.com/apps/aspnet/web-apps/blazor", color: "#A97BFF", slug: "blazor" },
             { name: "React Native", url: "https://reactnative.dev/", color: "#61DAFB", mono: "RN" },
             { name: "TypeScript", url: "https://www.typescriptlang.org/", color: "#3178C6", slug: "typescript" },
             { name: "Tailwind CSS", url: "https://tailwindcss.com/", color: "#38BDF8", slug: "tailwindcss" },
@@ -965,6 +966,10 @@
             { name: "SignalR", url: "https://learn.microsoft.com/aspnet/core/signalr/introduction", color: "#A97BFF", mono: "SR" },
             { name: "Hangfire", url: "https://www.hangfire.io/", color: "#4ADE80", mono: "HF" },
         ]},
+        { label: "Built in-house", items: [
+            { name: "Switchboard", url: "switchboard.html", color: "#FF9C5B", mono: "SB" },
+            { name: "Notify (push)", color: "#FF9C5B", mono: "NF" },
+        ]},
         { label: "Data & Search", items: [
             { name: "PostgreSQL", url: "https://www.postgresql.org/", color: "#4F9EED", slug: "postgresql" },
             { name: "Valkey", url: "https://valkey.io/", color: "#FF6B5E", mono: "VK" },
@@ -974,8 +979,6 @@
             { name: "Supabase", url: "https://supabase.com/", color: "#3ECF8E", slug: "supabase" },
             { name: "Vercel", url: "https://vercel.com/", color: "#ffffff", slug: "vercel" },
             { name: "DigitalOcean", url: "https://www.digitalocean.com/", color: "#3B82F6", slug: "digitalocean" },
-            { name: "Stripe", url: "https://stripe.com/", color: "#A78BFA", slug: "stripe" },
-            { name: "OneSignal", url: "https://onesignal.com/", color: "#F87171", mono: "OS" },
             { name: "Google Maps", url: "https://developers.google.com/maps", color: "#4ADE80", slug: "googlemaps" },
         ]},
         { label: "Observability", items: [
@@ -986,9 +989,11 @@
             { name: "Jaeger", url: "https://www.jaegertracing.io/", color: "#7CDCEE", slug: "jaeger" },
         ]},
         { label: "Testing & Quality", items: [
+            { name: "xUnit", url: "https://xunit.net/", color: "#A97BFF", mono: "xU" },
             { name: "Playwright", url: "https://playwright.dev/", color: "#4ADE80", mono: "PW" },
             { name: "Testcontainers", url: "https://testcontainers.com/", color: "#C4B5FD", mono: "TC" },
             { name: "NBomber", url: "https://nbomber.com/", color: "#F87171", mono: "NB" },
+            { name: "Maestro", url: "https://maestro.dev/", color: "#C4B5FD", mono: "M" },
         ]},
     ];
 
@@ -1003,11 +1008,17 @@
         const grid = document.createElement("div");
         grid.className = "ts-grid";
         for (const item of group.items) {
-            const a = document.createElement("a");
+            // In-house pieces without a public page render as a plain tile, not a link.
+            const a = document.createElement(item.url ? "a" : "div");
             a.className = "ts-chip";
-            a.href = item.url;
-            a.target = "_blank";
-            a.rel = "noopener noreferrer";
+            if (item.url) {
+                a.href = item.url;
+                // Our own pages open in place; everyone else's in a new tab.
+                if (/^https?:/.test(item.url)) {
+                    a.target = "_blank";
+                    a.rel = "noopener noreferrer";
+                }
+            }
             a.style.setProperty("--glow", item.color);
             if (item.slug) {
                 const img = document.createElement("img");

@@ -2,36 +2,43 @@
 
 This is a **static site** — no build step. Cloudflare Pages serves the repo root as-is.
 
-## Cloudflare Pages project settings
+## How a change goes live
 
-When creating the project (Cloudflare dashboard → **Workers & Pages → Create → Pages → Connect to Git**),
-connect the GitHub repo `Software-First-Gr/software-first-main-site` and use:
+The Pages project `software-first-main-site` is connected to the GitHub repo
+`Software-First-Gr/software-first-main-site`, and its **production branch is `production`**, not `main`.
+
+1. Commit to `main` and push. Cloudflare builds a **preview** of every push to `main` (and of any other
+   branch), at `https://<id>.software-first-main-site.pages.dev`. Check the change there.
+2. To go live, fast-forward `production` to `main`:
+
+   ```sh
+   git push origin main:production
+   ```
+
+   Cloudflare deploys it to softwarefirst.gr, www.softwarefirst.gr and software-first-main-site.pages.dev
+   in about 30 seconds.
+
+To see what's live, run `npx wrangler pages deployment list --project-name software-first-main-site
+--environment production` (needs `npx wrangler login`).
+
+## Cloudflare Pages project settings
 
 | Setting                | Value            |
 | ---------------------- | ---------------- |
-| Production branch      | `main`           |
+| Production branch      | `production`     |
 | Framework preset       | **None**         |
 | Build command          | *(leave empty)*  |
 | Build output directory | `/` (repo root)  |
 | Root directory         | *(leave empty)*  |
 
-That's it — every push to `main` redeploys; other branches/PRs get preview URLs.
+## Domain
 
-## Custom domain + DNS cutover
-
-1. In the Pages project → **Custom domains → Set up a domain** → `softwarefirst.gr`
-   (add `www.softwarefirst.gr` too if you use it).
-2. Point DNS at Cloudflare. Either move the domain's nameservers to Cloudflare
-   (full zone — recommended), or add the CNAME/records Cloudflare tells you to.
-3. After HTTPS is confirmed working on the live domain, enable **Always Use HTTPS**
-   and **HSTS** in the Cloudflare zone (SSL/TLS settings), and delete the `CNAME`
-   file below.
+`softwarefirst.gr` and `www.softwarefirst.gr` are custom domains on the Pages project, and the zone is on
+Cloudflare. The move from GitHub Pages is done: the old `CNAME` file is gone, HTTP redirects to HTTPS,
+and HSTS is on.
 
 ## Notes
 
-- `CNAME` (containing `softwarefirst.gr`) is a **GitHub Pages** artifact. It's harmless
-  on Cloudflare Pages (served as an inert `/CNAME` file). Keep it until the DNS cutover
-  is done so GitHub Pages stays a working fallback, then remove it.
 - `_headers` sets conservative security headers. No CSP is set on purpose (the site
   uses inline + vendor JS). Cloudflare Pages handles caching/etags automatically.
 - Assets (`js/main.js`, `css/main-LTR.css`, …) are not content-hashed; Pages busts the

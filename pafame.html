@@ -462,6 +462,41 @@
                 rgba(255,255,255,0.75);
             box-shadow: 0 12px 40px rgba(26,16,48,0.06);
         }
+        /* ── FILM: «Από τι είναι φτιαγμένο», 55 s. Plays on click only (it's cut to its music). ── */
+        .film-frame {
+            position: relative; margin-top: 2.2rem;
+            border-radius: var(--radius); overflow: hidden;
+            aspect-ratio: 16 / 9; background: #0b0812;
+            border: 1px solid var(--stroke);
+            box-shadow: 0 30px 80px rgba(20, 6, 40, 0.45), inset 0 1px 0 rgba(255,255,255,0.07);
+        }
+        .film-frame video { display: block; width: 100%; height: 100%; object-fit: cover; }
+        .film-frame video::cue {
+            font-family: 'Inter', sans-serif; font-weight: 600;
+            background: rgba(11, 8, 18, 0.72); color: #fff;
+        }
+        .film-play {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            gap: 0.9rem; border: 0; cursor: pointer; color: #fff;
+            background: radial-gradient(60% 60% at 50% 50%, rgba(11,8,18,0.15), rgba(11,8,18,0.45));
+            font: 600 1rem/1 'Inter', sans-serif; letter-spacing: 0.02em;
+        }
+        .film-play__icon {
+            width: 76px; height: 76px; border-radius: 50%;
+            display: grid; place-items: center;
+            background: var(--orange);
+            box-shadow: 0 0 0 10px rgba(255,117,31,0.18), 0 12px 40px rgba(255,117,31,0.45);
+            transition: transform .25s ease, box-shadow .25s ease;
+        }
+        .film-play:hover .film-play__icon, .film-play:focus-visible .film-play__icon {
+            transform: scale(1.06);
+            box-shadow: 0 0 0 14px rgba(255,117,31,0.22), 0 14px 48px rgba(255,117,31,0.55);
+        }
+        .film-play:focus-visible { outline: 3px solid var(--purple-soft); outline-offset: -3px; }
+        .film-play[hidden] { display: none; }
+        .film-play__label { text-shadow: 0 2px 12px rgba(0,0,0,0.6); }
+        @media (prefers-reduced-motion: reduce) { .film-play__icon { transition: none; } .film-play:hover .film-play__icon { transform: none; } }
+        @media (max-width: 560px) { .film-play__icon { width: 60px; height: 60px; } .film-play__label { display: none; } }
     </style>
 </head>
 <body>
@@ -526,6 +561,31 @@
                 <div class="stat-num">GDPR</div>
                 <div class="stat-label">export, erasure &amp; audit built-in</div>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- FILM -->
+<section class="sf-section" id="film" style="padding-top: 3.5rem;">
+    <div class="container">
+        <div class="rv">
+            <span class="section-tag">The film · 55 seconds</span>
+            <h2 class="section-title">What ΠΑΦΑΜΕ is made of.</h2>
+            <p class="section-sub">Every layer of the stack, built in front of you on the beat, from the open-source foundations to the tests. Sound on.</p>
+        </div>
+        <div class="film-frame rv" style="--d:.1s">
+            <video id="film-video" preload="none" playsinline
+                   poster="assets/video/pafame-stack-poster.jpg"
+                   aria-label="Film: the ΠΑΦΑΜΕ stack building itself layer by layer, 55 seconds">
+                <source src="assets/video/pafame-stack.mp4" type="video/mp4">
+                <track kind="subtitles" src="assets/video/pafame-stack.en.vtt" srclang="en" label="English" default>
+            </video>
+            <button class="film-play" id="film-play" type="button" aria-label="Play the film, 55 seconds, with sound">
+                <span class="film-play__icon" aria-hidden="true">
+                    <svg width="30" height="30" viewBox="0 0 24 24"><path d="M8 5.5v13l10.5-6.5z" fill="#fff"/></svg>
+                </span>
+                <span class="film-play__label">Play · 0:55</span>
+            </button>
         </div>
     </div>
 </section>
@@ -786,6 +846,22 @@
 (() => {
     "use strict";
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    /* ── Film: plays only when asked; native controls appear once it starts ── */
+    const film = document.getElementById("film-video");
+    const filmPlay = document.getElementById("film-play");
+    if (film && filmPlay) {
+        filmPlay.addEventListener("click", () => {
+            film.controls = true;
+            filmPlay.hidden = true;
+            film.play().catch(() => { filmPlay.hidden = false; });
+        });
+        film.addEventListener("ended", () => {
+            film.controls = false;
+            film.load(); // back to the poster
+            filmPlay.hidden = false;
+        });
+    }
 
     /* ── Theme (light by default, shared with the main site) ────── */
     const root = document.documentElement;

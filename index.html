@@ -40,11 +40,27 @@
       "@context": "https://schema.org",
       "@type": "Organization",
       "name": "Software First",
+      "legalName": "SOFTWARE FIRST Ε.Ε.",
+      "taxID": "802105944",
+      "identifier": { "@type": "PropertyValue", "name": "ΓΕΜΗ", "value": "170058003000" },
+      "telephone": "+30 211 333 5328",
       "url": "https://softwarefirst.gr/",
       "logo": "https://softwarefirst.gr/assets/images/logo/logo-colored.png",
       "email": "info@softwarefirst.gr",
       "description": "Custom software engineering studio in Athens, Greece — web, mobile, backend and AI integration, from the first line of code to production.",
-      "address": { "@type": "PostalAddress", "addressLocality": "Athens", "addressCountry": "GR" },
+      "address": { "@type": "PostalAddress", "streetAddress": "Τρωάδος 14", "postalCode": "142 32", "addressLocality": "Νέα Ιωνία", "addressRegion": "Αττική", "addressCountry": "GR" },
+      "founder": {
+        "@type": "Person",
+        "name": "Nikolaos Fragos",
+        "jobTitle": "Founder, software engineer",
+        "image": "https://softwarefirst.gr/assets/images/team/nikolaos-fragos.jpg",
+        "sameAs": [
+          "https://www.linkedin.com/in/nikolaos-fragos/",
+          "https://github.com/ProductiveEngine",
+          "https://nifragos.github.io",
+          "https://projectariadne.dev"
+        ]
+      },
       "sameAs": [
         "https://github.com/Software-First-Gr",
         "https://www.linkedin.com/company/145331405/",
@@ -406,6 +422,23 @@
         .about-card-title { font-size: 0.74rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.35rem; }
         .about-card-value { font-family: var(--font-display); font-size: 1.4rem; font-weight: 700; letter-spacing: -0.02em; }
         .about-card-sub { font-size: 0.82rem; color: var(--text-muted); margin-top: 0.2rem; }
+
+        /* Founder — the person accountable for the company and its products. */
+        .founder { display: grid; grid-template-columns: 180px 1fr; gap: 2.4rem; align-items: start; margin-top: 3rem; }
+        .founder:hover { transform: none; }
+        @media (max-width: 680px) { .founder { grid-template-columns: 1fr; gap: 1.4rem; } }
+        .founder-photo { width: 180px; height: 180px; border-radius: 22px; object-fit: cover; border: 1px solid var(--stroke); }
+        @media (max-width: 680px) { .founder-photo { width: 120px; height: 120px; border-radius: 18px; } }
+        .founder-name { font-family: var(--font-display); font-size: 1.6rem; font-weight: 700; letter-spacing: -0.02em; }
+        .founder-role { color: var(--text-muted); font-size: 0.92rem; margin: 0.2rem 0 1.1rem; }
+        .founder p { color: var(--text-muted); margin-bottom: 0.9rem; }
+        .founder p a { color: var(--text); }
+        .founder-facts { list-style: none; display: flex; flex-wrap: wrap; gap: 0.6rem; margin: 1.2rem 0 1.4rem; }
+        .founder-facts li { font-size: 0.8rem; padding: 0.35rem 0.8rem; border-radius: 999px; border: 1px solid var(--stroke); color: var(--text-muted); }
+        .founder-links { display: flex; flex-wrap: wrap; gap: 0.8rem; }
+        .founder-links .btn-ghost { padding: 0.6rem 1.2rem; font-size: 0.85rem; }
+        .footer-legal { flex-basis: 100%; font-size: 0.78rem; color: var(--text-muted); }
+        .footer-legal a { color: inherit; }
         .accent-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #22e584; margin-right: 0.45rem; }
 
         /* ── PORTFOLIO: flagship card ── */
@@ -928,6 +961,43 @@
     </div>
 </section>
 
+<!-- FOUNDER -->
+<section class="sf-section" id="founder" style="padding-top: 1rem;">
+    <div class="container">
+        <span class="section-tag rv">Who builds it</span>
+        <h2 class="section-title rv">The person behind Software First.</h2>
+        <div class="glass-card founder rv" style="--d:.05s">
+            <img class="founder-photo" src="assets/images/team/nikolaos-fragos.jpg" width="180" height="180"
+                 alt="Nikolaos Fragos" loading="lazy" decoding="async">
+            <div>
+                <div class="founder-name">Nikolaos Fragos</div>
+                <div class="founder-role">Founder · Software engineer · Athens</div>
+                <p>
+                    I've written software for a living since 2012, mostly on C#/.NET: web applications for
+                    Greece's public sector at GRNET, payments infrastructure at Novibet, sportsbook
+                    microservices at Stoiximan / Betano. ΠΑΦΑΜΕ, QuietFiles and Switchboard are designed,
+                    written and run by me under Software First, so the person who answers the phone is the
+                    person who wrote the code.
+                </p>
+                <p>
+                    I'm also the author of <a href="https://projectariadne.dev" target="_blank" rel="noopener noreferrer"><em>Project Ariadne</em></a>,
+                    a book on why most software projects fail between teams rather than in the code.
+                </p>
+                <ul class="founder-facts">
+                    <li>MSc, University of Piraeus</li>
+                    <li>Electronic &amp; Computer Engineering, TU Crete</li>
+                    <li>Professional Scrum Master I</li>
+                </ul>
+                <div class="founder-links">
+                    <a class="btn-ghost" href="https://www.linkedin.com/in/nikolaos-fragos/" target="_blank" rel="noopener noreferrer me">LinkedIn ↗</a>
+                    <a class="btn-ghost" href="https://github.com/ProductiveEngine" target="_blank" rel="noopener noreferrer me">GitHub ↗</a>
+                    <a class="btn-ghost" href="https://nifragos.github.io" target="_blank" rel="noopener noreferrer me">CV ↗</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- PORTFOLIO -->
 <section class="sf-section" id="portfolio" style="padding-top: 3rem;">
     <div class="container">
@@ -1105,6 +1175,7 @@ builder.Services.<span class="tok-t">AddSwitchboard</span>(cfg =&gt; cfg
         <a href="mailto:info@softwarefirst.gr" class="footer-email">info@softwarefirst.gr</a>
         <a href="https://www.linkedin.com/company/145331405/" target="_blank" rel="noopener noreferrer" class="footer-link">LinkedIn ↗</a>
         <p class="footer-copy">© 2026 Software First. All rights reserved.</p>
+        <p class="footer-legal">SOFTWARE FIRST Ε.Ε. · ΓΕΜΗ 170058003000 · ΑΦΜ 802105944 · Τρωάδος 14, 142 32 Νέα Ιωνία · <a href="tel:+302113335328">+30 211 333 5328</a></p>
     </div>
 </footer>
 
